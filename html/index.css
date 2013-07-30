@@ -1,0 +1,22 @@
+.sim-food-list img {
+	width:32px;
+}
+
+.pot-slot {
+	display:inline-block;
+	width:68px;
+	height:68px;
+	background:url(img/background.png) no-repeat left top;
+}
+
+.pot-slot img {
+	display: block;
+}
+
+table img {
+	width: 32px;
+}
+
+td.negative {
+	color: red;
+}

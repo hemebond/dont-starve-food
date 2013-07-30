@@ -18,76 +18,22 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-var app = angular.module('crockpot', ['crockpot.filter', 'ui.bootstrap']);
+
+'use strict';
+
+var app = angular.module(
+	'pot',
+	[
+		'ui.bootstrap',
+		'pot.services',
+		'pot.filters',
+		'pot.directives',
+		'pot.controllers'
+	]
+);
 
 app.run(function ($rootScope) {
-    //$rootScope.patientAppVersion = "0.0.0.1";
-
-	var	calories_per_day = 75,
-		seg_time = 30,
-		total_day_time = seg_time * 16,
-		seg_time = total_day_time / 16,
-		day_segs = 10,
-		dusk_segs = 4,
-		night_segs = 2,
-		day_time = seg_time * day_segs,
-		dusk_time = seg_time * dusk_segs,
-		night_time = seg_time * night_segs,
-		perish_warp = 1,
-		stack_size_largeitem = 10,
-		stack_size_meditem = 20,
-		stack_size_smallitem = 40,
-
-		healing_tiny = 1,
-		healing_small = 3,
-		healing_medsmall = 8,
-		healing_med = 20,
-		healing_medlarge = 30,
-		healing_large = 40,
-		healing_huge = 60,
-		healing_superhuge = 100,
-
-		sanity_supertiny = 1,
-		sanity_tiny = 5,
-		sanity_small = 10,
-		sanity_med = 15,
-		sanity_medlarge = 20,
-		sanity_large = 33,
-		sanity_huge = 50,
-
-		perish_superfast = 3 * total_day_time * perish_warp,
-		perish_fast = 6 * total_day_time * perish_warp,
-		perish_med = 10 * total_day_time * perish_warp,
-		perish_slow = 15 * total_day_time * perish_warp,
-		perish_preserved = 20 * total_day_time * perish_warp,
-		perish_superslow = 40 * total_day_time * perish_warp,
-
-		dry_fast = total_day_time,
-		dry_med = 2 * total_day_time,
-
-		calories_tiny = calories_per_day / 8, // berries
-		calories_small = calories_per_day / 6, // veggies
-		calories_medsmall = calories_per_day / 4,
-		calories_med = calories_per_day / 3, // meat
-		calories_large = calories_per_day / 2, // cooked meat
-		calories_huge = calories_per_day, // crockpot foods?
-		calories_superhuge = calories_per_day * 2, // crockpot foods?
-
-		spoiled_health = -1,
-		spoiled_hunger = -10,
-		perish_fridge_mult = 0.5,
-		perish_ground_mult = 1.5,
-		perish_global_mult = 1,
-		perish_winter_mult = 0.75,
-
-		stale_food_hunger = 0.667,
-		spoiled_food_hunger = 0.5,
-
-		stale_food_health = 0.333,
-		spoiled_food_health = 0,
-
-		base_cook_time = night_time * 0.3333;
-
+/*
 	$rootScope.food = {
 		butter: {
 			name: 'Butter',
@@ -1192,5 +1138,5 @@ app.run(function ($rootScope) {
 			sanity: 0,
 			cooktime: 0.25
 		}
-	};
+	};*/
 });
