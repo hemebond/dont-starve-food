@@ -1,4 +1,4 @@
-angular.module('pot.directives', [])
+/*angular.module('pot.directives', [])
 	/*.directive('potSlot', function() {
 		return {
 			restrict: 'A',

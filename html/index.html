@@ -12,7 +12,9 @@
 		<script src="ui-bootstrap-tpls-0.4.0.min.js"></script>
 
 		<script src="app/app.js"></script>
-		<script src="app/services/services.js"></script>
+		<script src="app/services/gamevariables.js"></script>
+		<script src="app/services/food.js"></script>
+		<script src="app/services/recipes.js"></script>
 		<script src="app/filters/filters.js"></script>
 		<script src="app/directives/directives.js"></script>
 		<script src="app/controllers/controllers.js"></script>
@@ -97,6 +99,7 @@
 							</div>
 
 							<div class="span7">
+								<!--  valid recipes -->
 								<table class="table">
 									<thead>
 										<tr>
@@ -120,6 +123,35 @@
 											<td>{{ recipe.perish | days }} days</td>
 											<td>{{ recipe.priority | signed }}</td>
 											<td>{{ recipe.info }}</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<!-- suggestions, add ingredients to create -->
+								<p>Add more ingredients to create these:</p>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Icon</th>
+											<th data-ng-click="sortBy='name'; sortReverse=false">Name</th>
+											<th data-ng-click="sortBy='health'; sortReverse=true">Health</th>
+											<th data-ng-click="sortBy='hunger'; sortReverse=true">Hunger</th>
+											<th data-ng-click="sortBy='sanity'; sortReverse=true">Sanity</th>
+											<th data-ng-click="sortBy='perish'; sortReverse=true">Perish</th>
+											<th data-ng-click="sortBy='priority'; sortReverse=true">Priority</th>
+											<th>Info</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="recipe in suggestions | orderBy:sortBy:sortReverse">
+											<td><img data-ng-src="{{ recipe.img }}"></td>
+											<td>{{ recipe.name }}</td>
+											<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>
+											<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>
+											<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>
+											<td>{{ recipe.perish | days }} days</td>
+											<td>{{ recipe.priority | signed }}</td>
+											<td>{{ recipe.requirements }}</td>
 										</tr>
 									</tbody>
 								</table>

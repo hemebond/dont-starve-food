@@ -1,6 +1,6 @@
-angular.module('pot.services', [])
-	.service('recipes', function(constants) {
-		var c = constants;
+angular.module('pot.services')
+	.service('recipes', function(gameVariables) {
+		var g = gameVariables;
 
 		//note: qty not used yet, this is for rapid summation
 		var COMPAREString = function () {
@@ -121,8 +121,9 @@ angular.module('pot.services', [])
 			};
 		};
 
-		var recipes = angular.forEach({
-			butterflymuffin: {
+		return [
+			{
+				id: 'butterflymuffin',
 				name: 'Butter Muffin',
 				test: function(cooker, names, tags) {
 					return names.butterfly_wings && !tags.meat && tags.veggie;
@@ -132,13 +133,14 @@ angular.module('pot.services', [])
 				priority: 1,
 				weight: 1,
 				foodtype: "veggie",
-				health: c.healing_med,
-				hunger: c.calories_large,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_large,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			frogglebunwich: {
+			{
+				id: 'frogglebunwich',
 				name: 'Froggle Bunwich',
 				test: function(cooker, names, tags) {
 					return (names.frog_legs || names.frog_legs_cooked) && tags.veggie;
@@ -146,13 +148,14 @@ angular.module('pot.services', [])
 				requirements: [NAME('froglegs'), TAG('veggie')],
 				priority: 1,
 				foodtype: "meat",
-				health: c.healing_med,
-				hunger: c.calories_large,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_large,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			taffy: {
+			{
+				id: 'taffy',
 				name: "Taffy",
 				test: function(cooker, names, tags) {
 					return tags.sweetener && tags.sweetener >= 3 && !tags.meat;
@@ -160,13 +163,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('sweetener', COMPARE('>=', 3)), NOT(TAG('meat'))],
 				priority: 10,
 				foodtype: "veggie",
-				health: -c.healing_small,
-				hunger: c.calories_small * 2,
-				perish: c.perish_slow,
-				sanity: c.sanity_med,
+				health: -g.healing_small,
+				hunger: g.calories_small * 2,
+				perish: g.perish_slow,
+				sanity: g.sanity_med,
 				cooktime: 2
 			},
-			pumpkincookie: {
+			{
+				id: 'pumpkincookie',
 				name: "Pumpkin Cookie",
 				test: function(cooker, names, tags) {
 					return (names.pumpkin || names.pumpkin_cooked) && tags.sweetener && tags.sweetener >= 2;
@@ -175,12 +179,13 @@ angular.module('pot.services', [])
 				priority: 10,
 				foodtype: "veggie",
 				health: 0,
-				hunger: c.calories_large,
-				perish: c.perish_med,
-				sanity: c.sanity_med,
+				hunger: g.calories_large,
+				perish: g.perish_med,
+				sanity: g.sanity_med,
 				cooktime: 2
 			},
-			stuffedeggplant: {
+			{
+				id: 'stuffedeggplant',
 				name: 'Stuffed Eggplant',
 				test: function(cooker, names, tags) {
 					return (names.eggplant || names.eggplant_cooked) && tags.veggie && tags.veggie > 1;
@@ -188,13 +193,14 @@ angular.module('pot.services', [])
 				requirements: [NAME('eggplant'), TAG('veggie', COMPARE('>', 1))],
 				priority: 1,
 				foodtype: "veggie",
-				health: c.healing_small,
-				hunger: c.calories_large,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_small,
+				hunger: g.calories_large,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			fishsticks: {
+			{
+				id: 'fishsticks',
 				name: 'Fishsticks',
 				test: function(cooker, names, tags) {
 					return tags.fish && names.twigs && (tags.inedible && tags.inedible <= 1);
@@ -202,13 +208,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('fish'), SPECIFIC('twigs'), TAG('inedible'), TAG('inedible', COMPARE('<=', 1))],
 				priority: 10,
 				foodtype: "meat",
-				health: c.healing_large,
-				hunger: c.calories_large,
-				perish: c.perish_med,
-				sanity: c.sanity_tiny,
+				health: g.healing_large,
+				hunger: g.calories_large,
+				perish: g.perish_med,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			honeynuggets: {
+			{
+				id: 'honeynuggets',
 				name: 'Honey Nuggets',
 				test: function(cooker, names, tags) {
 					return names.honey && tags.meat && tags.meat <= 1.5 && !tags.inedible;
@@ -216,13 +223,14 @@ angular.module('pot.services', [])
 				requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('<=', 1.5)), NOT(TAG('inedible'))],
 				priority: 2,
 				foodtype: "meat",
-				health: c.healing_med,
-				hunger: c.calories_large,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_large,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			honeyham: {
+			{
+				id: 'honeyham',
 				name: 'Honey Ham',
 				test: function(cooker, names, tags) {
 					return names.honey && tags.meat && tags.meat > 1.5 && !tags.inedible;
@@ -230,13 +238,14 @@ angular.module('pot.services', [])
 				requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('>', 1.5)), NOT(TAG('inedible'))],
 				priority: 2,
 				foodtype: "meat",
-				health: c.healing_medlarge,
-				hunger: c.calories_huge,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_medlarge,
+				hunger: g.calories_huge,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			dragonpie: {
+			{
+				id: 'dragonpie',
 				name: 'Dragonpie',
 				test: function(cooker, names, tags) {
 					return (names.dragonfruit || names.dragonfruit_cooked) && !tags.meat;
@@ -244,13 +253,14 @@ angular.module('pot.services', [])
 				requirements: [NAME('dragonfruit'), NOT(TAG('meat'))],
 				priority: 1,
 				foodtype: "veggie",
-				health: c.healing_large,
-				hunger: c.calories_huge,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_large,
+				hunger: g.calories_huge,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			kabobs: {
+			{
+				id: 'kabobs',
 				name: 'Kabobs',
 				test: function(cooker, names, tags) {
 					return tags.meat && names.twigs && (!tags.monster || tags.monster <= 1) && (tags.inedible && tags.inedible <= 1);
@@ -258,13 +268,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('meat'), SPECIFIC('twigs'), OR(NOT(TAG('monster')), TAG('monster', COMPARE('<=', 1))), TAG('inedible'), TAG('inedible', COMPARE('<=', 1))],
 				priority: 5,
 				foodtype: "meat",
-				health: c.healing_small,
-				hunger: c.calories_large,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_small,
+				hunger: g.calories_large,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			mandrakesoup: {
+			{
+				id: 'mandrakesoup',
 				name: 'Mandrake Soup',
 				test: function(cooker, names, tags) {
 					return names.mandrake;
@@ -272,13 +283,14 @@ angular.module('pot.services', [])
 				requirements: [SPECIFIC('mandrake')],
 				priority: 10,
 				foodtype: "veggie",
-				health: c.healing_superhuge,
-				hunger: c.calories_superhuge,
-				perish: c.perish_fast,
-				sanity: c.sanity_tiny,
+				health: g.healing_superhuge,
+				hunger: g.calories_superhuge,
+				perish: g.perish_fast,
+				sanity: g.sanity_tiny,
 				cooktime: 3
 			},
-			baconeggs: {
+			{
+				id: 'baconeggs',
 				name: 'Bacon and Eggs',
 				test: function(cooker, names, tags) {
 					return tags.egg && tags.egg > 1 && tags.meat && tags.meat > 1 && !tags.veggie;
@@ -286,13 +298,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('egg', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), NOT(TAG('veggie'))],
 				priority: 10,
 				foodtype: "meat",
-				health: c.healing_med,
-				hunger: c.calories_huge,
-				perish: c.perish_preserved,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_huge,
+				perish: g.perish_preserved,
+				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			meatballs: {
+			{
+				id: 'meatballs',
 				name: 'Meatballs',
 				test: function(cooker, names, tags) {
 					return tags.meat && !tags.inedible;
@@ -300,13 +313,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('meat'), NOT(TAG('inedible'))],
 				priority: -1,
 				foodtype: "meat",
-				health: c.healing_small,
-				hunger: c.calories_small * 5,
-				perish: c.perish_med,
-				sanity: c.sanity_tiny,
+				health: g.healing_small,
+				hunger: g.calories_small * 5,
+				perish: g.perish_med,
+				sanity: g.sanity_tiny,
 				cooktime: 0.75
 			},
-			bonestew: {
+			{
+				id: 'bonestew',
 				name: 'Meaty Stew',
 				test: function(cooker, names, tags) {
 					return tags.meat && tags.meat >= 3 && !tags.inedible;
@@ -314,13 +328,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('meat', COMPARE('>=', 3)), NOT(TAG('inedible'))],
 				priority: 0,
 				foodtype: "meat",
-				health: c.healing_small * 4,
-				hunger: c.calories_large * 4,
-				perish: c.perish_med,
-				sanity: c.sanity_tiny,
+				health: g.healing_small * 4,
+				hunger: g.calories_large * 4,
+				perish: g.perish_med,
+				sanity: g.sanity_tiny,
 				cooktime: 0.75
 			},
-			perogies: {
+			{
+				id: 'perogies',
 				name: 'Pierogi',
 				test: function(cooker, names, tags) {
 					return tags.egg && tags.meat && tags.veggie && !tags.inedible;
@@ -328,13 +343,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('egg'), TAG('meat'), TAG('veggie'), NOT(TAG('inedible'))],
 				priority: 5,
 				foodtype: "meat",
-				health: c.healing_large,
-				hunger: c.calories_large,
-				perish: c.perish_preserved,
-				sanity: c.sanity_tiny,
+				health: g.healing_large,
+				hunger: g.calories_large,
+				perish: g.perish_preserved,
+				sanity: g.sanity_tiny,
 				cooktime: 1
 			},
-			turkeydinner: {
+			{
+				id: 'turkeydinner',
 				name: 'Turkey Dinner',
 				test: function(cooker, names, tags) {
 					return names.drumstick && names.drumstick > 1 && tags.meat && tags.meat > 1 && (tags.veggie || tags.fruit);
@@ -342,13 +358,14 @@ angular.module('pot.services', [])
 				requirements: [SPECIFIC('drumstick', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), OR(TAG('veggie'), TAG('fruit'))],
 				priority: 10,
 				foodtype: "meat",
-				health: c.healing_med,
-				hunger: c.calories_huge,
-				perish: c.perish_fast,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_huge,
+				perish: g.perish_fast,
+				sanity: g.sanity_tiny,
 				cooktime: 3
 			},
-			ratatouille: {
+			{
+				id: 'ratatouille',
 				name: 'Ratatouille',
 				test: function(cooker, names, tags) {
 					return !tags.meat && tags.veggie && !tags.inedible;
@@ -356,13 +373,14 @@ angular.module('pot.services', [])
 				requirements: [NOT(TAG('meat')), TAG('veggie'), NOT(TAG('inedible'))],
 				priority: 0,
 				foodtype: "veggie",
-				health: c.healing_small,
-				hunger: c.calories_med,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_small,
+				hunger: g.calories_med,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 1
 			},
-			jammypreserves: {
+			{
+				id: 'jammypreserves',
 				name: 'Fist Full of Jam',
 				test: function(cooker, names, tags) {
 					return tags.fruit && !tags.meat && !tags.veggie && !tags.inedible;
@@ -370,13 +388,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('fruit'), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('inedible'))],
 				priority: 0,
 				foodtype: "veggie",
-				health: c.healing_small,
-				hunger: c.calories_small * 3,
-				perish: c.perish_slow,
-				sanity: c.sanity_tiny,
+				health: g.healing_small,
+				hunger: g.calories_small * 3,
+				perish: g.perish_slow,
+				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			fruitmedley: {
+			{
+				id: 'fruitmedley',
 				name: 'Fruit Medley',
 				test: function(cooker, names, tags) {
 					return tags.fruit && tags.fruit >= 3 && !tags.meat && !tags.veggie;
@@ -384,13 +403,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('fruit', COMPARE('>=', 3)), NOT(TAG('meat')), NOT(TAG('veggie'))],
 				priority: 0,
 				foodtype: "veggie",
-				health: c.healing_med,
-				hunger: c.calories_med,
-				perish: c.perish_fast,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_med,
+				perish: g.perish_fast,
+				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			fishtacos: {
+			{
+				id: 'fishtacos',
 				name: 'Fish Tacos',
 				test: function(cooker, names, tags) {
 					return tags.fish && (names.corn || names.corn_cooked);
@@ -398,13 +418,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('fish'), NAME('corn')],
 				priority: 10,
 				foodtype: "meat",
-				health: c.healing_med,
-				hunger: c.calories_large,
-				perish: c.perish_fast,
-				sanity: c.sanity_tiny,
+				health: g.healing_med,
+				hunger: g.calories_large,
+				perish: g.perish_fast,
+				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			waffles: {
+			{
+				id: 'waffles',
 				name: 'Waffles',
 				test: function(cooker, names, tags) {
 					return names.butter && (names.berries || names.berries_cooked) && tags.egg;
@@ -412,13 +433,14 @@ angular.module('pot.services', [])
 				requirements: [SPECIFIC('butter'), NAME('berries'), TAG('egg')],
 				priority: 10,
 				foodtype: "veggie",
-				health: c.healing_huge,
-				hunger: c.calories_large,
-				perish: c.perish_fast,
-				sanity: c.sanity_tiny,
+				health: g.healing_huge,
+				hunger: g.calories_large,
+				perish: g.perish_fast,
+				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			monsterlasagna: {
+			{
+				id: 'monsterlasagna',
 				name: 'Monster Lasagna',
 				test: function(cooker, names, tags) {
 					return tags.monster && tags.monster >= 2 && !tags.inedible;
@@ -426,13 +448,14 @@ angular.module('pot.services', [])
 				requirements: [TAG('monster', COMPARE('>=', 2)), NOT(TAG('inedible'))],
 				priority: 10,
 				foodtype: "meat",
-				health: -c.healing_med,
-				hunger: c.calories_large,
-				perish: c.perish_fast,
-				sanity: -c.sanity_medlarge,
+				health: -g.healing_med,
+				hunger: g.calories_large,
+				perish: g.perish_fast,
+				sanity: -g.sanity_medlarge,
 				cooktime: 0.5
 			},
-			powcake: {
+			{
+				id: 'powcake',
 				name: 'Powdercake',
 				test: function(cooker, names, tags) {
 					return names.twigs && names.honey && (names.corn || names.corn_cooked);
@@ -440,13 +463,14 @@ angular.module('pot.services', [])
 				requirements: [SPECIFIC('twigs'), SPECIFIC('honey'), NAME('corn')],
 				priority: 10,
 				foodtype: "veggie",
-				health: -c.healing_small,
+				health: -g.healing_small,
 				hunger: 0,
 				perishtime: 9000000,
 				sanity: 0,
 				cooktime: 0.5
 			},
-			wetgoop: {
+			{
+				id: 'wetgoop',
 				name: 'Wet Goop',
 				test: function(cooker, names, tags) {
 					return true;
@@ -456,9 +480,9 @@ angular.module('pot.services', [])
 				priority: -2,
 				health: 0,
 				hunger: 0,
-				perish: c.perish_fast,
+				perish: g.perish_fast,
 				sanity: 0,
 				cooktime: 0.25
 			}
-		});
+		];
 	});

@@ -22,15 +22,15 @@ angular.module('pot.filters', [])
 			return food;
 		};
 	})
-	.filter('days', function($filter, constantsService) {
-		var total_day_time = constantsService.total_day_time;
+	.filter('days', function(gameVariables) {
+		var total_day_time = gameVariables.total_day_time;
 
 		return function(perishTime) {
 			return isNaN(perishTime) ? 'Never' : (perishTime / total_day_time) + ' days';
 		};
 	})
-	.filter('cooktime', function($filter, constantsService) {
-		var base_cook_time = constantsService.base_cook_time;
+	.filter('cooktime', function(gameVariables) {
+		var base_cook_time = gameVariables.base_cook_time;
 
 		return function(cooktime) {
 			return (cooktime * base_cook_time + 0.5 | 0) + ' secs';
@@ -48,4 +48,9 @@ angular.module('pot.filters', [])
 
 			return input;
 		};
-	});
+	})
+	/*.filter('requirements', function(requirements) {
+		return function(input) {
+
+		}
+	})*/;
