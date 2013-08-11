@@ -20,7 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 'use strict';
 
-angular.module('pot.controllers', [])
+angular.module('pot.controllers')
 	.controller('RecipeListController', function($scope, $filter, ngTableParams, utils, food, recipes) {
 		var recipeList = [];
 
