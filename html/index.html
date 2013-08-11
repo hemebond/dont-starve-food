@@ -5,16 +5,23 @@
 		<link rel="shortcut icon" href="icon.png">
 		<meta charset="utf-8">
 
-		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+		<!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/libs/bootstrap-glyphicons/css/bootstrap-glyphicons.css" rel="stylesheet">
 		<link href="index.css" rel="stylesheet">
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-		<script src="ui-bootstrap-tpls-0.4.0.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+		<!--<script src="static/libs/ng-table/examples/js/jquery-1.9.1.min.js"></script>-->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+		<script src="static/libs/ui-bootstrap/ui-bootstrap-tpls-0.4.0.min.js"></script>
+		<script src="static/libs/ng-table/ng-table.js"></script>
+		<!--<script src="static/libs/angular-ui-ng-grid/ng-grid-2.0.7.min.js"></script>-->
 
 		<script src="app/app.js"></script>
 		<script src="app/services/gamevariables.js"></script>
 		<script src="app/services/food.js"></script>
 		<script src="app/services/recipes.js"></script>
+		<script src="app/services/utils.js"></script>
 		<script src="app/filters/filters.js"></script>
 		<script src="app/directives/directives.js"></script>
 		<script src="app/controllers/controllers.js"></script>
@@ -22,215 +29,268 @@
 	<body>
 		<div class="container">
 			<div class="row">
-			<tabset>
-				<tab heading="Simulator">
-					<div data-ng-controller="SimulatorController">
-						<div class="row">
-							<div class="span5">
-								<div>
-									<div class="pot-slot">
-										<img data-ng-show="pot.items.0" data-ng-click="removeFromPot(0)" data-ng-src="{{ pot.items.0.img }}">
+				<tabset>
+					<tab heading="Simulator">
+						<div data-ng-controller="SimulatorController">
+							<div class="row">
+								<div class="col-lg-4">
+									<p>
+										Add ingredients to see what they make.
+									</p>
+
+									<div class="form-group">
+										<label for="list-filter">Filter food:</label>
+										<input id="list-filter" data-ng-model="listFilter">
 									</div>
-									<div class="pot-slot">
-										<img data-ng-show="pot.items.1" data-ng-click="removeFromPot(1)" data-ng-src="{{ pot.items.1.img }}">
-									</div>
-									<div class="pot-slot">
-										<img data-ng-show="pot.items.2" data-ng-click="removeFromPot(2)" data-ng-src="{{ pot.items.2.img }}">
-									</div>
-									<div class="pot-slot">
-										<img data-ng-show="pot.items.3" data-ng-click="removeFromPot(3)" data-ng-src="{{ pot.items.3.img }}">
-									</div>
+
+									<tabset>
+										<tab heading="All">
+											<div class="sim-food-list">
+												<foodbtn data-ng-repeat="item in food.all | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+											</div>
+										</tab>
+										<tab heading="Veggies">
+											<div class="sim-food-list">
+												<foodbtn data-ng-repeat="item in food.veggies | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+											</div>
+										</tab>
+										<tab heading="Meats">
+											<div class="sim-food-list">
+												<foodbtn data-ng-repeat="item in food.meats | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+											</div>
+										</tab>
+										<tab heading="Fruits">
+											<div class="sim-food-list">
+												<foodbtn data-ng-repeat="item in food.fruits | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+											</div>
+										</tab>
+										<tab heading="Other">
+											<div class="sim-food-list">
+												<foodbtn data-ng-repeat="item in food.other | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+											</div>
+										</tab>
+									</tabset>
 								</div>
 
-								<p>Add ingredients to see what they make.</p>
+								<div class="col-lg-8">
+									<!-- value totals of individual ingredients -->
+									<table class="table table-condensed table-hover table-bordered">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Icon</th>
+												<th>Name</th>
+												<th>Health</th>
+												<th>Hunger</th>
+												<th>Sanity</th>
+												<th>Perish</th>
+												<th>Info</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- track by used because of duplicates -->
+											<tr
+											    data-ng-repeat="item in potItems track by $index"
+											    data-ng-click="removeFromPot($index)"
+											    title="Click to remove from pot">
+											    <th>Pot Item {{ $index + 1 }}</th>
+												<td><img data-ng-src="{{ item.img }}"></td>
+												<td>{{ item.name }}</td>
+												<td>{{ item.health | number:0 | signed }}</td>
+												<td>{{ item.hunger | number:0 | signed }}</td>
+												<td>{{ item.sanity | number:0 | signed }}</td>
+												<td>{{ item.perish | days }}</td>
+												<td>
+													<span class="label">Default</span>
+													<span class="label label-danger">
+														<span class="label">Meat</span>
+													</span>
+												</td>
+											</tr>
+										</tbody>
+										<tfoot data-ng-show="potItems.length > 0">
+											<tr>
+												<th colspan="3">Total</th>
+												<td data-ng-class="{ negative: combinedItems.health < 0 }">
+													{{ combinedItems.health | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: combinedItems.hunger < 0 }">
+													{{ combinedItems.hunger | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: combinedItems.sanity < 0 }">
+													{{ combinedItems.sanity | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: combinedItems.perish < 0 }">
+													{{ combinedItems.perish | days }}
+												</td>
+												<td></td>
+											</tr>
+											<tr data-ng-show="validRecipes.0" class="success">
+												<th>Recipe</th>
+												<td><img data-ng-src="{{ validRecipes.0.img }}"></td>
+												<td>{{ validRecipes.0.name }}</td>
+												<td>{{ validRecipes.0.health | number:0 | signed }}</td>
+												<td>{{ validRecipes.0.hunger | number:0 | signed }}</td>
+												<td>{{ validRecipes.0.sanity | number:0 | signed }}</td>
+												<td>{{ validRecipes.0.perish | days }}</td>
+												<td>{{ validRecipes.0.requirements }}</td>
+											</tr>
+										</tfoot>
+										<tbody>
+											<tr data-ng-repeat="recipe in validRecipes">
+												<th>Valid</th>
+												<td><img data-ng-src="{{ recipe.img }}"></td>
+												<td>{{ recipe.name }}</td>
+												<td>{{ recipe.health | number:0 | signed }}</td>
+												<td>{{ recipe.hunger | number:0 | signed }}</td>
+												<td>{{ recipe.sanity | number:0 | signed }}</td>
+												<td>{{ recipe.perish | days }}</td>
+												<td>{{ recipe.requirements }}</td>
+											</tr>
+										</tbody>
+									</table>
 
-								<p>
-									Filter:
-									<input data-ng-model="searchText">
-								</p>
-
-								<tabset>
-									<tab heading="All">
-										<div class="sim-food-list">
-											<a data-ng-repeat="f in food.all | foodFilter:searchText"
-											   class="btn"
-											   data-ng-click="addToPot(f.id)">
-												<img data-ng-src="{{ f.img }}"><span>{{ f.name }}</span>
-											</a>
-										</div>
-									</tab>
-									<tab heading="Veggies">
-										<div class="sim-food-list">
-											<a data-ng-repeat="f in food.veggies | foodFilter:searchText"
-											   class="btn"
-											   data-ng-click="addToPot(f.id)">
-												<img data-ng-src="{{ f.img }}"><span>{{ f.name }}</span>
-											</a>
-										</div>
-									</tab>
-									<tab heading="Meats">
-										<div class="sim-food-list">
-											<a data-ng-repeat="f in food.meats | foodFilter:searchText"
-											   class="btn"
-											   data-ng-click="addToPot(f.id)">
-												<img data-ng-src="{{ f.img }}"><span>{{ f.name }}</span>
-											</a>
-										</div>
-									</tab>
-									<tab heading="Fruits">
-										<div class="sim-food-list">
-											<a data-ng-repeat="f in food.fruits | foodFilter:searchText"
-											   class="btn"
-											   data-ng-click="addToPot(f.id)">
-												<img data-ng-src="{{ f.img }}"><span>{{ f.name }}</span>
-											</a>
-										</div>
-									</tab>
-									<tab heading="Other">
-										<div class="sim-food-list">
-											<a data-ng-repeat="f in food.other | foodFilter:searchText"
-											   class="btn"
-											   data-ng-click="addToPot(f.id)">
-												<img data-ng-src="{{ f.img }}"><span>{{ f.name }}</span>
-											</a>
-										</div>
-									</tab>
-								</tabset>
+									<!-- suggestions, add ingredients to create -->
+									<p>Add more ingredients to create these:</p>
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Icon</th>
+												<th data-ng-click="sortBy='name'; sortReverse=false">
+													Name
+													<span class="glyphicon" data-ng-class="{'glyphicon-chevron-up': sortBy=='name' && sortAscending}"></span>
+												</th>
+												<th data-ng-click="sortBy='health'; sortReverse=true">Health</th>
+												<th data-ng-click="sortBy='hunger'; sortReverse=true">Hunger</th>
+												<th data-ng-click="sortBy='sanity'; sortReverse=true">Sanity</th>
+												<th data-ng-click="sortBy='perish'; sortReverse=true">Perish</th>
+												<th data-ng-click="sortBy='priority'; sortReverse=true">Priority</th>
+												<th>Info</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="recipe in suggestions | orderBy:sortBy:sortReverse">
+												<td><img data-ng-src="{{ recipe.img }}"></td>
+												<td>{{ recipe.name }}</td>
+												<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>
+												<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>
+												<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>
+												<td>{{ recipe.perish | days }} days</td>
+												<td>{{ recipe.priority | signed }}</td>
+												<td><span recipe-requirements="recipe.requirements"></span></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 
-							<div class="span7">
-								<!--  valid recipes -->
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Icon</th>
-											<th data-ng-click="sortBy='name'; sortReverse=false">Name</th>
-											<th data-ng-click="sortBy='health'; sortReverse=true">Health</th>
-											<th data-ng-click="sortBy='hunger'; sortReverse=true">Hunger</th>
-											<th data-ng-click="sortBy='sanity'; sortReverse=true">Sanity</th>
-											<th data-ng-click="sortBy='perish'; sortReverse=true">Perish</th>
-											<th data-ng-click="sortBy='priority'; sortReverse=true">Priority</th>
-											<th>Info</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr data-ng-repeat="recipe in validRecipes | orderBy:sortBy:sortReverse">
-											<td><img data-ng-src="{{ recipe.img }}"></td>
-											<td>{{ recipe.name }}</td>
-											<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>
-											<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>
-											<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>
-											<td>{{ recipe.perish | days }} days</td>
-											<td>{{ recipe.priority | signed }}</td>
-											<td>{{ recipe.info }}</td>
-										</tr>
-									</tbody>
-								</table>
+						</div>
+					</tab>
+					<tab heading="Discovery">
+						Test tab
+					</tab>
 
-								<!-- suggestions, add ingredients to create -->
-								<p>Add more ingredients to create these:</p>
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Icon</th>
-											<th data-ng-click="sortBy='name'; sortReverse=false">Name</th>
-											<th data-ng-click="sortBy='health'; sortReverse=true">Health</th>
-											<th data-ng-click="sortBy='hunger'; sortReverse=true">Hunger</th>
-											<th data-ng-click="sortBy='sanity'; sortReverse=true">Sanity</th>
-											<th data-ng-click="sortBy='perish'; sortReverse=true">Perish</th>
-											<th data-ng-click="sortBy='priority'; sortReverse=true">Priority</th>
-											<th>Info</th>
+					<!-- Food List -->
+					<tab heading="Food List">
+						<div data-ng-controller="FoodListController">
+							<div class="row">
+								<div class="col-lg-12">
+									<p >
+										<label for="listFilter">Filter food:</label>
+										<input id="listFilter" data-ng-model="listFilter">
+									</p>
+
+									<table ng-table="tableParams" class="table">
+										<tr data-ng-repeat="item in food | filter:listFilter">
+											<td data-title="Icon">
+												<img data-ng-src="{{ item.img }}">
+											</td>
+											<td data-title="'Name'" sortable="name">
+												{{ item.name }}
+											</td>
+											<td data-title="'Health'" sortable="health" data-ng-class="{ negative: item.health < 0 }">
+												{{ item.health | number:0 | signed }}
+											</td>
+											<td data-title="'Hunger'" sortable="hunger" data-ng-class="{ negative: item.hunger < 0 }">
+												{{ item.hunger | number:0 | signed }}
+											</td>
+											<td data-title="'Sanity'" sortable="sanity" data-ng-class="{ negative: item.sanity < 0 }">
+												{{ item.sanity | number:0 | signed }}
+											</td>
+											<td data-title="'Perish'" sortable="perish">
+												{{ item.perish | days }}
+											</td>
+											<td data-title="'Info'">
+												{{ item.info }}
+											</td>
 										</tr>
-									</thead>
-									<tbody>
-										<tr data-ng-repeat="recipe in suggestions | orderBy:sortBy:sortReverse">
-											<td><img data-ng-src="{{ recipe.img }}"></td>
-											<td>{{ recipe.name }}</td>
-											<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>
-											<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>
-											<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>
-											<td>{{ recipe.perish | days }} days</td>
-											<td>{{ recipe.priority | signed }}</td>
-											<td>{{ recipe.requirements }}</td>
-										</tr>
-									</tbody>
-								</table>
+									</table>
+								</div>
 							</div>
 						</div>
+					</tab>
 
-					</div>
-				</tab>
-				<tab heading="Discovery">
-					Test tab
-				</tab>
-				<tab heading="Food List">
-					<div data-ng-controller="FoodListController">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Icon</th>
-									<th>Name</th>
-									<th>Health</th>
-									<th>Hunger</th>
-									<th>Sanity</th>
-									<th>Perish</th>
-									<th>Info</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="item in food">
-									<td><img data-ng-src="{{ item.img }}"></td>
-									<td>{{ item.name }}</td>
-									<td data-ng-class="{ negative: item.health < 0 }">{{ item.health | number:0 | signed }}</td>
-									<td data-ng-class="{ negative: item.hunger < 0 }">{{ item.hunger | number:0 | signed }}</td>
-									<td data-ng-class="{ negative: item.sanity < 0 }">{{ item.sanity | number:0 | signed }}</td>
-									<td>{{ item.perish | days }}</td>
-									<td>{{ item.info }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</tab>
-				<tab heading="Recipe List">
-					<div data-ng-controller="RecipeListController">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Icon</th>
-									<th>Name</th>
-									<th>Health</th>
-									<th>Hunger</th>
-									<th>Sanity</th>
-									<th>Perish</th>
-									<th>Cook Time</th>
-									<th>Priority</th>
-									<th>Requirements</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="recipe in recipes">
-									<td><img data-ng-src="{{ recipe.img }}"></td>
-									<td>{{ recipe.name }}</td>
-									<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>
-									<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>
-									<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>
-									<td>{{ recipe.perish | days }}</td>
-									<td>{{ recipe.cooktime | cooktime }}</td>
-									<td>{{ recipe.priority | signed }}</td>
-									<td>{{ recipe.requires }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</tab>
-				<tab heading="Statistics Analyzer">
-					Stats
-				</tab>
-				<tab heading="Help">
-					Help
-				</tab>
-			</tabset>
-		</div>
+					<!-- Recipe List -->
+					<tab heading="Recipe List">
+						<div data-ng-controller="RecipeListController">
+							<div class="row">
+								<div class="col-lg-12">
+									<p >
+										<label for="listFilter">Filter recipes:</label>
+										<input id="listFilter" data-ng-model="listFilter">
+									</p>
+
+									<table ng-table="tableParams" class="table">
+										<tr data-ng-repeat="item in recipes | filter:listFilter">
+											<td data-title="'Icon'">
+												<img data-ng-src="{{ item.img }}">
+											</td>
+											<td data-title="'Name'"
+											    sortable="name">
+												{{ item.name }}
+											</td>
+											<td data-title="'Health'"
+											    sortable="health"
+											    data-ng-class="{ negative: item.health < 0 }">
+												{{ item.health | number:0 | signed }}
+											</td>
+											<td data-title="'Hunger'"
+											    sortable="hunger"
+											    data-ng-class="{ negative: item.hunger < 0 }">
+												{{ item.hunger | number:0 | signed }}
+											</td>
+											<td data-title="'Sanity'"
+											    sortable="sanity"
+											    data-ng-class="{ negative: item.sanity < 0 }">
+												{{ item.sanity | number:0 | signed }}
+											</td>
+											<td data-title="'Perish'">
+												{{ item.perish | days }}
+											</td>
+											<td data-title="'Cook Time'">
+												{{ item.cooktime | cooktime }}
+											</td>
+											<td data-title="'Priority'"
+											    sortable="priority">
+												{{ item.priority | number:0 | signed }}
+											</td>
+											<td data-title="'Info'"
+											    ng-bind-html-unsafe="makeRecipeTags(item.requirements)">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Statistics Analyzer">
+						Stats
+					</tab>
+					<tab heading="Help">
+						Help
+					</tab>
+				</tabset>
+			</div>
 		</div>
 <!--
 	<ul id="navbar">

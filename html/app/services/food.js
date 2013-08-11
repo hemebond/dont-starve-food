@@ -2,9 +2,16 @@ angular.module('pot.services')
 	.service('food', function(gameVariables) {
 		var g = gameVariables;
 
-		return [
-			{
-				id: 'butter',
+		/*
+			Food Properties
+			===============
+
+			tags.cooked		Already been cooked over a fire
+			tags.uncookable	Can not be used in the crock pot
+		*/
+
+		return {
+			butter: {
 				name: "Butter",
 				health: g.healing_large,
 				hunger: g.calories_med,
@@ -15,8 +22,7 @@ angular.module('pot.services')
 					dairy: 1
 				}
 			},
-			{
-				id: 'butterfly_wings',
+			butterfly_wings: {
 				name: "Butterfly Wings",
 				health: g.healing_medsmall,
 				hunger: g.calories_tiny,
@@ -27,8 +33,7 @@ angular.module('pot.services')
 					decoration: 2
 				}
 			},
-			{
-				id: 'deerclops_eyeball',
+			deerclops_eyeball: {
 				name: 'Deerclops Eyeball',
 				health: g.healing_huge,
 				hunger: g.calories_huge,
@@ -37,8 +42,7 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'bird_egg',
+			bird_egg: {
 				name: 'Egg',
 				health: 0,
 				hunger: g.calories_tiny,
@@ -46,25 +50,26 @@ angular.module('pot.services')
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
 				rot: 'rottenegg',
+				cookable: {
+					product: 'bird_egg_cooked'
+				},
 				tags: {
 					egg: 1
 				}
 			},
-			{
-				id: 'bird_egg_cooked',
+			bird_egg_cooked: {
 				name: 'Cooked Egg',
-				precook: 1,
 				health: 0,
 				hunger: g.calories_small,
 				sanity: 0,
 				perish: g.perish_fast,
 				stack: g.stack_size_smallitem,
 				tags: {
+					cooked: true,
 					egg: 1
 				}
 			},
-			{
-				id: 'bird_egg_rotten',
+			bird_egg_rotten: {
 				name: 'Rotten Egg',
 				health: g.spoiled_health,
 				hunger: g.spoiled_hunger,
@@ -73,8 +78,7 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'fish',
+			fish: {
 				name: 'Fish',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
@@ -84,7 +88,7 @@ angular.module('pot.services')
 					product: 'fish_cooked'
 				},
 				dryable: {
-					product: 'smallmeat_dried',
+					product: 'morsel_dried',
 					time: g.dry_fast
 				},
 				tags: {
@@ -93,22 +97,20 @@ angular.module('pot.services')
 					meat: 0.5
 				}
 			},
-			{
-				id: 'fish_cooked',
+			fish_cooked: {
 				name: 'Cooked Fish',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
 				perish: g.perish_fast,
 				stack: g.stack_size_smallitem,
 				tags: {
+					cooked: true,
 					ismeat: true,
 					meat: 0.5,
-					fish: 1,
-					precook: true
+					fish: 1
 				}
 			},
-			{
-				id: 'frog_legs',
+			frog_legs: {
 				name: 'Frog Legs',
 				health: 0,
 				hunger: g.calories_small,
@@ -119,7 +121,7 @@ angular.module('pot.services')
 					product: 'frog_legs_cooked'
 				},
 				dryable: {
-					product: 'smallmeat_dried',
+					product: 'morsel_dried',
 					time: g.dry_fast
 				},
 				tags: {
@@ -127,8 +129,7 @@ angular.module('pot.services')
 					meat: 0.5
 				}
 			},
-			{
-				id: 'frog_legs_cooked',
+			frog_legs_cooked: {
 				name: 'Cooked Frog Legs',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
@@ -136,13 +137,12 @@ angular.module('pot.services')
 				sanity: 0,
 				stack: g.stack_size_smallitem,
 				tags: {
+					cooked: true,
 					ismeat: true,
-					meat: 0.5,
-					precook: true
+					meat: 0.5
 				}
 			},
-			{
-				id: 'flower_hat',
+			flower_hat: {
 				name: 'Garland',
 				health: g.healing_small,
 				hunger: 0,
@@ -153,8 +153,7 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'hambat',
+			hambat: {
 				name: 'Ham Bat',
 				health: -g.healing_medsmall,
 				hunger: g.calories_med,
@@ -165,8 +164,7 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'honey',
+			honey: {
 				name: 'Honey',
 				health: g.healing_small,
 				hunger: g.calories_tiny,
@@ -176,15 +174,13 @@ angular.module('pot.services')
 					sweetener: true
 				}
 			},
-			{
-				id: 'honeycomb',
+			honeycomb: {
 				name: 'Honeycomb',
 				tags: {
 					sweetener: true
 				}
 			},
-			{
-				id: 'lightbulb',
+			lightbulb: {
 				name: 'Light Bulb',
 				health: g.healing_tiny,
 				hunger: 0,
@@ -194,32 +190,32 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'mandrake',
+			mandrake: {
 				name: 'Mandrake',
 				health: g.healing_huge,
 				hunger: g.calories_huge,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'mandrake_cooked',
+				},
 				tags: {
 					veggie: 1,
 					magic: 1
 				}
 			},
-			{
-				id: 'mandrake_cooked',
+			mandrake_cooked: {
 				name: 'Cooked Mandrake',
 				health: g.healing_superhuge,
 				hunger: g.calories_superhuge,
 				stack: g.stack_size_smallitem,
 				tags: {
+					cooked: true,
 					uncookable: true,
 					veggie: 1,
-					magic: 1,
-					precook: 1
+					magic: 1
 				}
 			},
-			{
-				id: 'plant_meat',
+			plant_meat: {
 				name: 'Leafy Meat',
 				health: 0,
 				hunger: g.calories_small,
@@ -230,8 +226,7 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'plant_meat_cooked',
+			plant_meat_cooked: {
 				name: 'Cooked Leafy Meat',
 				health: g.healing_tiny,
 				hunger: g.calories_medsmall,
@@ -239,27 +234,31 @@ angular.module('pot.services')
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
 				tags: {
+					cooked: true,
 					uncookable: true
 				}
 			},
-			{
-				id: 'monster_meat',
+			monster_meat: {
 				name: 'Monster Meat',
 				health: -g.healing_med,
 				hunger: g.calories_medsmall,
 				sanity: -g.sanity_med,
 				perish: g.perish_fast,
 				stack: g.stack_size_meditem,
-				dry: 'monstermeat_dried',
-				drytime: g.dry_fast,
+				cookable: {
+					product: 'monster_meat_cooked'
+				},
+				dryable: {
+					product: 'monster_meat_dried',
+					time: g.dry_fast
+				},
 				tags: {
 					ismeat: true,
 					meat: 1,
 					monster: true
 				}
 			},
-			{
-				id: 'monster_meat_cooked',
+			monster_meat_cooked: {
 				name: 'Cooked Monster Meat',
 				health: -g.healing_small,
 				hunger: g.calories_medsmall,
@@ -270,11 +269,10 @@ angular.module('pot.services')
 					ismeat: true,
 					meat: 1,
 					monster: true,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'monster_meat_dried',
+			monster_meat_dried: {
 				name: 'Monster Jerky',
 				health: -g.healing_small,
 				hunger: g.calories_medsmall,
@@ -288,23 +286,26 @@ angular.module('pot.services')
 					dried: 1
 				}
 			},
-			{
-				id: 'meat',
+			meat: {
 				name: 'Meat',
 				health: g.healing_tiny,
 				hunger: g.calories_med,
 				sanity: -g.sanity_small,
 				perish: g.perish_fast,
 				stack: g.stack_size_meditem,
-				dry: 'meat_dried',
-				drytime: g.dry_med,
+				cookable: {
+					product: 'meat_cooked'
+				},
+				dryable: {
+					product: 'meat_dried',
+					time: g.dry_med
+				},
 				tags: {
 					ismeat: true,
 					meat: 1
 				}
 			},
-			{
-				id: 'meat_cooked',
+			meat_cooked: {
 				name: 'Cooked Meat',
 				health: g.healing_small,
 				hunger: g.calories_med,
@@ -314,11 +315,10 @@ angular.module('pot.services')
 				tags: {
 					ismeat: true,
 					meat: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'meat_dried',
+			meat_dried: {
 				name: 'Jerky',
 				health: g.healing_med,
 				hunger: g.calories_med,
@@ -328,26 +328,29 @@ angular.module('pot.services')
 				tags: {
 					ismeat: true,
 					meat: 1,
-					dried: 1
+					dried: true
 				}
 			},
-			{
-				id: 'morsel',
+			morsel: {
 				name: 'Morsel',
 				health: 0,
 				hunger: g.calories_small,
 				sanity: -g.sanity_small,
 				perish: g.perish_fast,
 				stack: g.stack_size_smallitem,
-				drytime: g.dry_fast,
-				dry: 'smallmeat_dried',
+				cookable: {
+					product: 'morsel_cooked'
+				},
+				dryable: {
+					product: 'morsel_dried',
+					time: g.dry_fast
+				},
 				tags: {
 					ismeat: true,
 					meat: 0.5
 				}
 			},
-			{
-				id: 'morsel_cooked',
+			morsel_cooked: {
 				name: 'Cooked Morsel',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
@@ -357,11 +360,10 @@ angular.module('pot.services')
 				tags: {
 					ismeat: true,
 					meat: 0.5,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'morsel_dried',
+			morsel_dried: {
 				name: 'Small Jerky',
 				health: g.healing_medsmall,
 				hunger: g.calories_small,
@@ -371,27 +373,30 @@ angular.module('pot.services')
 				tags: {
 					ismeat: true,
 					meat: 0.5,
-					dried: 1
+					dried: true
 				}
 			},
-			{
-				id: 'drumstick',
+			drumstick: {
 				name: 'Drumstick',
 				health: 0,
 				hunger: g.calories_small,
 				sanity: -g.sanity_small,
 				perish: g.perish_fast,
 				stack: g.stack_size_meditem,
-				drytime: g.dry_fast,
-				dry: 'smallmeat_dried',
+				cookable: {
+					product: 'drumstick_cooked'
+				},
+				dryable: {
+					product: 'morsel_dried',
+					time: g.dry_fast
+				},
 				tags: {
 					ismeat: true,
 					ideal: true,
 					meat: 0.5
 				}
 			},
-			{
-				id: 'drumstick_cooked',
+			drumstick_cooked: {
 				name: 'Fried Drumstick',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
@@ -400,26 +405,29 @@ angular.module('pot.services')
 				tags: {
 					ismeat: true,
 					meat: 0.5,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'batwing',
+			batwing: {
 				name: 'Batilisk Wing',
 				health: g.healing_small,
 				hunger: g.calories_small,
 				sanity: -g.sanity_small,
 				perish: g.perish_fast,
 				stack: g.stack_size_smallitem,
-				drytime: g.dry_med,
-				dry: 'smallmeat_dried',
+				cookable: {
+					product: 'batwing_cooked'
+				},
+				dryable: {
+					product: 'morsel_dried',
+					time: g.dry_med
+				},
 				tags: {
 					ismeat: true,
 					uncookable: true
 				}
 			},
-			{
-				id: 'batwing_cooked',
+			batwing_cooked: {
 				name: 'Cooked Batilisk Wing',
 				health: g.healing_medsmall,
 				hunger: g.calories_medsmall,
@@ -427,24 +435,26 @@ angular.module('pot.services')
 				perish: g.perish_med,
 				tags: {
 					ismeat: true,
-					uncookable: true
+					uncookable: true,
+					cooked: true
 				}
 			},
-			{
-				id: 'red_mushroom',
+			red_mushroom: {
 				name: 'Red Cap',
 				health: -g.healing_med,
 				hunger: g.calories_small,
 				sanity: 0,
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'red_mushroom_cooked'
+				},
 				tags: {
 					veggie: 0.5,
 					ideal: true
 				}
 			},
-			{
-				id: 'red_mushroom_cooked',
+			red_mushroom_cooked: {
 				name: 'Cooked Red Cap',
 				health: g.healing_tiny,
 				hunger: 0,
@@ -452,24 +462,26 @@ angular.module('pot.services')
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
 				tags: {
-					veggie: 0.5
+					veggie: 0.5,
+					cooked: true
 				}
 			},
-			{
-				id: 'green_mushroom',
+			green_mushroom: {
 				name: 'Green Cap',
 				health: 0,
 				hunger: g.calories_small,
 				sanity: -g.sanity_huge,
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'green_mushroom_cooked'
+				},
 				tags: {
 					veggie: 0.5,
 					ideal: true
 				}
 			},
-			{
-				id: 'green_mushroom_cooked',
+			green_mushroom_cooked: {
 				name: 'Cooked Green Cap',
 				health: -g.healing_tiny,
 				hunger: 0,
@@ -477,24 +489,26 @@ angular.module('pot.services')
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
 				tags: {
-					veggie: 0.5
+					veggie: 0.5,
+					cooked: true
 				}
 			},
-			{
-				id: 'blue_mushroom',
+			blue_mushroom: {
 				name: 'Blue Cap',
 				health: g.healing_med,
 				hunger: g.calories_small,
 				sanity: -g.sanity_med,
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'blue_mushroom_cooked'
+				},
 				tags: {
 					veggie: 0.5,
 					ideal: true
 				}
 			},
-			{
-				id: 'blue_mushroom_cooked',
+			blue_mushroom_cooked: {
 				name: 'Cooked Blue Cap',
 				health: -g.healing_small,
 				hunger: 0,
@@ -502,11 +516,11 @@ angular.module('pot.services')
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
 				tags: {
-					veggie: 0.5
+					veggie: 0.5,
+					cooked: true
 				}
 			},
-			{
-				id: 'petals',
+			petals: {
 				name: 'Petals',
 				health: g.healing_tiny,
 				hunger: 0,
@@ -517,8 +531,7 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'petals_evil',
+			petals_evil: {
 				name: 'Dark Petals',
 				health: 0,
 				hunger: 0,
@@ -529,30 +542,31 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'seeds',
+			seeds: {
 				name: 'Seeds',
 				health: 0,
 				hunger: g.calories_tiny / 2,
 				perish: g.perish_superslow,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'seeds_cooked'
+				},
 				tags: {
 					uncookable: true
 				}
 			},
-			{
-				id: 'seeds_cooked',
+			seeds_cooked: {
 				name: 'Toasted Seeds',
 				health: g.healing_tiny,
 				hunger: g.calories_tiny / 2,
 				perish: g.perish_med,
 				stack: g.stack_size_smallitem,
 				tags: {
-					uncookable: true
+					uncookable: true,
+					cooked: true
 				}
 			},
-			{
-				id: 'spoiled_food',
+			spoiled_food: {
 				name: 'Rot',
 				health: g.spoiled_health,
 				hunger: g.spoiled_hunger,
@@ -561,41 +575,43 @@ angular.module('pot.services')
 					uncookable: true
 				}
 			},
-			{
-				id: 'tallbird_egg',
+			tallbird_egg: {
 				name: 'Tallbird Egg',
 				health: g.healing_small,
 				hunger: g.calories_med,
+				cookable: {
+					product: 'tallbird_egg_cooked'
+				},
 				tags: {
 					egg: 4
 				}
 			},
-			{
-				id: 'tallbird_egg_cooked',
+			tallbird_egg_cooked: {
 				name: 'Fried Tallbird Egg',
 				health: 0,
 				hunger: g.calories_large,
 				perish: g.perish_fast,
 				tags: {
 					egg: 4,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'trunk_summer',
+			trunk_summer: {
 				name: 'Koalefant Trunk',
 				health: g.healing_medlarge,
 				hunger: g.calories_large,
 				sanity: 0,
 				perish: g.perish_fast,
 				stack: g.stack_size_meditem,
+				cookable: {
+					product: 'trunk_summer_cooked'
+				},
 				tags: {
 					uncookable: true,
-					ismeat: true
+					ismeat: true,
 				}
 			},
-			{
-				id: 'trunk_summer_cooked',
+			trunk_summer_cooked: {
 				name: 'Koalefant Trunk Steak',
 				health: g.healing_large,
 				hunger: g.calories_huge,
@@ -604,30 +620,31 @@ angular.module('pot.services')
 				stack: g.stack_size_meditem,
 				tags: {
 					uncookable: true,
-					ismeat: true
+					ismeat: true,
+					cooked: true
 				}
 			},
-			{
-				id: 'twigs',
+			twigs: {
 				name: 'Twigs',
 				tags: {
 					inedible: 1
 				}
 			},
-			{
-				id: 'cave_banana',
+			cave_banana: {
 				name: 'Cave Banana',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
 				sanity: 0,
 				perish: g.perish_med,
+				cookable: {
+					product: 'cave_banana_cooked'
+				},
 				tags: {
 					isfruit: true,
 					fruit: 1
 				}
 			},
-			{
-				id: 'cave_banana_cooked',
+			cave_banana_cooked: {
 				name: 'Cooked Banana',
 				health: g.healing_small,
 				hunger: g.calories_small,
@@ -636,24 +653,25 @@ angular.module('pot.services')
 				tags: {
 					isfruit: true,
 					fruit: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'carrot',
+			carrot: {
 				name: 'Carrot',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
 				perish: g.perish_med,
 				sanity: 0,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'carrot_cooked'
+				},
 				tags: {
 					isveggie: true,
 					veggie: 1
 				}
 			},
-			{
-				id: 'carrot_cooked',
+			carrot_cooked: {
 				name: 'Roasted Carrot',
 				health: g.healing_small,
 				hunger: g.calories_small,
@@ -663,25 +681,26 @@ angular.module('pot.services')
 				tags: {
 					isveggie: true,
 					veggie: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'corn',
+			corn: {
 				name: 'Corn',
 				health: g.healing_small,
 				hunger: g.calories_med,
 				perish: g.perish_med,
 				sanity: 0,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'corn_cooked'
+				},
 				tags: {
 					ideal: true,
 					isveggie: true,
 					veggie: 1
 				}
 			},
-			{
-				id: 'corn_cooked',
+			corn_cooked: {
 				name: 'Popcorn',
 				health: g.healing_small,
 				hunger: g.calories_small,
@@ -691,24 +710,25 @@ angular.module('pot.services')
 				tags: {
 					isveggie: true,
 					veggie: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'pumpkin',
+			pumpkin: {
 				name: 'Pumpkin',
 				health: g.healing_small,
 				hunger: g.calories_large,
 				perish: g.perish_med,
 				sanity: 0,
 				stack: g.stack_size_meditem,
+				cookable: {
+					product: 'pumpkin_cooked'
+				},
 				tags: {
 					isveggie: true,
 					veggie: 1
 				}
 			},
-			{
-				id: 'pumpkin_cooked',
+			pumpkin_cooked: {
 				name: 'Hot Pumpkin',
 				health: g.healing_medsmall,
 				hunger: g.calories_large,
@@ -718,24 +738,25 @@ angular.module('pot.services')
 				tags: {
 					isveggie: true,
 					veggie: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'eggplant',
+			eggplant: {
 				name: 'Eggplant',
 				health: g.healing_medsmall,
 				hunger: g.calories_med,
 				perish: g.perish_med,
 				sanity: 0,
 				stack: g.stack_size_meditem,
+				cookable: {
+					product: 'eggplant_cooked'
+				},
 				tags: {
 					isveggie: true,
 					veggie: 1
 				}
 			},
-			{
-				id: 'eggplant_cooked',
+			eggplant_cooked: {
 				name: 'Braised Eggplant',
 				health: g.healing_med,
 				hunger: g.calories_med,
@@ -745,25 +766,26 @@ angular.module('pot.services')
 				tags: {
 					isveggie: true,
 					veggie: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'durian',
+			durian: {
 				name: 'Durian',
 				health: -g.healing_small,
 				hunger: g.calories_med,
 				perish: g.perish_med,
 				sanity: -g.sanity_tiny,
 				stack: g.stack_size_meditem,
+				cookable: {
+					product: 'durian_cooked'
+				},
 				tags: {
 					isfruit: true,
 					monster: 1,
 					fruit: 1
 				}
 			},
-			{
-				id: 'durian_cooked',
+			durian_cooked: {
 				name: 'Extra Smelly Durian',
 				health: 0,
 				hunger: g.calories_med,
@@ -774,24 +796,25 @@ angular.module('pot.services')
 					isfruit: true,
 					monster: 1,
 					fruit: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'pomegranate',
+			pomegranate: {
 				name: 'Pomegranate',
 				health: g.healing_small,
 				hunger: g.calories_tiny,
 				perish: g.perish_fast,
 				sanity: 0,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'pomegranate_cooked'
+				},
 				tags: {
 					isfruit: true,
 					fruit: 1
 				}
 			},
-			{
-				id: 'pomegranate_cooked',
+			pomegranate_cooked: {
 				name: 'Sliced Pomegranate',
 				health: g.healing_med,
 				hunger: g.calories_small,
@@ -801,24 +824,25 @@ angular.module('pot.services')
 				tags: {
 					isfruit: true,
 					fruit: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'dragonfruit',
+			dragonfruit: {
 				name: 'Dragon Fruit',
 				health: g.healing_small,
 				hunger: g.calories_tiny,
 				perish: g.perish_fast,
 				sanity: 0,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'dragonfruit_cooked'
+				},
 				tags: {
 					isfruit: true,
 					fruit: 1
 				}
 			},
-			{
-				id: 'dragonfruit_cooked',
+			dragonfruit_cooked: {
 				name: 'Prepared Dragon Fruit',
 				health: g.healing_med,
 				hunger: g.calories_small,
@@ -828,24 +852,25 @@ angular.module('pot.services')
 				tags: {
 					isfruit: true,
 					fruit: 1,
-					precook: 1
+					cooked: true
 				}
 			},
-			{
-				id: 'berries',
+			berries: {
 				name: 'Berries',
 				health: 0,
 				hunger: g.calories_tiny,
 				perish: g.perish_fast,
 				sanity: 0,
 				stack: g.stack_size_smallitem,
+				cookable: {
+					product: 'berries_cooked'
+				},
 				tags: {
 					isfruit: true,
 					fruit: 0.5
 				}
 			},
-			{
-				id: 'berries_cooked',
+			berries_cooked: {
 				name: 'Roasted Berries',
 				health: g.healing_tiny,
 				hunger: g.calories_small,
@@ -855,8 +880,8 @@ angular.module('pot.services')
 				tags: {
 					isfruit: true,
 					fruit: 0.5,
-					precook: 1
+					cooked: true
 				}
 			}
-		];
+		};
 	});

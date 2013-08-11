@@ -1228,9 +1228,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 		}()),
 		setIngredientValues = function (items, names, tags) {
+			console.log('setIngredients');
 			var i, k, item;
 			for (i = 0; i < items.length; i++) {
 				item = items[i];
+				console.log(item);
 				if (item !== null) {
 					names[item.id] = 1 + (names[item.id] || 0);
 					for (k in item) {
@@ -1242,11 +1244,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					}
 				}
 			}
+			console.log(names);
 		},
 		getSuggestions = (function () {
 			var names,
 				tags;
 			return function (recipeList, items, exclude, itemComplete) {
+				console.log('getSuggestions');
 				var i, ii, valid;
 				recipeList.length = 0;
 				names = {};
@@ -1279,6 +1283,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				names,
 				tags;
 			return function (items) {
+				console.log('getRecipes');
 				var i;
 				recipeList.length = 0;
 				names = {};
@@ -1489,6 +1494,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			food[index++] = f;
 		}
 	}
+	console.log(food);
 	food.length = index;
 	index = 0;
 	for (i in recipes) {
@@ -2047,7 +2053,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						var item = data.recipe,
 							health = data.tags.health,
 							hunger = data.tags.hunger;
-						
+
 						return cells('td', item.img ? item.img : '', item.name, sign(item.health), sign(data.healthpls) + ' (' + sign((data.healthpct * 100) | 0) + '%)', sign(item.hunger), sign(data.hungerpls) + ' (' + sign((data.hungerpct * 100) | 0) + '%)',
 							makeLinkable(data.ingredients.reduce(ingredientToIcon, '')));
 					},
@@ -2826,5 +2832,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				});
 			}());
 		}
-	}())
+	}());
 }());

@@ -26,7 +26,7 @@ angular.module('pot.filters', [])
 		var total_day_time = gameVariables.total_day_time;
 
 		return function(perishTime) {
-			return isNaN(perishTime) ? 'Never' : (perishTime / total_day_time) + ' days';
+			return (isNaN(perishTime) || perishTime == 0) ? 'Never' : (perishTime / total_day_time) + ' days';
 		};
 	})
 	.filter('cooktime', function(gameVariables) {

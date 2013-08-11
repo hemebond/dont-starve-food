@@ -1,22 +1,58 @@
-.sim-food-list img {
-	width:32px;
-}
-
-.pot-slot {
-	display:inline-block;
-	width:68px;
-	height:68px;
-	background:url(img/background.png) no-repeat left top;
-}
-
-.pot-slot img {
-	display: block;
-}
-
 table img {
-	width: 32px;
+	width: 24px;
+}
+
+.food-btn-group.btn-group {
+	margin: 4px;
+}
+.food-btn-group img {
+	width: 2em;
+}
+.food-btn-group span {
+	margin-left: 12px;
+}
+
+th.sortable div {
+	position: relative;
+}
+
+th.sortable div:before {
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	position: absolute;
+	right: 18px;
+}
+th.sort-asc div:before {
+	content: "\e113";
+}
+th.sort-desc div:before {
+	content: "\e114";
 }
 
 td.negative {
 	color: red;
+}
+
+td > span.label {
+	margin-right: 4px;
+	font-size: 1em;
+}
+
+td span.label img:last-child {
+	margin-right: 8px;
+}
+
+th.sortable {
+	cursor: pointer;
+}
+
+.nav-tabs > li {
+	cursor: pointer;
+}
+
+.tab-content {
+	margin-top: 1em;
 }

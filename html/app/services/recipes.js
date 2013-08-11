@@ -1,10 +1,10 @@
 angular.module('pot.services')
-	.service('recipes', function(gameVariables) {
+	.service('recipes', function(gameVariables, food) {
 		var g = gameVariables;
 
 		//note: qty not used yet, this is for rapid summation
 		var COMPAREString = function () {
-			return this.op + this.qty;
+			return this.op + ' ' + this.qty;
 		};
 
 		var COMPARISONS = {
@@ -26,6 +26,7 @@ angular.module('pot.services')
 
 		var COMPARE = function (op, qty) {
 			return {
+				fnName: 'COMPARE',
 				op: op,
 				qty: qty,
 				test: COMPARISONS[op],
@@ -43,6 +44,7 @@ angular.module('pot.services')
 
 		var OR = function (item1, item2) {
 			return {
+				fnName: 'OR',
 				item1: item1,
 				item2: item2,
 				test: ORTest,
@@ -56,11 +58,13 @@ angular.module('pot.services')
 		};
 
 		var NOTString = function () {
-			return this.item.toString().substring(0, this.item.toString().length - 1) + '|strike]';
+			//return this.item.toString().substring(0, this.item.toString().length - 1) + '|strike]';
+			return String(this.item);
 		};
 
 		var NOT = function (item) {
 			return {
+				fnName: 'NOT',
 				item: item,
 				test: NOTTest,
 				toString: NOTString,
@@ -73,12 +77,14 @@ angular.module('pot.services')
 		};
 
 		var NAMEString = function () {
-			return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (food[this.name].cook ? '[*' + food[this.name].cook.name + '|' + food[this.name].cook.img + ']' : '') + (food[this.name].raw ? '[*' + food[this.name].raw.name + '|' + food[this.name].raw.img + ']' : '') + (this.qty ? this.qty : '');
+			//return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (food[this.name].cook ? '[*' + food[this.name].cook.name + '|' + food[this.name].cook.img + ']' : '') + (food[this.name].raw ? '[*' + food[this.name].raw.name + '|' + food[this.name].raw.img + ']' : '') + (this.qty ? this.qty : '');
+			return String(food[this.name].name + (this.qty ? ' ' + this.qty : ''));
 		};
 
 		//permits cooked variant
 		var NAME = function (name, qty) {
 			return {
+				fnName: 'NAME',
 				name: name,
 				qty: qty || NOQTY,
 				test: NAMETest,
@@ -91,12 +97,14 @@ angular.module('pot.services')
 		};
 
 		var SPECIFICString = function () {
-			return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (this.qty ? this.qty : '');
+			//return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (this.qty ? this.qty : '');
+			return String(this.name + (this.qty ? ' ' + this.qty : ''));
 		};
 
 		//disallows cooked/uncooked variant
 		var SPECIFIC = function (name, qty) {
 			return {
+				fnName: 'SPECIFIC',
 				name: name,
 				qty: qty || NOQTY,
 				test: SPECIFICTest,
@@ -109,11 +117,13 @@ angular.module('pot.services')
 		};
 
 		var TAGString = function () {
-			return '[tag:' + this.tag + '|' + this.tag + ']' + (this.qty ? this.qty : '');
+			//return '[tag:' + this.tag + '|' + this.tag + ']' + (this.qty ? this.qty : '');
+			return String(this.tag + (this.qty ? ' ' + this.qty : ''));
 		};
 
 		var TAG = function (tag, qty) {
 			return {
+				fnName: 'TAG',
 				tag: tag,
 				qty: qty || NOQTY,
 				test: TAGTest,
@@ -121,9 +131,8 @@ angular.module('pot.services')
 			};
 		};
 
-		return [
-			{
-				id: 'butterflymuffin',
+		return {
+			butterflymuffin: {
 				name: 'Butter Muffin',
 				test: function(cooker, names, tags) {
 					return names.butterfly_wings && !tags.meat && tags.veggie;
@@ -139,13 +148,12 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'frogglebunwich',
+			frogglebunwich: {
 				name: 'Froggle Bunwich',
 				test: function(cooker, names, tags) {
 					return (names.frog_legs || names.frog_legs_cooked) && tags.veggie;
 				},
-				requirements: [NAME('froglegs'), TAG('veggie')],
+				requirements: [NAME('frog_legs'), TAG('veggie')],
 				priority: 1,
 				foodtype: "meat",
 				health: g.healing_med,
@@ -154,8 +162,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'taffy',
+			taffy: {
 				name: "Taffy",
 				test: function(cooker, names, tags) {
 					return tags.sweetener && tags.sweetener >= 3 && !tags.meat;
@@ -169,8 +176,7 @@ angular.module('pot.services')
 				sanity: g.sanity_med,
 				cooktime: 2
 			},
-			{
-				id: 'pumpkincookie',
+			pumpkincookie: {
 				name: "Pumpkin Cookie",
 				test: function(cooker, names, tags) {
 					return (names.pumpkin || names.pumpkin_cooked) && tags.sweetener && tags.sweetener >= 2;
@@ -184,8 +190,7 @@ angular.module('pot.services')
 				sanity: g.sanity_med,
 				cooktime: 2
 			},
-			{
-				id: 'stuffedeggplant',
+			stuffedeggplant: {
 				name: 'Stuffed Eggplant',
 				test: function(cooker, names, tags) {
 					return (names.eggplant || names.eggplant_cooked) && tags.veggie && tags.veggie > 1;
@@ -199,8 +204,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'fishsticks',
+			fishsticks: {
 				name: 'Fishsticks',
 				test: function(cooker, names, tags) {
 					return tags.fish && names.twigs && (tags.inedible && tags.inedible <= 1);
@@ -214,8 +218,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'honeynuggets',
+			honeynuggets: {
 				name: 'Honey Nuggets',
 				test: function(cooker, names, tags) {
 					return names.honey && tags.meat && tags.meat <= 1.5 && !tags.inedible;
@@ -229,8 +232,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'honeyham',
+			honeyham: {
 				name: 'Honey Ham',
 				test: function(cooker, names, tags) {
 					return names.honey && tags.meat && tags.meat > 1.5 && !tags.inedible;
@@ -244,8 +246,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'dragonpie',
+			dragonpie: {
 				name: 'Dragonpie',
 				test: function(cooker, names, tags) {
 					return (names.dragonfruit || names.dragonfruit_cooked) && !tags.meat;
@@ -259,8 +260,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'kabobs',
+			kabobs: {
 				name: 'Kabobs',
 				test: function(cooker, names, tags) {
 					return tags.meat && names.twigs && (!tags.monster || tags.monster <= 1) && (tags.inedible && tags.inedible <= 1);
@@ -274,8 +274,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'mandrakesoup',
+			mandrakesoup: {
 				name: 'Mandrake Soup',
 				test: function(cooker, names, tags) {
 					return names.mandrake;
@@ -289,8 +288,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 3
 			},
-			{
-				id: 'baconeggs',
+			baconeggs: {
 				name: 'Bacon and Eggs',
 				test: function(cooker, names, tags) {
 					return tags.egg && tags.egg > 1 && tags.meat && tags.meat > 1 && !tags.veggie;
@@ -304,8 +302,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 2
 			},
-			{
-				id: 'meatballs',
+			meatballs: {
 				name: 'Meatballs',
 				test: function(cooker, names, tags) {
 					return tags.meat && !tags.inedible;
@@ -319,8 +316,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 0.75
 			},
-			{
-				id: 'bonestew',
+			bonestew: {
 				name: 'Meaty Stew',
 				test: function(cooker, names, tags) {
 					return tags.meat && tags.meat >= 3 && !tags.inedible;
@@ -334,8 +330,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 0.75
 			},
-			{
-				id: 'perogies',
+			perogies: {
 				name: 'Pierogi',
 				test: function(cooker, names, tags) {
 					return tags.egg && tags.meat && tags.veggie && !tags.inedible;
@@ -349,8 +344,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 1
 			},
-			{
-				id: 'turkeydinner',
+			turkeydinner: {
 				name: 'Turkey Dinner',
 				test: function(cooker, names, tags) {
 					return names.drumstick && names.drumstick > 1 && tags.meat && tags.meat > 1 && (tags.veggie || tags.fruit);
@@ -364,8 +358,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 3
 			},
-			{
-				id: 'ratatouille',
+			ratatouille: {
 				name: 'Ratatouille',
 				test: function(cooker, names, tags) {
 					return !tags.meat && tags.veggie && !tags.inedible;
@@ -379,8 +372,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 1
 			},
-			{
-				id: 'jammypreserves',
+			jammypreserves: {
 				name: 'Fist Full of Jam',
 				test: function(cooker, names, tags) {
 					return tags.fruit && !tags.meat && !tags.veggie && !tags.inedible;
@@ -394,8 +386,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			{
-				id: 'fruitmedley',
+			fruitmedley: {
 				name: 'Fruit Medley',
 				test: function(cooker, names, tags) {
 					return tags.fruit && tags.fruit >= 3 && !tags.meat && !tags.veggie;
@@ -409,8 +400,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			{
-				id: 'fishtacos',
+			fishtacos: {
 				name: 'Fish Tacos',
 				test: function(cooker, names, tags) {
 					return tags.fish && (names.corn || names.corn_cooked);
@@ -424,8 +414,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			{
-				id: 'waffles',
+			waffles: {
 				name: 'Waffles',
 				test: function(cooker, names, tags) {
 					return names.butter && (names.berries || names.berries_cooked) && tags.egg;
@@ -439,8 +428,7 @@ angular.module('pot.services')
 				sanity: g.sanity_tiny,
 				cooktime: 0.5
 			},
-			{
-				id: 'monsterlasagna',
+			monsterlasagna: {
 				name: 'Monster Lasagna',
 				test: function(cooker, names, tags) {
 					return tags.monster && tags.monster >= 2 && !tags.inedible;
@@ -454,8 +442,7 @@ angular.module('pot.services')
 				sanity: -g.sanity_medlarge,
 				cooktime: 0.5
 			},
-			{
-				id: 'powcake',
+			powcake: {
 				name: 'Powdercake',
 				test: function(cooker, names, tags) {
 					return names.twigs && names.honey && (names.corn || names.corn_cooked);
@@ -469,8 +456,7 @@ angular.module('pot.services')
 				sanity: 0,
 				cooktime: 0.5
 			},
-			{
-				id: 'wetgoop',
+			wetgoop: {
 				name: 'Wet Goop',
 				test: function(cooker, names, tags) {
 					return true;
@@ -484,5 +470,5 @@ angular.module('pot.services')
 				sanity: 0,
 				cooktime: 0.25
 			}
-		];
+		};
 	});
