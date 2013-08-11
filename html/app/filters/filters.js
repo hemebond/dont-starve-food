@@ -48,9 +48,4 @@ angular.module('pot.filters', [])
 
 			return input;
 		};
-	})
-	/*.filter('requirements', function(requirements) {
-		return function(input) {
-
-		}
-	})*/;
+	});

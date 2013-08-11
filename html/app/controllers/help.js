@@ -22,33 +22,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	"use strict";
 
 	angular.module('pot.controllers')
-		.controller('FoodListController', function($scope, $filter, ngTableParams, food) {
+		.controller('HelpController', function($scope, gameVariables) {
+			var g = gameVariables;
 
-			var foodList = [];
-			angular.forEach(food, function(item, index) {
-				foodList.push(item);
-			});
-
-			$scope.tableParams = new ngTableParams({
-				page: 1,                // show first page
-				total: 1,               // length of data
-				count: foodList.length,
-				counts: [],
-				sorting: {
-					name: 'asc'         // initial sorting
-				}
-			});
-
-			// watch for changes of parameters
-			$scope.$watch('tableParams', function(params) {
-				// use build-in angular filter
-				var orderedData = params.sorting ? $filter('orderBy')(foodList, params.orderBy()) : foodList;
-
-				// slice array food on pages
-				$scope.food = orderedData.slice(
-					(params.page - 1) * params.count,
-					params.page * params.count
-				);
-			}, true);
+			$scope.stalehealth = Math.round(g.stale_food_health * 1000) / 10 + '%';
+			$scope.stalehunger = Math.round(g.stale_food_hunger * 1000) / 10 + '%';
+			$scope.spoiledhunger = Math.round(g.spoiled_food_hunger * 1000) / 10 + '%';
+			$scope.spoiledsanity = g.sanity_small;
+			$scope.perishground = Math.round(g.perish_ground_mult * 1000) / 10 + '%';
+			$scope.perishwinter = Math.round(g.perish_winter_mult * 1000) / 10 + '%';
+			$scope.perishfridge = Math.round(g.perish_fridge_mult * 1000) / 10 + '%';
 		});
 }());

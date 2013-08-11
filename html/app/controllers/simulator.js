@@ -22,12 +22,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	"use strict";
 
 	angular.module('pot.controllers', [])
-		.controller('SimulatorController', function($rootScope, $scope, gameVariables, food, recipes) {
+		.controller('SimulatorController', function($rootScope, $scope, $filter, ngTableParams, gameVariables, food, recipes, utils) {
 			// the crock pot
 			var potSize = 4;
 
 			$scope.potItems = []; // the items in the crockpot
 			$scope.combinedItems = {}; // the combined ingredients
+
+			var recipeSuggestions = [];
 
 			// lists of ingredients
 			$scope.food = {
@@ -190,8 +192,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				});
 
 				$scope.validRecipes = validRecipes;
-				$scope.suggestions = suggestions;
+				//$scope.suggestions = suggestions;
 				$scope.combinedItems = calculateCombinedItems(foodItems);
+				recipeSuggestions = suggestions;
 			};
 
 			var getNamesAndTags = function(foodItems) {
@@ -257,5 +260,30 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 				return recipeList;
 			};
+
+			$scope.suggestionTableParams = new ngTableParams({
+				page: 1, // show first page
+				total: 1, // length of data
+				count: recipeSuggestions.length,
+				counts: [],
+				sorting: {
+					name: 'asc' // initial sorting
+				}
+			});
+
+			// watch for changes of parameters
+			$scope.$watch('suggestionTableParams', function(params) {
+				// use build-in angular filter
+				var orderedData = params.sorting ? $filter('orderBy')(recipeSuggestions, params.orderBy()) : recipeSuggestions;
+
+				// slice array food on pages
+				$scope.suggestions = orderedData.slice(
+					(params.page - 1) * params.count,
+					params.page * params.count
+				);
+			}, true);
+
+
+			$scope.makeRecipeTags = utils.makeRecipeTags;
 		});
 }());
