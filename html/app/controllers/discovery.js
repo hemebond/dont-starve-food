@@ -21,36 +21,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (function () {
 	"use strict";
 
-	var app = angular.module(
-		'pot',
-		[
-			'ui.bootstrap',
-			'ngTable',
-			'pot.services',
-			'pot.filters',
-			'pot.directives',
-			'pot.controllers'
-		]
-	);
-
-	app.run(function ($rootScope, food, recipes) {
-		angular.forEach(food, function(item, id) {
-			// add an img property (URL) to each food item
-			// pointing to the food icon
-			item.id = id;
-			item.img = 'static/img/food/' + id + '.png';
-
-			if (!item.hasOwnProperty('health')) item.health = 0;
-			if (!item.hasOwnProperty('hunger')) item.hunger = 0;
-			if (!item.hasOwnProperty('sanity')) item.sanity = 0;
-			if (!item.hasOwnProperty('perish')) item.perish = 0;
+	angular.module('pot.controllers')
+		.controller('DiscoveryController', function($scope) {
+			// pass
 		});
-
-		angular.forEach(recipes, function(recipe, id) {
-			// add an img property (URL) to each recipe
-			// pointing to the recipe icon
-			recipe.id = id;
-			recipe.img = 'static/img/recipes/' + id + '.png';
-		});
-	});
 }());

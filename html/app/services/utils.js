@@ -70,7 +70,36 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				},
 
 				makeFoodTags: function(food) {
-					return "";
+					var s = '';
+					var infoTags = [
+						'fruit',
+						'veggie',
+						'meat',
+						'egg',
+						'fish',
+						'magic',
+						'decoration',
+						'inedible',
+						'monster',
+						'sweetener',
+						'fat',
+						'dairy'
+					];
+
+					angular.forEach(food.tags, function(tagValue, tagName) {
+						if (infoTags.indexOf(tagName) !== -1) {
+							if (tagValue !== 1) {
+								var tagString = tagName + ' &#215;' + tagValue;
+							}
+							else {
+								var tagString = tagName
+							}
+
+							s += '<span class="label label-info">' + tagString + '</span>';
+						}
+					});
+
+					return s;
 				}
 			};
 

@@ -25,10 +25,10 @@ th.sortable div:before {
 	position: absolute;
 	right: 18px;
 }
-th.sort-asc div:before {
+.sort-asc div:before {
 	content: "\e113";
 }
-th.sort-desc div:before {
+.sort-desc div:before {
 	content: "\e114";
 }
 

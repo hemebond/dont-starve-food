@@ -23,44 +23,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	angular.module('pot.controllers', [])
 		.controller('SimulatorController', function($rootScope, $scope, $filter, ngTableParams, gameVariables, food, recipes, utils) {
-			// the crock pot
-			var potSize = 4;
-
-			$scope.potItems = []; // the items in the crockpot
-			$scope.combinedItems = {}; // the combined ingredients
-
-			var recipeSuggestions = [];
-
-			// lists of ingredients
-			$scope.food = {
+			/*
+			 * List of ingredients
+			 */
+			var ingredients = {
 				all: [],
 				veggies: [],
 				meats: [],
 				fruits: [],
 				other: []
 			};
-
-			// recipes that can be made with the ingredients in the crock pot
-			$scope.validRecipes = [];
-			$scope.validRecipesTable = {
-				sortField: 'priority',
-				sortReverse: true,
-				sortBy: function(fieldName, reverse) {
-					if (fieldName == this.sortField) {
-						this.sortReverse = !this.sortReverse;
-					}
-					else {
-						this.sortField = fieldName;
-						this.sortReverse = reverse || false;
-					}
-				}
-			};
-
-			$scope.validRecipe = null;
-
-			// table sorting
-			$scope.sortField = 'priority';
-			$scope.sortReversed = true;
 
 			angular.forEach(food, function(item, id) {
 				// hide any uncookable ingredients
@@ -70,28 +42,41 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 						if (!item.tags.hasOwnProperty('dried') || !item.tags.dried) {
 							// full list of cookable ingredients
-							$scope.food.all.push(item);
+							ingredients.all.push(item);
 
 							// list of vegetable ingredients
 							if (item.tags.hasOwnProperty('veggie') && item.tags.veggie > 0) {
-								$scope.food.veggies.push(item);
+								ingredients.veggies.push(item);
 							}
 							// list of meat ingredients
 							else if (item.tags.hasOwnProperty('meat') && item.tags.meat > 0) {
-								$scope.food.meats.push(item);
+								ingredients.meats.push(item);
 							}
 							// list of fruit ingredients
 							else if (item.tags.hasOwnProperty('fruit') && item.tags.fruit > 0) {
-								$scope.food.fruits.push(item);
+								ingredients.fruits.push(item);
 							}
 							// other ingredients like decorations, etc
 							else {
-								$scope.food.other.push(item);
+								ingredients.other.push(item);
 							}
 						}
 					}
 				}
 			});
+
+			$scope.ingredients = ingredients;
+
+
+			/*
+			 * Crockpot and ingredient list
+			 */
+			var potSize = 4;
+			var potItems = []; // the items in the crockpot
+			var potItemTotals = {}; // the combined ingredients
+
+			$scope.potItems = potItems;
+			$scope.potItemTotals = potItemTotals;
 
 			var calculateCombinedItems = function(foodItems) {
 				var health = 0;
@@ -117,7 +102,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				};
 			};
 
-			// add an ingredient to the crock pot
+			/*
+			 * add an ingredient to the crock pot
+			 */
 			$scope.addToPot = function(foodId) {
 				if ($scope.potItems.length < potSize) {
 					$scope.potItems.push(food[foodId]);
@@ -126,7 +113,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				}
 			};
 
-			// remove an item from the crock pot
+			/*
+			 * remove an item from the crock pot
+			 */
 			$scope.removeFromPot = function(slotId) {
 				if ($scope.potItems[slotId]) {
 					$scope.potItems.splice(slotId, 1);
@@ -135,14 +124,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				}
 			};
 
-			// update the list of valid recipes
+			/*
+			 * update the list of valid recipes
+			 */
 			var updateRecipeLists = function(foodItems) {
-				var validRecipes = [];
-				var suggestions = [];
-				var names = {};
-				var tags = {};
+				var namesAndTags = getNamesAndTags(foodItems);
+				var names = namesAndTags.names;
+				var tags = namesAndTags.tags;
 
-				setIngredientValues(foodItems, names, tags);
+				var validRecipes = [];
 
 				// update the list of valid recipes
 				angular.forEach(recipes, function(recipe, id) {
@@ -161,46 +151,35 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					}
 				});
 
-				// update the list of possible recipes
-				angular.forEach(recipes, function(recipe, id) {
-					var itemComplete = false;
-					var exclude = null; //[$scope.validRecipe];
-					var valid = false;
-
-					for (var i = 0; i < recipe.requirements.length; i++) {
-						var requirement = recipe.requirements[i];
-
-						if (requirement.test(null, names, tags)) {
-							if (!requirement.cancel) {
-								valid = true;
-							}
-						} else if (!itemComplete && requirement.cancel) {
-							valid = false;
-							break;
-						} else if (itemComplete && !requirement.cancel) {
-							valid = false;
-							break;
-						}
-					}
-
-					if (valid) {
-						recipe.requires = recipe.requirements.join('; ');
-						// console.log(recipe.requires);
-					}
-
-					valid && (!exclude || exclude.indexOf(recipe) === -1) && suggestions.push(recipe);
-				});
+				recipeSuggestions = getSuggestions(names, tags, recipes);
 
 				$scope.validRecipes = validRecipes;
-				//$scope.suggestions = suggestions;
 				$scope.combinedItems = calculateCombinedItems(foodItems);
-				recipeSuggestions = suggestions;
 			};
 
 			var getNamesAndTags = function(foodItems) {
+				var names = {};
+				var tags = {};
 
+				angular.forEach(foodItems, function(item, idx) {
+					names[item.id] = 1 + (names[item.id] || 0);
+
+					if (item.hasOwnProperty('perish')) {
+						tags['perish'] = Math.min(tags['perish'] || gameVariables.perish_preserved, item['perish']);
+					}
+
+					angular.forEach(item.tags, function(tag, tagName) {
+						tags[tagName] = tag + (tags[tagName] || 0);
+					});
+				});
+
+				return {
+					names: names,
+					tags: tags
+				};
 			};
 
+			/*
 			var setIngredientValues = function(items, names, tags) {
 				var i, key, item;
 
@@ -215,13 +194,39 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						if (item.tags.hasOwnProperty(tag) && !isNaN(item.tags[tag])) {
 							tags[tag] = item.tags[tag] + (tags[tag] || 0);
 						}
-						/*else if (tag === 'perish') {
-							tags[tag] = Math.min(tags[tag] || gameVariables.perish_preserved, item.tags[tag]);
-						}*/
 					}
 				});
 			};
+			*/
 
+			/*
+			 * Tests recipes against list of ingredients (names and tags)
+			 * Returns a list of recipes that pass the tests
+			 */
+			var getSuggestions = function(names, tags, recipes) {
+				var suggestions = [];
+
+				// update the list of possible recipes
+				angular.forEach(recipes, function(recipe, id) {
+					var valid = false;
+
+					for (var i = 0; i < recipe.requirements.length; i++) {
+						var requirement = recipe.requirements[i];
+
+						if (requirement.test(null, names, tags)) {
+							if (!requirement.cancel) {
+								valid = true;
+							}
+						}
+					}
+
+					valid && suggestions.push(recipe);
+
+				});
+
+				return suggestions;
+			};
+/*
 			var getSuggestions = function() {
 				var items = $scope.pot.items;
 
@@ -260,6 +265,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 				return recipeList;
 			};
+*/
+			/*
+			 * Suggestions table
+			 */
+			var recipeSuggestions = [];
 
 			$scope.suggestionTableParams = new ngTableParams({
 				page: 1, // show first page
@@ -284,6 +294,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			}, true);
 
 
+			/*
+			 * Utils
+			 */
 			$scope.makeRecipeTags = utils.makeRecipeTags;
+			$scope.makeFoodTags = utils.makeFoodTags;
 		});
 }());

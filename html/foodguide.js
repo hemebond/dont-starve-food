@@ -2460,7 +2460,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 							getSuggestions(inventoryrecipes, ingredients, null, true);
 							if (inventoryrecipes.length > 0) {
 								table = makeSortableTable(
-									{'': '', 'Name': 'name', 'Health': 'health', 'Hunger': 'hunger', 'Sanity': 'sanity', 'Perish:Time to turn to rot': 'perish', 'Cook Time': 'cooktime', 'Priority:One of the highest priority recipes for a combination will be made': 'priority', 'Requires:Dim, struck items cannot be used': ''},
+									{'': '', '__Name': 'name', 'Health': 'health', 'Hunger': 'hunger', 'Sanity': 'sanity', 'Perish:Time to turn to rot': 'perish', 'Cook Time': 'cooktime', 'Priority:One of the highest priority recipes for a combination will be made': 'priority', 'Requires:Dim, struck items cannot be used': ''},
 									inventoryrecipes,
 									makeRecipeRow,
 									'name'
