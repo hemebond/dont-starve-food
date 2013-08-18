@@ -196,7 +196,7 @@ angular.module('pot.services')
 				hunger: g.calories_huge,
 				stack: g.stack_size_smallitem,
 				cookable: {
-					product: 'mandrake_cooked',
+					product: 'mandrake_cooked'
 				},
 				tags: {
 					veggie: 1,

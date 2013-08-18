@@ -10,8 +10,26 @@ angular.module('pot.directives', [])
 				'</a>'
 		}
 	});*/
+	.directive('reciperow', function($compile, utils, recipes) {
+		return {
+			scope: {
+				recipe: '='
+			},
+			template: '<td><img data-ng-src="{{ recipe.img }}"></td>'+
+			          '<td>{{ recipe.name }}</td>'+
+			          '<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>'+
+			          '<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>'+
+			          '<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>'+
+			          '<td>{{ recipe.perish | days }}</td>'+
+			          '<td ng-bind-html-unsafe="makeTags(recipe.requirements)"></td>',
+			link: function($scope, $element, $attrs, $controller) {
+				$scope.makeTags = utils.makeRecipeTags;
+			}
+		};
+	})
 	.directive('foodbtn', function(food, $compile) {
 		var tplBtn =           '<a class="btn btn-default" data-ng-click="addToPot(item.id)" title="Add {{ item.name }} to the pot"><img data-ng-src="{{ item.img }}"><span>{{ item.name }}</span></a> ';
+		//var tplBtn =           '<a class="btn btn-default" data-ng-click="$emit(\'foodButtonClicked\', item.id)" title="Add {{ item.name }} to the pot"><img data-ng-src="{{ item.img }}"><span>{{ item.name }}</span></a> ';
 		var tplBtnCooked =     '<a class="btn btn-default" data-ng-click="addToPot(cookedItem.id)" title="Add {{ cookedItem.name }} to the pot"><img data-ng-src="{{ cookedItem.img }}"></a>';
 		var tplBtnDried =      '<a class="btn btn-default" data-ng-click="addToPot(driedItem.id)" title="Add {{ driedItem.name }} to the pot"><img data-ng-src="{{ driedItem.img }}"></a>';
 		var tplGroupOpen =     '<div class="food-btn-group btn-group">';

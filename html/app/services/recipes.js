@@ -98,7 +98,7 @@ angular.module('pot.services')
 
 		var SPECIFICString = function () {
 			//return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (this.qty ? this.qty : '');
-			return String(this.name + (this.qty ? ' ' + this.qty : ''));
+			return String(food[this.name].name + (this.qty ? ' ' + this.qty : ''));
 		};
 
 		//disallows cooked/uncooked variant

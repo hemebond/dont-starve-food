@@ -78,10 +78,10 @@
 
 								<div class="col-lg-8">
 									<!-- value totals of individual ingredients -->
-									<table class="table table-condensed table-hover table-bordered">
+
+									<table class="table table-condensed table-bordered">
 										<thead>
 											<tr>
-												<th></th>
 												<th>Icon</th>
 												<th>Name</th>
 												<th>Health</th>
@@ -93,26 +93,34 @@
 										</thead>
 										<tbody>
 											<!-- track by used because of duplicates -->
-											<tr
-											    data-ng-repeat="item in potItems track by $index"
+											<tr data-ng-repeat="item in potItems track by $index"
 											    data-ng-click="removeFromPot($index)"
+											    class="removable-row"
 											    title="Click to remove from pot">
-											    <th>Pot Item {{ $index + 1 }}</th>
-												<td><img data-ng-src="{{ item.img }}"></td>
-												<td>{{ item.name }}</td>
-												<td>{{ item.health | number:0 | signed }}</td>
-												<td>{{ item.hunger | number:0 | signed }}</td>
-												<td>{{ item.sanity | number:0 | signed }}</td>
-												<td>{{ item.perish | days }}</td>
-												<td ng-bind-html-unsafe="makeFoodTags(item)">
+												<td>
+													<img data-ng-src="{{ item.img }}">
 												</td>
+												<td>
+													{{ item.name }}
+												</td>
+												<td data-ng-class="{ negative: item.health < 0 }">
+													{{ item.health | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: item.hunger < 0 }">
+													{{ item.hunger | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: item.sanity < 0 }">
+													{{ item.sanity | number:0 | signed }}
+												</td>
+												<td>
+													{{ item.perish | days }}
+												</td>
+												<td ng-bind-html-unsafe="makeFoodTags(item)"></td>
 											</tr>
 										</tbody>
 										<tfoot data-ng-show="potItems.length > 0">
 											<tr>
-												<th colspan="3">
-													Items
-												</th>
+												<th colspan="2"></th>
 												<td data-ng-class="{ negative: potItemTotals.health < 0 }">
 													{{ potItemTotals.health | number:0 | signed }}
 												</td>
@@ -125,15 +133,47 @@
 												<td data-ng-class="{ negative: potItemTotals.perish < 0 }">
 													{{ potItemTotals.perish | days }}
 												</td>
-												<td></td>
+												<td>
+													Result of eating items separately
+												</td>
 											</tr>
+											<!--
+											<tr class="success" data-ng-show="potItems.length == 4">
+												<td>
+													<img data-ng-src="{{ validRecipe.img }}">
+												</td>
+												<td>
+													{{ validRecipe.name }}
+												</td>
+												<td data-ng-class="{ negative: validRecipe.health < 0 }">
+													{{ validRecipe.health | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: validRecipe.hunger < 0 }">
+													{{ validRecipe.hunger | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: validRecipe.sanity < 0 }">
+													{{ validRecipe.sanity | number:0 | signed }}
+												</td>
+												<td data-ng-class="{ negative: validRecipe.perish < 0 }">
+													{{ validRecipe.perish | days }}
+												</td>
+												<td ng-bind-html-unsafe="makeRecipeTags(validRecipe.requirements)"></td>
+											</tr>
+											-->
+											<tr
+											    reciperow
+											    recipe="validRecipe"
+											    data-ng-show="recipe"
+											    class="success"></tr>
 										</tfoot>
 									</table>
 
 									<!-- suggestions, add ingredients to create -->
 									<p>Add more ingredients to create these:</p>
-									<table ng-table="suggestionTableParams" class="table">
-										<tr data-ng-repeat="recipe in suggestions">
+									<table ng-table="suggestionTableParams"
+									       class="table table-condensed table-bordered">
+										<!--
+										<tr data-ng-repeat="recipe in recipeSuggestions">
 											<td data-title="'Icon'">
 												<img data-ng-src="{{ recipe.img }}">
 											</td>
@@ -166,12 +206,13 @@
 											</td>
 											<td ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)"></td>
 										</tr>
+										-->
 									</table>
 								</div>
 							</div>
-
 						</div>
 					</tab>
+
 					<tab heading="Discovery">
 						Test tab
 					</tab>
@@ -226,7 +267,7 @@
 										<input id="listFilter" data-ng-model="listFilter">
 									</p>
 
-									<table ng-table="tableParams" class="table">
+									<table data-ng-table="tableParams" class="table">
 										<tr data-ng-repeat="item in recipes | filter:listFilter">
 											<td data-title="'Icon'">
 												<img data-ng-src="{{ item.img }}">
@@ -250,7 +291,8 @@
 											    data-ng-class="{ negative: item.sanity < 0 }">
 												{{ item.sanity | number:0 | signed }}
 											</td>
-											<td data-title="'Perish'">
+											<td data-title="'Perish'"
+											    sortable="perish">
 												{{ item.perish | days }}
 											</td>
 											<td data-title="'Cook Time'">

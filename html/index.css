@@ -14,6 +14,7 @@ table img {
 
 th.sortable div {
 	position: relative;
+	padding-right: 24px;
 }
 
 th.sortable div:before {
@@ -23,7 +24,7 @@ th.sortable div:before {
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	position: absolute;
-	right: 18px;
+	right: 0;
 }
 .sort-asc div:before {
 	content: "\e113";
@@ -38,7 +39,7 @@ td.negative {
 
 td > span.label {
 	margin-right: 4px;
-	font-size: 1em;
+	/*font-size: 1em;*/
 }
 
 td span.label img:last-child {
@@ -55,4 +56,11 @@ th.sortable {
 
 .tab-content {
 	margin-top: 1em;
+}
+
+.removable-row:hover > td {
+	cursor: pointer;
+	background-color: #fdd !important;
+	text-decoration: line-through;
+	color: #faa;
 }

@@ -71,14 +71,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			/*
 			 * Crockpot and ingredient list
 			 */
-			var potSize = 4;
-			var potItems = []; // the items in the crockpot
-			var potItemTotals = {}; // the combined ingredients
+			$scope.potSize = 4;
+			$scope.potItems = []; // the items in the crockpot
+			$scope.potItemTotals = {}; // the total health, hunger and sanity gained (or lost)
+			                        // by eating each item without the crockpot
 
-			$scope.potItems = potItems;
-			$scope.potItemTotals = potItemTotals;
-
-			var calculateCombinedItems = function(foodItems) {
+			var calculateItemTotals = function(foodItems) {
 				var health = 0;
 				var hunger = 0;
 				var sanity = 0;
@@ -106,10 +104,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			 * add an ingredient to the crock pot
 			 */
 			$scope.addToPot = function(foodId) {
-				if ($scope.potItems.length < potSize) {
+				if ($scope.potItems.length < $scope.potSize) {
 					$scope.potItems.push(food[foodId]);
-
-					updateRecipeLists($scope.potItems);
 				}
 			};
 
@@ -119,48 +115,73 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			$scope.removeFromPot = function(slotId) {
 				if ($scope.potItems[slotId]) {
 					$scope.potItems.splice(slotId, 1);
-
-					updateRecipeLists($scope.potItems);
 				}
 			};
+
+			$scope.$watchCollection('potItems', function(items) {
+				// update the list of suggested recipes
+				updateRecipeLists(items);
+			});
 
 			/*
 			 * update the list of valid recipes
 			 */
 			var updateRecipeLists = function(foodItems) {
-				var namesAndTags = getNamesAndTags(foodItems);
-				var names = namesAndTags.names;
-				var tags = namesAndTags.tags;
-
-				var validRecipes = [];
-
-				// update the list of valid recipes
-				angular.forEach(recipes, function(recipe, id) {
-					if (recipe.test(null, names, tags)) {
-						// is this the highest priority recipe?
-						if ($scope.validRecipe) {
-							if (recipe.priority > $scope.validRecipe.priority) {
-								$scope.validRecipe = recipe;
-							}
-						}
-						else {
-							$scope.validRecipe = recipe;
-						}
-
-						validRecipes.push(recipe);
-					}
-				});
-
-				recipeSuggestions = getSuggestions(names, tags, recipes);
-
-				$scope.validRecipes = validRecipes;
-				$scope.combinedItems = calculateCombinedItems(foodItems);
-			};
-
-			var getNamesAndTags = function(foodItems) {
 				var names = {};
 				var tags = {};
 
+				// Populate the names and tags objects
+				getNamesAndTags(foodItems, names, tags);
+
+				$scope.validRecipe = null;
+				var validRecipes = [];
+				var recipeSuggestions = [];
+
+				// update the list of valid recipes
+				angular.forEach(recipes, function(recipe, id) {
+
+					// Four items in the crockpot? What will be made?
+					if (foodItems.length == 4) {
+						if (recipe.test(null, names, tags)) {
+							// is this the highest priority recipe?
+							if ($scope.validRecipe) {
+								if (recipe.priority > $scope.validRecipe.priority) {
+									$scope.validRecipe = recipe;
+								}
+							}
+							else {
+								$scope.validRecipe = recipe;
+							}
+
+							validRecipes.push(recipe);
+						}
+					}
+
+					// Recipe Suggestions
+					var valid = false;
+
+					angular.forEach(recipe.requirements, function(requirement) {
+						if (requirement.test(null, names, tags)) {
+							if (!requirement.cancel) {
+								valid = true;
+							}
+						}
+					});
+
+					valid && recipeSuggestions.push(recipe);
+				});
+
+				$scope.potItemTotals = calculateItemTotals(foodItems);
+				$scope.recipeSuggestions = applyTableParams($scope.suggestionTableParams, recipeSuggestions);
+			};
+
+
+			/*
+			 * Populates the `names` and `tags` objects
+			 * `names` will have food item names as keys, value being a tally of that name of each item
+			 * `tags` will have tag names as keys, values will be the sum of that tag for all items
+			 */
+			var getNamesAndTags = function(foodItems, names, tags) {
 				angular.forEach(foodItems, function(item, idx) {
 					names[item.id] = 1 + (names[item.id] || 0);
 
@@ -172,100 +193,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						tags[tagName] = tag + (tags[tagName] || 0);
 					});
 				});
-
-				return {
-					names: names,
-					tags: tags
-				};
 			};
 
-			/*
-			var setIngredientValues = function(items, names, tags) {
-				var i, key, item;
 
-				angular.forEach(items, function(item, id) {
-					names[item.id] = 1 + (names[item.id] || 0);
-
-					if (item.hasOwnProperty('perish')) {
-						tags['perish'] = Math.min(tags['perish'] || gameVariables.perish_preserved, item['perish']);
-					}
-
-					for (var tag in item.tags) {
-						if (item.tags.hasOwnProperty(tag) && !isNaN(item.tags[tag])) {
-							tags[tag] = item.tags[tag] + (tags[tag] || 0);
-						}
-					}
-				});
-			};
-			*/
-
-			/*
-			 * Tests recipes against list of ingredients (names and tags)
-			 * Returns a list of recipes that pass the tests
-			 */
-			var getSuggestions = function(names, tags, recipes) {
-				var suggestions = [];
-
-				// update the list of possible recipes
-				angular.forEach(recipes, function(recipe, id) {
-					var valid = false;
-
-					for (var i = 0; i < recipe.requirements.length; i++) {
-						var requirement = recipe.requirements[i];
-
-						if (requirement.test(null, names, tags)) {
-							if (!requirement.cancel) {
-								valid = true;
-							}
-						}
-					}
-
-					valid && suggestions.push(recipe);
-
-				});
-
-				return suggestions;
-			};
-/*
-			var getSuggestions = function() {
-				var items = $scope.pot.items;
-
-				var itemComplete = false;	// don't know what this does
-
-				var recipeList = [];	// hold the list of suggested recipes
-				var names = {};			// will hold the names of items in the pot
-				var tags = {};			// will hold the tags of items in the pot
-
-				setIngredientValues(items, names, tags);	// calculates the
-
-				angular.forEach(recipes, function(recipe, id) {
-					var valid = false;
-
-					for (var i = 0; i < recipe.requirements.length; i++) {
-						var requirement = recipe.requirements[i];
-
-						if (requirement.test(null, names, tags)) {
-							if (!requirement.cancel) {
-								valid = true;
-							}
-						} else if (!itemComplete && requirement.cancel) {
-							valid = false;
-							break;
-						} else if (itemComplete && !requirement.cancel) {
-							valid = false;
-							break;
-						}
-					}
-
-					valid && (!exclude || exclude.indexOf(recipe) === -1) && recipeList.push(recipe);
-				});
-
-				tags.img = '';
-				tags.name = 'Combined';
-
-				return recipeList;
-			};
-*/
 			/*
 			 * Suggestions table
 			 */
@@ -274,25 +204,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			$scope.suggestionTableParams = new ngTableParams({
 				page: 1, // show first page
 				total: 1, // length of data
-				count: recipeSuggestions.length,
+				count: recipes,
 				counts: [],
 				sorting: {
 					name: 'asc' // initial sorting
 				}
 			});
 
-			// watch for changes of parameters
 			$scope.$watch('suggestionTableParams', function(params) {
-				// use build-in angular filter
-				var orderedData = params.sorting ? $filter('orderBy')(recipeSuggestions, params.orderBy()) : recipeSuggestions;
-
-				// slice array food on pages
-				$scope.suggestions = orderedData.slice(
-					(params.page - 1) * params.count,
-					params.page * params.count
-				);
+				$scope.recipeSuggestions = applyTableParams(params, recipeSuggestions);
 			}, true);
 
+			var applyTableParams = function(params, list) {
+				return params.sorting ? $filter('orderBy')(list, params.orderBy()) : list;
+			};
 
 			/*
 			 * Utils
