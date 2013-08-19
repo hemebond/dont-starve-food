@@ -31,6 +31,30 @@
 		<script src="app/controllers/help.js"></script>
 	</head>
 	<body>
+		<script type="text/ng-template" id="reciperow.html">
+			<td>
+				{{ $index }}
+				<img data-ng-src="{{ recipe.img }}">
+			</td>
+			<td>
+				Test
+				{{ recipe.name }}
+			</td>
+			<td data-ng-class="{ negative: recipe.health < 0 }">
+				{{ recipe.health | number:0 | signed }}
+			</td>
+			<td data-ng-class="{ negative: recipe.hunger < 0 }">
+				{{ recipe.hunger | number:0 | signed }}
+			</td>
+			<td data-ng-class="{ negative: recipe.sanity < 0 }">
+				{{ recipe.sanity | number:0 | signed }}
+			</td>
+			<td data-ng-class="{ negative: recipe.perish < 0 }">
+				{{ recipe.perish | days }}
+			</td>
+			<td ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)"></td>
+		</script>
+
 		<div class="container">
 			<div class="row">
 				<tabset>
@@ -160,11 +184,11 @@
 												<td ng-bind-html-unsafe="makeRecipeTags(validRecipe.requirements)"></td>
 											</tr>
 											-->
-											<tr
-											    reciperow
-											    recipe="validRecipe"
-											    data-ng-show="recipe"
-											    class="success"></tr>
+											<tr class="success"
+											    data-ng-init="recipe=validRecipe"
+											    data-ng-show="potItems.length == 4">
+											    <ng-include src="'reciperow.html'"/>
+											</tr>
 										</tfoot>
 									</table>
 
@@ -207,6 +231,8 @@
 											<td ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)"></td>
 										</tr>
 										-->
+										<tr reciperow
+										    ng-repeat="recipe in recipeSuggestions"></tr>
 									</table>
 								</div>
 							</div>

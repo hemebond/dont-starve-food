@@ -12,19 +12,18 @@ angular.module('pot.directives', [])
 	});*/
 	.directive('reciperow', function($compile, utils, recipes) {
 		return {
-			scope: {
-				recipe: '='
-			},
-			template: '<td><img data-ng-src="{{ recipe.img }}"></td>'+
-			          '<td>{{ recipe.name }}</td>'+
-			          '<td data-ng-class="{ negative: recipe.health < 0 }">{{ recipe.health | number:0 | signed }}</td>'+
-			          '<td data-ng-class="{ negative: recipe.hunger < 0 }">{{ recipe.hunger | number:0 | signed }}</td>'+
-			          '<td data-ng-class="{ negative: recipe.sanity < 0 }">{{ recipe.sanity | number:0 | signed }}</td>'+
-			          '<td>{{ recipe.perish | days }}</td>'+
-			          '<td ng-bind-html-unsafe="makeTags(recipe.requirements)"></td>',
-			link: function($scope, $element, $attrs, $controller) {
-				$scope.makeTags = utils.makeRecipeTags;
-			}
+			templateUrl: 'reciperow.html'
+			          /*,
+			link: function(scope, element, attrs) {
+				scope.makeTags = utils.makeRecipeTags;
+
+				if (attrs.hasOwnProperty('recipe')) {
+					attrs.$observe('recipe', function(recipe) {
+						scope.recipe = recipe;
+						console.log(recipe);
+					});
+				}
+			}*/
 		};
 	})
 	.directive('foodbtn', function(food, $compile) {
