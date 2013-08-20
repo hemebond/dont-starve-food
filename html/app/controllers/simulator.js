@@ -118,10 +118,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				}
 			};
 
-			$scope.$watchCollection('potItems', function(items) {
+			$scope.$watch('potItems', function(items) {
 				// update the list of suggested recipes
 				updateRecipeLists(items);
-			});
+			}, true);
 
 			/*
 			 * update the list of valid recipes
@@ -130,47 +130,57 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				var names = {};
 				var tags = {};
 
-				// Populate the names and tags objects
-				getNamesAndTags(foodItems, names, tags);
-
-				$scope.validRecipe = null;
+				var validRecipe = null;
 				var validRecipes = [];
 				var recipeSuggestions = [];
 
-				// update the list of valid recipes
-				angular.forEach(recipes, function(recipe, id) {
+				if (foodItems.length > 0) {
+					// Populate the names and tags objects
+					getNamesAndTags(foodItems, names, tags);
 
-					// Four items in the crockpot? What will be made?
-					if (foodItems.length == 4) {
-						if (recipe.test(null, names, tags)) {
-							// is this the highest priority recipe?
-							if ($scope.validRecipe) {
-								if (recipe.priority > $scope.validRecipe.priority) {
-									$scope.validRecipe = recipe;
+					// update the list of valid recipes
+					angular.forEach(recipes, function(recipe, id) {
+
+						// Four items in the crockpot? What will be made?
+						if ($scope.potItems.length == 4) {
+							if (recipe.test(null, names, tags)) {
+								// is this the highest priority recipe?
+								if (validRecipe && validRecipe !== null) {
+									if (recipe.priority > validRecipe.priority) {
+										validRecipe = recipe;
+									}
+								}
+								else {
+									validRecipe = recipe;
+								}
+
+								validRecipes.push(recipe);
+							}
+						}
+
+						// Recipe Suggestions
+						var valid = false;
+
+						//angular.forEach(recipe.requirements, function(requirement) {
+						for (var i = 0; i < recipe.requirements.length; i++) {
+							var requirement = recipe.requirements[i];
+
+							if (requirement.test(null, names, tags)) {
+								if (!requirement.cancel) {
+									valid = true;
 								}
 							}
-							else {
-								$scope.validRecipe = recipe;
-							}
-
-							validRecipes.push(recipe);
-						}
-					}
-
-					// Recipe Suggestions
-					var valid = false;
-
-					angular.forEach(recipe.requirements, function(requirement) {
-						if (requirement.test(null, names, tags)) {
-							if (!requirement.cancel) {
-								valid = true;
+							else if (requirement.cancel) {
+								valid = false;
+								break;
 							}
 						}
+
+						valid && recipeSuggestions.push(recipe);
 					});
+				}
 
-					valid && recipeSuggestions.push(recipe);
-				});
-
+				$scope.validRecipe = validRecipe;
 				$scope.potItemTotals = calculateItemTotals(foodItems);
 				$scope.recipeSuggestions = applyTableParams($scope.suggestionTableParams, recipeSuggestions);
 			};

@@ -5,17 +5,13 @@
 		<link rel="shortcut icon" href="icon.png">
 		<meta charset="utf-8">
 
-		<!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
-		<link href="static/libs/bootstrap-glyphicons/css/bootstrap-glyphicons.css" rel="stylesheet">
+		<link href="static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="index.css" rel="stylesheet">
 
 		<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-		<!--<script src="static/libs/ng-table/examples/js/jquery-1.9.1.min.js"></script>-->
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+		<script src="static/libs/angularjs/1.0.7/angular.min.js"></script>
 		<script src="static/libs/ui-bootstrap/ui-bootstrap-tpls-0.4.0.min.js"></script>
 		<script src="static/libs/ng-table/ng-table.js"></script>
-		<!--<script src="static/libs/angular-ui-ng-grid/ng-grid-2.0.7.min.js"></script>-->
 
 		<script src="app/app.js"></script>
 		<script src="app/services/gamevariables.js"></script>
@@ -33,26 +29,34 @@
 	<body>
 		<script type="text/ng-template" id="reciperow.html">
 			<td>
-				{{ $index }}
-				<img data-ng-src="{{ recipe.img }}">
+				<img ng-src="{{ recipe.img }}">
 			</td>
-			<td>
-				Test
+			<td data-title="'Name'" sortable="name">
 				{{ recipe.name }}
 			</td>
-			<td data-ng-class="{ negative: recipe.health < 0 }">
+			<td ng-class="{ negative: recipe.health < 0 }">
 				{{ recipe.health | number:0 | signed }}
 			</td>
-			<td data-ng-class="{ negative: recipe.hunger < 0 }">
+			<td ng-class="{ negative: recipe.hunger < 0 }">
 				{{ recipe.hunger | number:0 | signed }}
 			</td>
-			<td data-ng-class="{ negative: recipe.sanity < 0 }">
+			<td ng-class="{ negative: recipe.sanity < 0 }">
 				{{ recipe.sanity | number:0 | signed }}
 			</td>
-			<td data-ng-class="{ negative: recipe.perish < 0 }">
+			<td ng-class="{ negative: recipe.perish < 0 }">
 				{{ recipe.perish | days }}
 			</td>
 			<td ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)"></td>
+		</script>
+
+		<script type="text/ng-template" id="recipeheader.html">
+			<th>Icon</th>
+			<th>Name</th>
+			<th>Health</th>
+			<th>Hunger</th>
+			<th>Sanity</th>
+			<th>Perish</th>
+			<th>Info</th>
 		</script>
 
 		<div class="container">
@@ -74,27 +78,27 @@
 									<tabset>
 										<tab heading="All">
 											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.all | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+												<foodbtn data-ng-repeat="item in ingredients.all | filter:listFilter | orderBy:'name'">
 											</div>
 										</tab>
 										<tab heading="Veggies">
 											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.veggies | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+												<foodbtn data-ng-repeat="item in ingredients.veggies | filter:listFilter | orderBy:'name'">
 											</div>
 										</tab>
 										<tab heading="Meats">
 											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.meats | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+												<foodbtn data-ng-repeat="item in ingredients.meats | filter:listFilter | orderBy:'name'">
 											</div>
 										</tab>
 										<tab heading="Fruits">
 											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.fruits | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+												<foodbtn data-ng-repeat="item in ingredients.fruits | filter:listFilter | orderBy:'name'">
 											</div>
 										</tab>
 										<tab heading="Other">
 											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.other | filter:listFilter | orderBy:'name'" item="{{ item.id }}">
+												<foodbtn data-ng-repeat="item in ingredients.other | filter:listFilter | orderBy:'name'">
 											</div>
 										</tab>
 									</tabset>
@@ -117,7 +121,7 @@
 										</thead>
 										<tbody>
 											<!-- track by used because of duplicates -->
-											<tr data-ng-repeat="item in potItems track by $index"
+											<tr data-ng-repeat="item in potItems"
 											    data-ng-click="removeFromPot($index)"
 											    class="removable-row"
 											    title="Click to remove from pot">
@@ -161,33 +165,10 @@
 													Result of eating items separately
 												</td>
 											</tr>
-											<!--
-											<tr class="success" data-ng-show="potItems.length == 4">
-												<td>
-													<img data-ng-src="{{ validRecipe.img }}">
-												</td>
-												<td>
-													{{ validRecipe.name }}
-												</td>
-												<td data-ng-class="{ negative: validRecipe.health < 0 }">
-													{{ validRecipe.health | number:0 | signed }}
-												</td>
-												<td data-ng-class="{ negative: validRecipe.hunger < 0 }">
-													{{ validRecipe.hunger | number:0 | signed }}
-												</td>
-												<td data-ng-class="{ negative: validRecipe.sanity < 0 }">
-													{{ validRecipe.sanity | number:0 | signed }}
-												</td>
-												<td data-ng-class="{ negative: validRecipe.perish < 0 }">
-													{{ validRecipe.perish | days }}
-												</td>
-												<td ng-bind-html-unsafe="makeRecipeTags(validRecipe.requirements)"></td>
-											</tr>
-											-->
-											<tr class="success"
-											    data-ng-init="recipe=validRecipe"
-											    data-ng-show="potItems.length == 4">
-											    <ng-include src="'reciperow.html'"/>
+											<tr reciperow
+											    class="success"
+											    ng-show="validRecipe"
+											    recipe="validRecipe">
 											</tr>
 										</tfoot>
 									</table>
@@ -196,41 +177,6 @@
 									<p>Add more ingredients to create these:</p>
 									<table ng-table="suggestionTableParams"
 									       class="table table-condensed table-bordered">
-										<!--
-										<tr data-ng-repeat="recipe in recipeSuggestions">
-											<td data-title="'Icon'">
-												<img data-ng-src="{{ recipe.img }}">
-											</td>
-											<td data-title="'Name'"
-											    sortable="name">
-												{{ recipe.name }}
-											</td>
-											<td data-title="'Health'"
-											    sortable="health"
-											    data-ng-class="{ negative: recipe.health < 0 }">
-											    {{ recipe.health | number:0 | signed }}
-											</td>
-											<td data-title="'Hunger'"
-											    sortable="hunger"
-											    data-ng-class="{ negative: recipe.hunger < 0 }">
-											    {{ recipe.hunger | number:0 | signed }}
-											</td>
-											<td data-title="'Sanity'"
-											    sortable="sanity"
-											    data-ng-class="{ negative: recipe.sanity < 0 }">
-											    {{ recipe.sanity | number:0 | signed }}
-											</td>
-											<td data-title="'Perish'"
-											    sortable="perish">
-												{{ recipe.perish | days }} days
-											</td>
-											<td data-title="'Priority'"
-											    sortable="priority">
-												{{ recipe.priority | signed }}
-											</td>
-											<td ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)"></td>
-										</tr>
-										-->
 										<tr reciperow
 										    ng-repeat="recipe in recipeSuggestions"></tr>
 									</table>
@@ -294,7 +240,14 @@
 									</p>
 
 									<table data-ng-table="tableParams" class="table">
-										<tr data-ng-repeat="item in recipes | filter:listFilter">
+										<thead>
+											<tr ng-include="'recipeheader.html'"></tr>
+										</thead>
+										<tbody>
+											<tr reciperow
+											    ng-repeat="recipe in recipes | filter:listFilter"></tr>
+										</tbody>
+										<!--<tr data-ng-repeat="item in recipes | filter:listFilter">
 											<td data-title="'Icon'">
 												<img data-ng-src="{{ item.img }}">
 											</td>
@@ -331,7 +284,7 @@
 											<td data-title="'Info'"
 											    ng-bind-html-unsafe="makeRecipeTags(item.requirements)">
 											</td>
-										</tr>
+										</tr>-->
 									</table>
 								</div>
 							</div>
