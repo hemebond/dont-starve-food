@@ -130,9 +130,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				var names = {};
 				var tags = {};
 
-				var validRecipe = null;
-				var validRecipes = [];
-				var recipeSuggestions = [];
+				var validRecipes = []; // a list of zero or more valid recipes
+				possibleRecipes = []; // reset the list of possible recipes
 
 				if (foodItems.length > 0) {
 					// Populate the names and tags objects
@@ -144,24 +143,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						// Four items in the crockpot? What will be made?
 						if ($scope.potItems.length == 4) {
 							if (recipe.test(null, names, tags)) {
-								// is this the highest priority recipe?
-								if (validRecipe && validRecipe !== null) {
-									if (recipe.priority > validRecipe.priority) {
-										validRecipe = recipe;
+								
+								if (validRecipes.length > 0) {
+									// is this the highest priority recipe?
+									if (recipe.priority > validRecipes[0].priority) {
+										// priority is higher, replace list
+										validRecipes[recipe];
+									}
+									else if (recipe.priority == validRecipes[0].priority) {
+										// priority is the same, add to list
+										validRecipes.push(recipe);
 									}
 								}
 								else {
-									validRecipe = recipe;
+									validRecipes.push(recipe);
 								}
-
-								validRecipes.push(recipe);
 							}
 						}
 
-						// Recipe Suggestions
+						// Calculate possible recipes
 						var valid = false;
 
-						//angular.forEach(recipe.requirements, function(requirement) {
 						for (var i = 0; i < recipe.requirements.length; i++) {
 							var requirement = recipe.requirements[i];
 
@@ -176,13 +178,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 							}
 						}
 
-						valid && recipeSuggestions.push(recipe);
+						valid && possibleRecipes.push(recipe);
 					});
 				}
 
-				$scope.validRecipe = validRecipe;
+				$scope.validRecipes = validRecipes;
 				$scope.potItemTotals = calculateItemTotals(foodItems);
-				$scope.recipeSuggestions = applyTableParams($scope.suggestionTableParams, recipeSuggestions);
+				$scope.possibleRecipes = applyTableParams($scope.possibleRecipesTableParams, possibleRecipes);
 			};
 
 
@@ -209,20 +211,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			/*
 			 * Suggestions table
 			 */
-			var recipeSuggestions = [];
+			var possibleRecipes = []; // list of recipes that can be made with current
 
-			$scope.suggestionTableParams = new ngTableParams({
-				page: 1, // show first page
-				total: 1, // length of data
-				count: recipes,
+			$scope.possibleRecipesTableParams = new ngTableParams({
 				counts: [],
 				sorting: {
 					name: 'asc' // initial sorting
 				}
 			});
 
-			$scope.$watch('suggestionTableParams', function(params) {
-				$scope.recipeSuggestions = applyTableParams(params, recipeSuggestions);
+			$scope.$watch('possibleRecipesTableParams', function(params) {
+				console.log('possibleRecipesTableParams');
+				angular.forEach(params, function(p) {
+					console.log(String(p));
+				});
+				$scope.possibleRecipes = applyTableParams(params, possibleRecipes);
 			}, true);
 
 			var applyTableParams = function(params, list) {

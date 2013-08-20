@@ -1,16 +1,4 @@
 angular.module('pot.directives', [])
-	.directive('reciperow', function(utils) {
-		return {
-			templateUrl: 'reciperow.html',
-			link: function(scope, element, attrs) {
-				scope.makeRecipeTags = utils.makeRecipeTags;
-
-				scope.$watch(attrs.recipe, function(value) {
-					scope.recipe = value;
-				});
-			}
-		};
-	})
 	.directive('foodbtn', function(food, $compile) {
 		var tplBtn =           '<a class="btn btn-default" data-ng-click="addToPot(item.id)" title="Add {{ item.name }} to the pot"><img data-ng-src="{{ item.img }}"><span>{{ item.name }}</span></a> ';
 		var tplBtnCooked =     '<a class="btn btn-default" data-ng-click="addToPot(cookedItem.id)" title="Add {{ cookedItem.name }} to the pot"><img data-ng-src="{{ cookedItem.img }}"></a>';
