@@ -2,6 +2,10 @@ table img {
 	width: 24px;
 }
 
+.sim-food-list {
+	background: rgb(221, 221, 221);
+}
+
 .food-btn-group.btn-group {
 	margin: 4px;
 }

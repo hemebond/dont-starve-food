@@ -178,7 +178,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 							}
 						}
 
-						valid && possibleRecipes.push(recipe);
+						valid && (validRecipes.indexOf(recipe) === -1) && possibleRecipes.push(recipe);
 					});
 				}
 

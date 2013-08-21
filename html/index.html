@@ -73,8 +73,6 @@
 								</div>
 
 								<div class="col-lg-8">
-									<!-- value totals of individual ingredients -->
-
 									<table class="table table-condensed table-bordered">
 										<thead>
 											<tr>
@@ -113,7 +111,9 @@
 												<td ng-bind-html-unsafe="makeFoodTags(item)"></td>
 											</tr>
 										</tbody>
+										
 										<tfoot data-ng-show="potItems.length > 0">
+											<!-- value totals of individual ingredients -->
 											<tr>
 												<th colspan="2"></th>
 												<td data-ng-class="{ negative: potItemTotals.health < 0 }">
@@ -132,6 +132,7 @@
 													Result of eating items separately
 												</td>
 											</tr>
+											<!-- valid recipes -->
 											<tr ng-repeat="recipe in validRecipes"
 											    class="success">
 												<td data-title="'Icon'">
