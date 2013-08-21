@@ -221,10 +221,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			});
 
 			$scope.$watch('possibleRecipesTableParams', function(params) {
-				console.log('possibleRecipesTableParams');
-				angular.forEach(params, function(p) {
-					console.log(String(p));
-				});
 				$scope.possibleRecipes = applyTableParams(params, possibleRecipes);
 			}, true);
 
