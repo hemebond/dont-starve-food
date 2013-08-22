@@ -22,7 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	"use strict";
 
 	angular.module('pot.controllers')
-		.controller('FoodListController', function($scope, $filter, ngTableParams, food) {
+		.controller('FoodListController', function($scope, $filter, ngTableParams, food, utils) {
+			$scope.makeFoodTags = utils.makeFoodTags;
 
 			var foodList = [];
 			angular.forEach(food, function(item, index) {

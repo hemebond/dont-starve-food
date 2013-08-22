@@ -231,28 +231,27 @@
 									</p>
 
 									<table ng-table="tableParams" class="table">
-										<tr data-ng-repeat="item in food | filter:listFilter">
+										<tr data-ng-repeat="f in food | filter:listFilter">
 											<td data-title="Icon">
-												<img data-ng-src="{{ item.img }}">
+												<img data-ng-src="{{ f.img }}">
 											</td>
 											<td data-title="'Name'" sortable="name">
-												{{ item.name }}
+												{{ f.name }}
 											</td>
-											<td data-title="'Health'" sortable="health" data-ng-class="{ negative: item.health < 0 }">
-												{{ item.health | number:0 | signed }}
+											<td data-title="'Health'" sortable="health" data-ng-class="{ negative: f.health < 0 }">
+												{{ f.health | number:0 | signed }}
 											</td>
-											<td data-title="'Hunger'" sortable="hunger" data-ng-class="{ negative: item.hunger < 0 }">
-												{{ item.hunger | number:0 | signed }}
+											<td data-title="'Hunger'" sortable="hunger" data-ng-class="{ negative: f.hunger < 0 }">
+												{{ f.hunger | number:0 | signed }}
 											</td>
-											<td data-title="'Sanity'" sortable="sanity" data-ng-class="{ negative: item.sanity < 0 }">
-												{{ item.sanity | number:0 | signed }}
+											<td data-title="'Sanity'" sortable="sanity" data-ng-class="{ negative: f.sanity < 0 }">
+												{{ f.sanity | number:0 | signed }}
 											</td>
 											<td data-title="'Perish'" sortable="perish">
-												{{ item.perish | days }}
+												{{ f.perish | days }}
 											</td>
-											<td data-title="'Info'">
-												{{ item.info }}
-											</td>
+											<td data-title="'Info'"
+											    ng-bind-html-unsafe="makeFoodTags(f)"></td>
 										</tr>
 									</table>
 								</div>
