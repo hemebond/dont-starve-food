@@ -127,6 +127,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			 * update the list of valid recipes
 			 */
 			var updateRecipeLists = function(foodItems) {
+				var debug = false;
 				var names = {};
 				var tags = {};
 
@@ -139,16 +140,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 					// update the list of valid recipes
 					angular.forEach(recipes, function(recipe, id) {
+						if (id == "fishtacos") debug = true;
 
 						// Four items in the crockpot? What will be made?
 						if ($scope.potItems.length == 4) {
 							if (recipe.test(null, names, tags)) {
-								
 								if (validRecipes.length > 0) {
 									// is this the highest priority recipe?
 									if (recipe.priority > validRecipes[0].priority) {
 										// priority is higher, replace list
-										validRecipes[recipe];
+										validRecipes = [recipe];
 									}
 									else if (recipe.priority == validRecipes[0].priority) {
 										// priority is the same, add to list
