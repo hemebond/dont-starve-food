@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	"use strict";
 
 	angular.module('pot.controllers', [])
-		.controller('SimulatorController', function($rootScope, $scope, $filter, ngTableParams, gameVariables, food, recipes, utils) {
+		.controller('SimulatorController', function($scope, $filter, ngTableParams, gameVariables, food, recipes, utils) {
 			/*
 			 * List of ingredients
 			 */
@@ -139,7 +139,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 				if (foodItems.length > 0) {
 					// Populate the names and tags objects
-					getNamesAndTags(foodItems, names, tags);
+					utils.getNamesAndTags(foodItems, names, tags);
 
 					// update the list of valid recipes
 					angular.forEach(recipes, function(recipe, id) {
@@ -187,26 +187,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				$scope.validRecipes = validRecipes;
 				$scope.potItemTotals = calculateItemTotals(foodItems);
 				$scope.possibleRecipes = applyTableParams($scope.possibleRecipesTableParams, possibleRecipes);
-			};
-
-
-			/*
-			 * Populates the `names` and `tags` objects
-			 * `names` will have food item names as keys, value being a tally of that name of each item
-			 * `tags` will have tag names as keys, values will be the sum of that tag for all items
-			 */
-			var getNamesAndTags = function(foodItems, names, tags) {
-				angular.forEach(foodItems, function(item, idx) {
-					names[item.id] = 1 + (names[item.id] || 0);
-
-					if (item.hasOwnProperty('perish')) {
-						tags['perish'] = Math.min(tags['perish'] || gameVariables.perish_preserved, item['perish']);
-					}
-
-					angular.forEach(item.tags, function(tag, tagName) {
-						tags[tagName] = tag + (tags[tagName] || 0);
-					});
-				});
 			};
 
 

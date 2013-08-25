@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	"use strict";
 
 	angular.module('pot.services')
-		.factory('utils', function(food) {
+		.factory('utils', function(gameVariables, food) {
 			var service = {
 				makeRecipeTags: function(requirements) {
 					var s = '';	// html string
@@ -98,6 +98,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					});
 
 					return s;
+				},
+
+
+				/*
+				 * Populates the `names` and `tags` objects
+				 * `names` will have food item names as keys, value being a tally of that name of each item
+				 * `tags` will have tag names as keys, values will be the sum of that tag for all items
+				 */
+				getNamesAndTags: function(foodItems, names, tags) {
+					angular.forEach(foodItems, function(item, idx) {
+						names[item.id] = 1 + (names[item.id] || 0);
+
+						if (item.hasOwnProperty('perish')) {
+							tags['perish'] = Math.min(tags['perish'] || gameVariables.perish_preserved, item['perish']);
+						}
+
+						angular.forEach(item.tags, function(tag, tagName) {
+							tags[tagName] = tag + (tags[tagName] || 0);
+						});
+					});
 				}
 			};
 
