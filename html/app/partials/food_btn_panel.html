@@ -1,0 +1,15 @@
+<form role="form" ng-show="showFilter">
+	<div class="form-group">
+		<label for="list-filter" class="sr-only">
+			Filter food:
+		</label>
+		<input id="list-filter"
+		       data-ng-model="search.name"
+		       class="form-control"
+		       placeholder="Filter">
+	</div>
+</form>
+
+<div>
+	<foodbtn data-ng-repeat="item in items | filter:search | orderBy:'name'">
+</div>

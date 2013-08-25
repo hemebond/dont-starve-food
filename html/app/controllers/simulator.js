@@ -104,8 +104,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			 * add an ingredient to the crock pot
 			 */
 			$scope.addToPot = function(foodId) {
-				if ($scope.potItems.length < $scope.potSize) {
-					$scope.potItems.push(food[foodId]);
+				if (foodId) {
+					if ($scope.potItems.length < $scope.potSize) {
+						$scope.potItems.push(food[foodId]);
+					}
 				}
 			};
 
@@ -113,8 +115,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			 * remove an item from the crock pot
 			 */
 			$scope.removeFromPot = function(slotId) {
-				if ($scope.potItems[slotId]) {
-					$scope.potItems.splice(slotId, 1);
+				if (slotId !== undefined) {
+					if ($scope.potItems[slotId]) {
+						$scope.potItems.splice(slotId, 1);
+					}
 				}
 			};
 

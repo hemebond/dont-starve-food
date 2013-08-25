@@ -27,47 +27,38 @@
 		<script src="app/controllers/help.js"></script>
 	</head>
 	<body>
-			<div class="row">
-				<div class="col-lg-12">
+		<div class="row">
+			<div class="col-lg-12">
 				<tabset>
 					<tab heading="Simulator">
-						<div data-ng-controller="SimulatorController">
+						<div data-ng-controller="SimulatorController" class="page">
 							<div class="row">
 								<div class="col-lg-4">
 									<p>
 										Add ingredients to see what they make.
 									</p>
 
-									<div class="form-group">
-										<label for="list-filter">Filter food:</label>
-										<input id="list-filter" data-ng-model="listFilter">
-									</div>
-
-									<tabset>
+									<tabset class="food-btn-panel">
 										<tab heading="All">
-											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.all | filter:listFilter | orderBy:'name'">
-											</div>
+											<food-btn-panel items="ingredients.all"
+											                show-filter="true"
+											                click-handler="addToPot(item)"/>
 										</tab>
 										<tab heading="Veggies">
-											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.veggies | filter:listFilter | orderBy:'name'">
-											</div>
+											<food-btn-panel items="ingredients.veggies"
+											                click-handler="addToPot(item)"/>
 										</tab>
 										<tab heading="Meats">
-											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.meats | filter:listFilter | orderBy:'name'">
-											</div>
+											<food-btn-panel items="ingredients.meats"
+											                click-handler="addToPot(item)"/>
 										</tab>
 										<tab heading="Fruits">
-											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.fruits | filter:listFilter | orderBy:'name'">
-											</div>
+											<food-btn-panel items="ingredients.fruits"
+											                click-handler="addToPot(item)"/>
 										</tab>
 										<tab heading="Other">
-											<div class="sim-food-list">
-												<foodbtn data-ng-repeat="item in ingredients.other | filter:listFilter | orderBy:'name'">
-											</div>
+											<food-btn-panel items="ingredients.other"
+											                click-handler="addToPot(item)"/>
 										</tab>
 									</tabset>
 								</div>
@@ -91,7 +82,7 @@
 											    <td>
 											    	<button type="button"
 											    	        class="btn btn-danger btn-xs"
-											    	        data-ng-click="removeFromPot($index)"
+											    	        ng-click="removeFromPot($index)"
 											    	        title="Click to remove from pot">
 											    		<span class="glyphicon glyphicon-remove"></span>
 											    	</button>
@@ -229,13 +220,15 @@
 
 					<!-- Food List -->
 					<tab heading="Food List">
-						<div data-ng-controller="FoodListController">
+						<div data-ng-controller="FoodListController" class="page">
 							<div class="row">
 								<div class="col-lg-12">
-									<p >
-										<label for="listFilter">Filter food:</label>
-										<input id="listFilter" data-ng-model="listFilter">
-									</p>
+									<form class="form-horizontal" role="form">
+										<div class="form-group">
+											<label for="listFilter">Filter food:</label>
+											<input id="listFilter" data-ng-model="listFilter" class="form-control">
+										</div>
+									</form>
 
 									<table ng-table="tableParams" class="table">
 										<tr data-ng-repeat="f in food | filter:listFilter">
@@ -268,13 +261,15 @@
 
 					<!-- Recipe List -->
 					<tab heading="Recipe List">
-						<div data-ng-controller="RecipeListController">
+						<div data-ng-controller="RecipeListController" class="page">
 							<div class="row">
 								<div class="col-lg-12">
-									<p >
-										<label for="listFilter">Filter recipes:</label>
-										<input id="listFilter" data-ng-model="listFilter">
-									</p>
+									<form class="form-horizontal" role="form">
+										<div class="form-group">
+											<label for="listFilter">Filter recipes:</label>
+											<input id="listFilter" data-ng-model="listFilter" class="form-control">
+										</div>
+									</form>
 
 									<table data-ng-table="tableParams" class="table">
 										<tr data-ng-repeat="recipe in recipes | filter:listFilter">
@@ -394,7 +389,7 @@
 					</tab>
 				</tabset>
 			</div>
-			</div>
+		</div>
 <!--
 	<ul id="navbar">
 		<li data-tab="simulator">Simulator</li>

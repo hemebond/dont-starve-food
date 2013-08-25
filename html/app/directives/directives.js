@@ -1,8 +1,19 @@
 angular.module('pot.directives', [])
+	.directive('foodBtnPanel', function() {
+		return {
+			restrict: 'E',
+			scope: {
+				items: '=',
+				showFilter: '=',
+				clickHandler: '&'
+			},
+			templateUrl: 'app/partials/food_btn_panel.html'
+		};
+	})
 	.directive('foodbtn', function(food, $compile) {
-		var tplBtn =           '<a class="btn btn-default" data-ng-click="addToPot(item.id)" title="Add {{ item.name }} to the pot"><img data-ng-src="{{ item.img }}"><span>{{ item.name }}</span></a> ';
-		var tplBtnCooked =     '<a class="btn btn-default" data-ng-click="addToPot(cookedItem.id)" title="Add {{ cookedItem.name }} to the pot"><img data-ng-src="{{ cookedItem.img }}"></a>';
-		var tplBtnDried =      '<a class="btn btn-default" data-ng-click="addToPot(driedItem.id)" title="Add {{ driedItem.name }} to the pot"><img data-ng-src="{{ driedItem.img }}"></a>';
+		var tplBtn =           '<a class="btn btn-default" ng-click="clickHandler({item:item.id})" title="Add {{ item.name }} to the pot"><img ng-src="{{ item.img }}"><span>{{ item.name }}</span></a> ';
+		var tplBtnCooked =     '<a class="btn btn-default" ng-click="clickHandler({item:cookedItem.id})" title="Add {{ cookedItem.name }} to the pot"><img ng-src="{{ cookedItem.img }}"></a>';
+		var tplBtnDried =      '<a class="btn btn-default" ng-click="clickHandler({item:driedItem.id})" title="Add {{ driedItem.name }} to the pot"><img ng-src="{{ driedItem.img }}"></a>';
 		var tplGroupOpen =     '<div class="food-btn-group btn-group">';
 		var tplGroupClose =    '</div>';
 
@@ -12,6 +23,7 @@ angular.module('pot.directives', [])
 			link: function(scope, element, attrs) {
 				var template = '<div class="food-btn-group btn-group">' + tplBtn;
 				var f = scope.item;
+				scope.clickHandler = scope.$parent.clickHandler;
 
 				if (f.hasOwnProperty('cookable')) {
 					scope.cookedItem = food[f.cookable.product];
