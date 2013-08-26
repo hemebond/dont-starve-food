@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-lg-12">
+		<form role="form">
+			<div class="form-group">
+				<label for="listFilter"
+				       class="control-label">
+					Filter food:
+				</label>
+				<input id="listFilter"
+				       data-ng-model="listFilter"
+				       class="form-control">
+			</div>
+		</form>
+
+		<table ng-table="tableParams" class="table">
+			<tr data-ng-repeat="f in food | filter:listFilter">
+				<td data-title="Icon">
+					<img data-ng-src="{{ f.img }}">
+				</td>
+				<td data-title="'Name'" sortable="name">
+					{{ f.name }}
+				</td>
+				<td data-title="'Health'" sortable="health" data-ng-class="{ negative: f.health < 0 }">
+					{{ f.health | number:0 | signed }}
+				</td>
+				<td data-title="'Hunger'" sortable="hunger" data-ng-class="{ negative: f.hunger < 0 }">
+					{{ f.hunger | number:0 | signed }}
+				</td>
+				<td data-title="'Sanity'" sortable="sanity" data-ng-class="{ negative: f.sanity < 0 }">
+					{{ f.sanity | number:0 | signed }}
+				</td>
+				<td data-title="'Perish'" sortable="perish">
+					{{ f.perish | days }}
+				</td>
+				<td data-title="'Info'"
+				    ng-bind-html-unsafe="makeFoodTags(f)"></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,54 @@
+<form role="form">
+	<div class="form-group">
+		<label for="food-search"
+		       class="control-label">
+			Filter recipes:
+		</label>
+		<input id="food-search"
+		       type="text"
+		       class="form-control"
+		       data-ng-model="search.name">
+	</div>
+</form>
+
+<table data-ng-table="tableParams" class="table">
+	<tr data-ng-repeat="recipe in recipes | filter:search">
+		<td data-title="'Icon'">
+			<img data-ng-src="{{ recipe.img }}">
+		</td>
+		<td data-title="'Name'"
+		    sortable="name">
+			{{ recipe.name }}
+		</td>
+		<td data-title="'Health'"
+		    sortable="health"
+		    data-ng-class="{ negative: recipe.health < 0 }">
+			{{ recipe.health | number:0 | signed }}
+		</td>
+		<td data-title="'Hunger'"
+		    sortable="hunger"
+		    data-ng-class="{ negative: recipe.hunger < 0 }">
+			{{ recipe.hunger | number:0 | signed }}
+		</td>
+		<td data-title="'Sanity'"
+		    sortable="sanity"
+		    data-ng-class="{ negative: recipe.sanity < 0 }">
+			{{ recipe.sanity | number:0 | signed }}
+		</td>
+		<td data-title="'Perish'"
+		    sortable="perish">
+			{{ recipe.perish | days }}
+		</td>
+		<td data-title="'Cook Time'">
+			{{ recipe.cooktime | cooktime }}
+		</td>
+		<td data-title="'Priority'"
+		    sortable="priority"
+		    data-ng-class="{ negative: recipe.priority < 0 }">
+			{{ recipe.priority | number:0 | signed }}
+		</td>
+		<td data-title="'Info'"
+		    ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)">
+		</td>
+	</tr>
+</table>
