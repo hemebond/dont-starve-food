@@ -22,8 +22,8 @@
 		<script src="app/directives/directives.js"></script>
 		<script src="app/controllers/simulator.js"></script>
 		<script src="app/controllers/discovery.js"></script>
-		<script src="app/controllers/foodlist.js"></script>
-		<script src="app/controllers/recipelist.js"></script>
+		<script src="app/controllers/foods.js"></script>
+		<script src="app/controllers/recipes.js"></script>
 		<script src="app/controllers/help.js"></script>
 	</head>
 	<body>
@@ -43,13 +43,13 @@
 					</tab>
 
 					<tab heading="Foods">
-						<div ng-controller="FoodListController"
+						<div ng-controller="FoodsController"
 						     src="'app/partials/tab_foods.html'"
 						     ng-include></div>
 					</tab>
 
 					<tab heading="Recipes">
-						<div ng-controller="RecipeListController"
+						<div ng-controller="RecipesController"
 						     src="'app/partials/tab_recipes.html'"
 						     ng-include></div>
 					</tab>

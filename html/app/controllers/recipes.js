@@ -22,27 +22,28 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	"use strict";
 
 	angular.module('pot.controllers')
-		.controller('FoodListController', function($scope, $filter, ngTableParams, food, utils) {
-			$scope.makeFoodTags = utils.makeFoodTags;
+		.controller('RecipesController', function($scope, $filter, ngTableParams, utils, food, recipes) {
+			$scope.makeRecipeTags = utils.makeRecipeTags;
 
-			var foodList = [];
-			angular.forEach(food, function(item, index) {
-				foodList.push(item);
+			var recipeList = [];
+			angular.forEach(recipes, function(recipe, id) {
+				recipeList.push(recipe);
 			});
 
 			$scope.tableParams = {
-				foods: new ngTableParams({
+				recipes: new ngTableParams({
 					counts: [],
 					sorting: {
-						name: 'asc'         // initial sorting
+						name: 'asc'			// initial sorting
 					}
 				})
 			};
 
 			// watch for changes of parameters
-			$scope.$watch('tableParams.foods', function(params) {
+			$scope.$watch('tableParams.recipes', function(params) {
 				// use build-in angular filter
-				$scope.foods = params.sorting ? $filter('orderBy')(foodList, params.orderBy()) : foodList;
+				$scope.recipes = params.sorting ? $filter('orderBy')(recipeList, params.orderBy()) : recipeList;
 			}, true);
+
 		});
 }());
