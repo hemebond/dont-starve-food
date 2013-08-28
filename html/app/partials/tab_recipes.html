@@ -1,20 +1,19 @@
 <form role="form">
 	<div class="form-group">
-		<label for="food-search"
+		<label for="recipe-search"
 		       class="control-label">
 			Filter recipes:
 		</label>
-		<input id="food-search"
-		       type="text"
+		<input id="recipe-search"
 		       class="form-control"
-		       data-ng-model="search.name">
+		       ng-model="search.name">
 	</div>
 </form>
 
-<table data-ng-table="tableParams" class="table">
-	<tr data-ng-repeat="recipe in recipes | filter:search">
+<table ng-table="tableParams.recipes" class="table">
+	<tr ng-repeat="recipe in recipes | filter:search">
 		<td data-title="'Icon'">
-			<img data-ng-src="{{ recipe.img }}">
+			<img ng-src="{{ recipe.img }}">
 		</td>
 		<td data-title="'Name'"
 		    sortable="name">
@@ -22,17 +21,17 @@
 		</td>
 		<td data-title="'Health'"
 		    sortable="health"
-		    data-ng-class="{ negative: recipe.health < 0 }">
+		    ng-class="{ negative: recipe.health < 0 }">
 			{{ recipe.health | number:0 | signed }}
 		</td>
 		<td data-title="'Hunger'"
 		    sortable="hunger"
-		    data-ng-class="{ negative: recipe.hunger < 0 }">
+		    ng-class="{ negative: recipe.hunger < 0 }">
 			{{ recipe.hunger | number:0 | signed }}
 		</td>
 		<td data-title="'Sanity'"
 		    sortable="sanity"
-		    data-ng-class="{ negative: recipe.sanity < 0 }">
+		    ng-class="{ negative: recipe.sanity < 0 }">
 			{{ recipe.sanity | number:0 | signed }}
 		</td>
 		<td data-title="'Perish'"
@@ -44,7 +43,7 @@
 		</td>
 		<td data-title="'Priority'"
 		    sortable="priority"
-		    data-ng-class="{ negative: recipe.priority < 0 }">
+		    ng-class="{ negative: recipe.priority < 0 }">
 			{{ recipe.priority | number:0 | signed }}
 		</td>
 		<td data-title="'Info'"

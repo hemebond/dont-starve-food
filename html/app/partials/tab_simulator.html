@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="col-lg-4">
 		<p>
@@ -45,7 +44,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-ng-repeat="item in potItems">
+				<tr ng-repeat="item in potItems">
 				    <td>
 				    	<button type="button"
 				    	        class="btn btn-danger btn-xs"
@@ -55,18 +54,18 @@
 				    	</button>
 				    </td>
 					<td>
-						<img data-ng-src="{{ item.img }}">
+						<img ng-src="{{ item.img }}">
 					</td>
 					<td>
 						{{ item.name }}
 					</td>
-					<td data-ng-class="{ negative: item.health < 0 }">
+					<td ng-class="{ negative: item.health < 0 }">
 						{{ item.health | number:0 | signed }}
 					</td>
-					<td data-ng-class="{ negative: item.hunger < 0 }">
+					<td ng-class="{ negative: item.hunger < 0 }">
 						{{ item.hunger | number:0 | signed }}
 					</td>
-					<td data-ng-class="{ negative: item.sanity < 0 }">
+					<td ng-class="{ negative: item.sanity < 0 }">
 						{{ item.sanity | number:0 | signed }}
 					</td>
 					<td>
@@ -76,20 +75,20 @@
 				</tr>
 			</tbody>
 
-			<tfoot data-ng-show="potItems.length > 0">
+			<tfoot ng-show="potItems.length > 0">
 				<!-- value totals of individual ingredients -->
 				<tr>
 					<td colspan="3"></td>
-					<td data-ng-class="{ negative: potItemTotals.health < 0 }">
+					<td ng-class="{ negative: potItemTotals.health < 0 }">
 						{{ potItemTotals.health | number:0 | signed }}
 					</td>
-					<td data-ng-class="{ negative: potItemTotals.hunger < 0 }">
+					<td ng-class="{ negative: potItemTotals.hunger < 0 }">
 						{{ potItemTotals.hunger | number:0 | signed }}
 					</td>
-					<td data-ng-class="{ negative: potItemTotals.sanity < 0 }">
+					<td ng-class="{ negative: potItemTotals.sanity < 0 }">
 						{{ potItemTotals.sanity | number:0 | signed }}
 					</td>
-					<td data-ng-class="{ negative: potItemTotals.perish < 0 }">
+					<td ng-class="{ negative: potItemTotals.perish < 0 }">
 						{{ potItemTotals.perish | days }}
 					</td>
 					<td>
@@ -102,7 +101,7 @@
 				    class="success">
 				    <td></td>
 					<td data-title="'Icon'">
-						<img data-ng-src="{{ recipe.img }}">
+						<img ng-src="{{ recipe.img }}">
 					</td>
 					<td data-title="'Name'"
 					    sortable="name">
@@ -110,17 +109,17 @@
 					</td>
 					<td data-title="'Health'"
 					    sortable="health"
-					    data-ng-class="{ negative: recipe.health < 0 }">
+					    ng-class="{ negative: recipe.health < 0 }">
 						{{ recipe.health | number:0 | signed }}
 					</td>
 					<td data-title="'Hunger'"
 					    sortable="hunger"
-					    data-ng-class="{ negative: recipe.hunger < 0 }">
+					    ng-class="{ negative: recipe.hunger < 0 }">
 						{{ recipe.hunger | number:0 | signed }}
 					</td>
 					<td data-title="'Sanity'"
 					    sortable="sanity"
-					    data-ng-class="{ negative: recipe.sanity < 0 }">
+					    ng-class="{ negative: recipe.sanity < 0 }">
 						{{ recipe.sanity | number:0 | signed }}
 					</td>
 					<td data-title="'Perish'"
@@ -136,11 +135,11 @@
 
 		<!-- suggestions, add ingredients to create -->
 		<p>Add more ingredients to create these:</p>
-		<table ng-table="possibleRecipesTableParams"
+		<table ng-table="tableParams.possibleRecipes"
 		       class="table table-condensed table-bordered">
 			<tr ng-repeat="recipe in possibleRecipes">
 				<td data-title="'Icon'">
-					<img data-ng-src="{{ recipe.img }}">
+					<img ng-src="{{ recipe.img }}">
 				</td>
 				<td data-title="'Name'"
 				    sortable="name">
@@ -148,17 +147,17 @@
 				</td>
 				<td data-title="'Health'"
 				    sortable="health"
-				    data-ng-class="{ negative: recipe.health < 0 }">
+				    ng-class="{ negative: recipe.health < 0 }">
 					{{ recipe.health | number:0 | signed }}
 				</td>
 				<td data-title="'Hunger'"
 				    sortable="hunger"
-				    data-ng-class="{ negative: recipe.hunger < 0 }">
+				    ng-class="{ negative: recipe.hunger < 0 }">
 					{{ recipe.hunger | number:0 | signed }}
 				</td>
 				<td data-title="'Sanity'"
 				    sortable="sanity"
-				    data-ng-class="{ negative: recipe.sanity < 0 }">
+				    ng-class="{ negative: recipe.sanity < 0 }">
 					{{ recipe.sanity | number:0 | signed }}
 				</td>
 				<td data-title="'Perish'"

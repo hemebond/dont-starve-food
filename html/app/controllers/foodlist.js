@@ -30,26 +30,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				foodList.push(item);
 			});
 
-			$scope.tableParams = new ngTableParams({
-				page: 1,                // show first page
-				total: 1,               // length of data
-				count: foodList.length,
-				counts: [],
-				sorting: {
-					name: 'asc'         // initial sorting
-				}
-			});
+			$scope.tableParams = {
+				foods: new ngTableParams({
+					counts: [],
+					sorting: {
+						name: 'asc'         // initial sorting
+					}
+				})
+			};
 
 			// watch for changes of parameters
-			$scope.$watch('tableParams', function(params) {
+			$scope.$watch('tableParams.foods', function(params) {
 				// use build-in angular filter
-				var orderedData = params.sorting ? $filter('orderBy')(foodList, params.orderBy()) : foodList;
-
-				// slice array food on pages
-				$scope.food = orderedData.slice(
-					(params.page - 1) * params.count,
-					params.page * params.count
-				);
+				$scope.foods = params.sorting ? $filter('orderBy')(foodList, params.orderBy()) : foodList;
 			}, true);
 		});
 }());

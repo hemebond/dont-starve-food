@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (function () {
 	"use strict";
 
-	var app = angular.module(
+	angular.module(
 		'pot',
 		[
 			'ui.bootstrap',
@@ -31,9 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			'pot.directives',
 			'pot.controllers'
 		]
-	);
-
-	app.run(function ($rootScope, food, recipes) {
+	)
+	.run(function ($rootScope, food, recipes) {
 		angular.forEach(food, function(item, id) {
 			// add an img property (URL) to each food item
 			// pointing to the food icon

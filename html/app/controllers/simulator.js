@@ -186,7 +186,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 				$scope.validRecipes = validRecipes;
 				$scope.potItemTotals = calculateItemTotals(foodItems);
-				$scope.possibleRecipes = applyTableParams($scope.possibleRecipesTableParams, possibleRecipes);
+				$scope.possibleRecipes = applyTableParams($scope.tableParams.possibleRecipes, possibleRecipes);
 			};
 
 
@@ -195,14 +195,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			 */
 			var possibleRecipes = []; // list of recipes that can be made with current
 
-			$scope.possibleRecipesTableParams = new ngTableParams({
-				counts: [],
-				sorting: {
-					name: 'asc' // initial sorting
-				}
-			});
+			$scope.tableParams = {
+				possibleRecipes: new ngTableParams({
+					counts: [],
+					sorting: {
+						name: 'asc' // initial sorting
+					}
+				})
+			};
 
-			$scope.$watch('possibleRecipesTableParams', function(params) {
+			$scope.$watch('tableParams.possibleRecipes', function(params) {
 				$scope.possibleRecipes = applyTableParams(params, possibleRecipes);
 			}, true);
 

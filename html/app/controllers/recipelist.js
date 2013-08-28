@@ -23,34 +23,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	angular.module('pot.controllers')
 		.controller('RecipeListController', function($scope, $filter, ngTableParams, utils, food, recipes) {
-			var recipeList = [];
+			$scope.makeRecipeTags = utils.makeRecipeTags;
 
+			var recipeList = [];
 			angular.forEach(recipes, function(recipe, id) {
 				recipeList.push(recipe);
 			});
 
-			$scope.tableParams = new ngTableParams({
-				page: 1,				// show first page
-				total: 1,		// length of data
-				count: recipeList.length,
-				counts: [],
-				sorting: {
-					name: 'asc'			// initial sorting
-				}
-			});
+			$scope.tableParams = {
+				recipes: new ngTableParams({
+					counts: [],
+					sorting: {
+						name: 'asc'			// initial sorting
+					}
+				})
+			};
 
 			// watch for changes of parameters
-			$scope.$watch('tableParams', function(params) {
+			$scope.$watch('tableParams.recipes', function(params) {
 				// use build-in angular filter
-				var orderedData = params.sorting ? $filter('orderBy')(recipeList, params.orderBy()) : recipeList;
-
-				// slice array food on pages
-				$scope.recipes = orderedData.slice(
-					(params.page - 1) * params.count,
-					params.page * params.count
-				);
+				$scope.recipes = params.sorting ? $filter('orderBy')(recipeList, params.orderBy()) : recipeList;
 			}, true);
 
-			$scope.makeRecipeTags = utils.makeRecipeTags;
 		});
 }());
