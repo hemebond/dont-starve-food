@@ -121,10 +121,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 									valid = true;
 								}
 							}
-							else if (!requirement.cancel) {
-								valid = false;
-								break;
-							}
 						}
 
 						valid && possibleRecipes.push(recipe);

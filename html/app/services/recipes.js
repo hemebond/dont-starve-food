@@ -81,7 +81,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 
 			var NOTString = function () {
-				//return this.item.toString().substring(0, this.item.toString().length - 1) + '|strike]';
 				return String(this.item);
 			};
 
@@ -100,7 +99,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 
 			var NAMEString = function () {
-				//return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (food[this.name].cook ? '[*' + food[this.name].cook.name + '|' + food[this.name].cook.img + ']' : '') + (food[this.name].raw ? '[*' + food[this.name].raw.name + '|' + food[this.name].raw.img + ']' : '') + (this.qty ? this.qty : '');
 				return String(food[this.name].name + (this.qty ? ' ' + this.qty : ''));
 			};
 
@@ -120,7 +118,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 
 			var SPECIFICString = function () {
-				//return '[*' + food[this.name].name + '|' + food[this.name].img + ' ' + food[this.name].name + ']' + (this.qty ? this.qty : '');
 				return String(food[this.name].name + (this.qty ? ' ' + this.qty : ''));
 			};
 
