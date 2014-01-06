@@ -55,6 +55,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			this.sanity_large = 33;
 			this.sanity_huge = 50;
 
+			this.perish_one_day = 1 * this.total_day_time * this.perish_warp;
+			this.perish_two_day = 2 * this.total_day_time * this.perish_warp;
 			this.perish_superfast = 3 * this.total_day_time * this.perish_warp;
 			this.perish_fast = 6 * this.total_day_time * this.perish_warp;
 			this.perish_med = 10 * this.total_day_time * this.perish_warp;

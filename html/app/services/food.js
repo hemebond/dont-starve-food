@@ -101,6 +101,47 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						uncookable: true
 					}
 				},
+				cutlichen: {
+					name: "Lichen",
+					health: g.healing_small,
+					hunger: g.calories_small,
+					sanity: -g.sanity_tiny,
+					perish: g.perish_two_day,
+					tags: {
+						isveggie: true,
+						veggie: 1
+					}
+				},
+				eel: {
+					name: "Eel",
+					health: g.healing_small,
+					hunger: g.calories_tiny,
+					perish: g.perish_superfast,
+					stack: g.stack_size_smallitem,
+					cookable: {
+						product: 'eel_cooked',
+					},
+					dryable: {
+						product: 'morsel_dried',
+						time: g.dry_fast
+					},
+					tags: {
+						ismeat: true,
+						meat: 0.5,
+						fish: 1
+					}
+				},
+				eel_cooked: {
+					name: "Cooked Eel",
+					health: g.healing_medsmall,
+					hunger: g.calories_small,
+					perish: g.perish_fast,
+					stack: g.stack_size_smallitem,
+					tags: {
+						ismeat: true,
+						cooked: true
+					}
+				},
 				fish: {
 					name: 'Fish',
 					health: g.healing_tiny,
@@ -133,6 +174,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						fish: 1
 					}
 				},
+				foliage: {
+					name: "Foliage",
+					health: g.healing_tiny,
+					hunger: 0,
+					perish: g.perish_fast,
+					stack: g.stack_size_smallitem,
+					tags: {
+						uncookable: true
+					}
+				},
 				frog_legs: {
 					name: 'Frog Legs',
 					health: 0,
@@ -163,28 +214,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						cooked: true,
 						ismeat: true,
 						meat: 0.5
-					}
-				},
-				flower_hat: {
-					name: 'Garland',
-					health: g.healing_small,
-					hunger: 0,
-					sanity: g.sanity_small,
-					perish: g.perish_fast,
-					stack: 1,
-					tags: {
-						uncookable: true
-					}
-				},
-				hambat: {
-					name: 'Ham Bat',
-					health: -g.healing_medsmall,
-					hunger: g.calories_med,
-					sanity: -g.sanity_med,
-					perish: g.perish_med,
-					stack: 1,
-					tags: {
-						uncookable: true
 					}
 				},
 				honey: {
@@ -236,6 +265,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						uncookable: true,
 						veggie: 1,
 						magic: 1
+					}
+				},
+				minotaurhorn: {
+					name: "Guardian's Horn",
+					health: g.healing_huge,
+					hunger: g.calories_huge,
+					sanity: -g.sanity_med,
+					tags: {
+						uncookable: true,
+						ismeat: true
 					}
 				},
 				plant_meat: {
@@ -904,6 +943,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						isfruit: true,
 						fruit: 0.5,
 						cooked: true
+					}
+				},
+				wormlight: {
+					name: "Glow Berry",
+					health: g.healing_medsmall + g.healing_small,
+					hunger: g.calories_medsmall,
+					sanity: -g.sanity_small,
+					tags: {
+						uncookable: true
 					}
 				}
 			};

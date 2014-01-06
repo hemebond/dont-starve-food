@@ -476,6 +476,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: 0,
 					cooktime: 0.5
 				},
+				unagi: {
+					name: "Unagi",
+					test: function(cooker, names, tags) {
+						return names.cutlichen && (names.eel || names.eel_cooked);
+					},
+					requirements: [SPECIFIC('cutlichen'), NAME('eel')],
+					priority: 20,
+					foodtype: 'veggie',
+					health: g.healing_med,
+					hunger: g.calories_medsmall,
+					perishtime: g.perish_med,
+					sanity: g.sanity_tiny,
+					cooktime: 0.5
+				},
 				wetgoop: {
 					name: 'Wet Goop',
 					test: function(cooker, names, tags) {
