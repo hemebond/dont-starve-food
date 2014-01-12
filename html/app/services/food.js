@@ -586,7 +586,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					name: 'Petals',
 					health: g.healing_tiny,
 					hunger: 0,
-					sanity: -g.sanity_tiny / 2,
+					//sanity: -g.sanity_tiny / 2,
 					perish: g.perish_fast,
 					stack: g.stack_size_smallitem,
 					tags: {
