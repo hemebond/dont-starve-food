@@ -25,12 +25,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		.controller('HelpController', function($scope, gameVariables) {
 			var g = gameVariables;
 
-			$scope.stalehealth = Math.round(g.stale_food_health * 1000) / 10 + '%';
-			$scope.stalehunger = Math.round(g.stale_food_hunger * 1000) / 10 + '%';
-			$scope.spoiledhunger = Math.round(g.spoiled_food_hunger * 1000) / 10 + '%';
-			$scope.spoiledsanity = g.sanity_small;
-			$scope.perishground = Math.round(g.perish_ground_mult * 1000) / 10 + '%';
-			$scope.perishwinter = Math.round(g.perish_winter_mult * 1000) / 10 + '%';
-			$scope.perishfridge = Math.round(g.perish_fridge_mult * 1000) / 10 + '%';
+			$scope.stalehealth = Math.round(g.STALE_FOOD_HEALTH * 1000) / 10 + '%';
+			$scope.stalehunger = Math.round(g.STALE_FOOD_HUNGER * 1000) / 10 + '%';
+			$scope.spoiledhunger = Math.round(g.SPOILED_FOOD_HUNGER * 1000) / 10 + '%';
+			$scope.spoiledsanity = g.SANITY_SMALL;
+			$scope.perishground = Math.round(g.PERISH_GROUND_MULT * 1000) / 10 + '%';
+			$scope.perishwinter = Math.round(g.PERISH_WINTER_MULT * 1000) / 10 + '%';
+			$scope.perishfridge = Math.round(g.PERISH_FRIDGE_MULT * 1000) / 10 + '%';
 		});
 }());

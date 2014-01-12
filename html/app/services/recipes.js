@@ -162,10 +162,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					priority: 1,
 					weight: 1,
 					foodtype: "veggie",
-					health: g.healing_med,
-					hunger: g.calories_large,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				frogglebunwich: {
@@ -176,10 +176,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [NAME('frog_legs'), TAG('veggie')],
 					priority: 1,
 					foodtype: "meat",
-					health: g.healing_med,
-					hunger: g.calories_large,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				taffy: {
@@ -190,10 +190,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('sweetener', COMPARE('>=', 3)), NOT(TAG('meat'))],
 					priority: 10,
 					foodtype: "veggie",
-					health: -g.healing_small,
-					hunger: g.calories_small * 2,
-					perish: g.perish_slow,
-					sanity: g.sanity_med,
+					health: -g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL * 2,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_MED,
 					cooktime: 2
 				},
 				pumpkincookie: {
@@ -205,9 +205,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					priority: 10,
 					foodtype: "veggie",
 					health: 0,
-					hunger: g.calories_large,
-					perish: g.perish_med,
-					sanity: g.sanity_med,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_MED,
 					cooktime: 2
 				},
 				stuffedeggplant: {
@@ -218,10 +218,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [NAME('eggplant'), TAG('veggie', COMPARE('>', 1))],
 					priority: 1,
 					foodtype: "veggie",
-					health: g.healing_small,
-					hunger: g.calories_large,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				fishsticks: {
@@ -232,10 +232,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('fish'), SPECIFIC('twigs'), TAG('inedible'), TAG('inedible', COMPARE('<=', 1))],
 					priority: 10,
 					foodtype: "meat",
-					health: g.healing_large,
-					hunger: g.calories_large,
-					perish: g.perish_med,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				honeynuggets: {
@@ -246,10 +246,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('<=', 1.5)), NOT(TAG('inedible'))],
 					priority: 2,
 					foodtype: "meat",
-					health: g.healing_med,
-					hunger: g.calories_large,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				honeyham: {
@@ -260,10 +260,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('>', 1.5)), NOT(TAG('inedible'))],
 					priority: 2,
 					foodtype: "meat",
-					health: g.healing_medlarge,
-					hunger: g.calories_huge,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MEDLARGE,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				dragonpie: {
@@ -274,10 +274,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [NAME('dragonfruit'), NOT(TAG('meat'))],
 					priority: 1,
 					foodtype: "veggie",
-					health: g.healing_large,
-					hunger: g.calories_huge,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				kabobs: {
@@ -288,10 +288,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('meat'), SPECIFIC('twigs'), OR(NOT(TAG('monster')), TAG('monster', COMPARE('<=', 1))), TAG('inedible'), TAG('inedible', COMPARE('<=', 1))],
 					priority: 5,
 					foodtype: "meat",
-					health: g.healing_small,
-					hunger: g.calories_large,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				mandrakesoup: {
@@ -302,10 +302,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('mandrake')],
 					priority: 10,
 					foodtype: "veggie",
-					health: g.healing_superhuge,
-					hunger: g.calories_superhuge,
-					perish: g.perish_fast,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SUPERHUGE,
+					hunger: g.CALORIES_SUPERHUGE,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
 					cooktime: 3
 				},
 				baconeggs: {
@@ -316,10 +316,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('egg', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), NOT(TAG('veggie'))],
 					priority: 10,
 					foodtype: "meat",
-					health: g.healing_med,
-					hunger: g.calories_huge,
-					perish: g.perish_preserved,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_PRESERVED,
+					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
 				meatballs: {
@@ -330,10 +330,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('meat'), NOT(TAG('inedible'))],
 					priority: -1,
 					foodtype: "meat",
-					health: g.healing_small,
-					hunger: g.calories_small * 5,
-					perish: g.perish_med,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL * 5,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.75
 				},
 				bonestew: {
@@ -344,10 +344,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('meat', COMPARE('>=', 3)), NOT(TAG('inedible'))],
 					priority: 0,
 					foodtype: "meat",
-					health: g.healing_small * 4,
-					hunger: g.calories_large * 4,
-					perish: g.perish_med,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SMALL * 4,
+					hunger: g.CALORIES_LARGE * 4,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.75
 				},
 				perogies: {
@@ -358,10 +358,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('egg'), TAG('meat'), TAG('veggie'), NOT(TAG('inedible'))],
 					priority: 5,
 					foodtype: "meat",
-					health: g.healing_large,
-					hunger: g.calories_large,
-					perish: g.perish_preserved,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_PRESERVED,
+					sanity: g.SANITY_TINY,
 					cooktime: 1
 				},
 				turkeydinner: {
@@ -372,10 +372,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('drumstick', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), OR(TAG('veggie'), TAG('fruit'))],
 					priority: 10,
 					foodtype: "meat",
-					health: g.healing_med,
-					hunger: g.calories_huge,
-					perish: g.perish_fast,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
 					cooktime: 3
 				},
 				ratatouille: {
@@ -386,10 +386,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [NOT(TAG('meat')), TAG('veggie'), NOT(TAG('inedible'))],
 					priority: 0,
 					foodtype: "veggie",
-					health: g.healing_small,
-					hunger: g.calories_med,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 1
 				},
 				jammypreserves: {
@@ -400,10 +400,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('fruit'), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('inedible'))],
 					priority: 0,
 					foodtype: "veggie",
-					health: g.healing_small,
-					hunger: g.calories_small * 3,
-					perish: g.perish_slow,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL * 3,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.5
 				},
 				fruitmedley: {
@@ -414,10 +414,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('fruit', COMPARE('>=', 3)), NOT(TAG('meat')), NOT(TAG('veggie'))],
 					priority: 0,
 					foodtype: "veggie",
-					health: g.healing_med,
-					hunger: g.calories_med,
-					perish: g.perish_fast,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.5
 				},
 				fishtacos: {
@@ -428,10 +428,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('fish'), NAME('corn')],
 					priority: 10,
 					foodtype: "meat",
-					health: g.healing_med,
-					hunger: g.calories_large,
-					perish: g.perish_fast,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.5
 				},
 				waffles: {
@@ -442,10 +442,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('butter'), NAME('berries'), TAG('egg')],
 					priority: 10,
 					foodtype: "veggie",
-					health: g.healing_huge,
-					hunger: g.calories_large,
-					perish: g.perish_fast,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_HUGE,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.5
 				},
 				monsterlasagna: {
@@ -456,10 +456,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [TAG('monster', COMPARE('>=', 2)), NOT(TAG('inedible'))],
 					priority: 10,
 					foodtype: "meat",
-					health: -g.healing_med,
-					hunger: g.calories_large,
-					perish: g.perish_fast,
-					sanity: -g.sanity_medlarge,
+					health: -g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
+					sanity: -g.SANITY_MEDLARGE,
 					cooktime: 0.5
 				},
 				powcake: {
@@ -470,7 +470,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('twigs'), SPECIFIC('honey'), NAME('corn')],
 					priority: 10,
 					foodtype: "veggie",
-					health: -g.healing_small,
+					health: -g.HEALING_SMALL,
 					hunger: 0,
 					perish: 9000000,
 					sanity: 0,
@@ -484,10 +484,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					requirements: [SPECIFIC('cutlichen'), NAME('eel')],
 					priority: 20,
 					foodtype: 'veggie',
-					health: g.healing_med,
-					hunger: g.calories_medsmall,
-					perish: g.perish_med,
-					sanity: g.sanity_tiny,
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_MEDSMALL,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
 					cooktime: 0.5
 				},
 				wetgoop: {
@@ -500,7 +500,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					priority: -2,
 					health: 0,
 					hunger: 0,
-					perish: g.perish_fast,
+					perish: g.PERISH_FAST,
 					sanity: 0,
 					cooktime: 0.25
 				}

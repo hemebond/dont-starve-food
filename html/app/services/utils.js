@@ -23,6 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	angular.module('pot.services')
 		.factory('utils', function(gameVariables, food) {
+			var g = gameVariables;
+
 			var service = {
 				makeRecipeTags: function(requirements) {
 					var s = '';	// html string
@@ -112,7 +114,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						names[item.id] = 1 + (names[item.id] || 0);
 
 						if (item.hasOwnProperty('perish')) {
-							tags['perish'] = Math.min(tags['perish'] || gameVariables.perish_preserved, item['perish']);
+							tags['perish'] = Math.min(tags['perish'] || g.PERISH_PRESERVED, item['perish']);
 						}
 
 						angular.forEach(item.tags, function(tag, tagName) {

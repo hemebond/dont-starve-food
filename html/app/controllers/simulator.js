@@ -23,6 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	angular.module('pot.controllers', [])
 		.controller('SimulatorController', function($scope, $filter, ngTableParams, gameVariables, food, recipes, utils) {
+			var g = gameVariables;
+
 			/*
 			 * List of ingredients
 			 */
@@ -80,7 +82,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				var health = 0;
 				var hunger = 0;
 				var sanity = 0;
-				var perish = gameVariables.perish_preserved;
+				var perish = g.PERISH_PRESERVED;
 
 				angular.forEach(foodItems, function(item, index) {
 					health += (item.health || 0);
@@ -88,7 +90,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity += (item.sanity || 0);
 
 					if (item.hasOwnProperty('perish')) {
-						perish  = Math.min(perish, item.perish || gameVariables.perish_preserved);
+						perish  = Math.min(perish, item.perish || g.PERISH_PRESERVED);
 					}
 				});
 

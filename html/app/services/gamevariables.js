@@ -23,71 +23,71 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	angular.module('pot.services', [])
 		.service('gameVariables', function() {
-			this.calories_per_day = 75;
-			this.seg_time = 30;
-			this.total_day_time = this.seg_time * 16;
-			this.seg_time = this.total_day_time / 16;
-			this.day_segs = 10;
-			this.dusk_segs = 4;
-			this.night_segs = 2;
-			this.day_time = this.seg_time * this.day_segs;
-			this.dusk_time = this.seg_time * this.dusk_segs;
-			this.night_time = this.seg_time * this.night_segs;
-			this.perish_warp = 1;
-			this.stack_size_largeitem = 10;
-			this.stack_size_meditem = 20;
-			this.stack_size_smallitem = 40;
+			this.CALORIES_PER_DAY = 75;
+			this.SEG_TIME = 30;
+			this.TOTAL_DAY_TIME = this.SEG_TIME * 16;
+			this.SEG_TIME = this.TOTAL_DAY_TIME / 16;
+			this.DAY_SEGS = 10;
+			this.DUSK_SEGS = 4;
+			this.NIGHT_SEGS = 2;
+			this.DAY_TIME = this.SEG_TIME * this.DAY_SEGS;
+			this.DUSK_TIME = this.SEG_TIME * this.DUSK_SEGS;
+			this.NIGHT_TIME = this.SEG_TIME * this.NIGHT_SEGS;
+			this.PERISH_WARP = 1;
+			this.STACK_SIZE_LARGEITEM = 10;
+			this.STACK_SIZE_MEDITEM = 20;
+			this.STACK_SIZE_SMALLITEM = 40;
 
-			this.healing_tiny = 1;
-			this.healing_small = 3;
-			this.healing_medsmall = 8;
-			this.healing_med = 20;
-			this.healing_medlarge = 30;
-			this.healing_large = 40;
-			this.healing_huge = 60;
-			this.healing_superhuge = 100;
+			this.HEALING_TINY = 1;
+			this.HEALING_SMALL = 3;
+			this.HEALING_MEDSMALL = 8;
+			this.HEALING_MED = 20;
+			this.HEALING_MEDLARGE = 30;
+			this.HEALING_LARGE = 40;
+			this.HEALING_HUGE = 60;
+			this.HEALING_SUPERHUGE = 100;
 
-			this.sanity_supertiny = 1;
-			this.sanity_tiny = 5;
-			this.sanity_small = 10;
-			this.sanity_med = 15;
-			this.sanity_medlarge = 20;
-			this.sanity_large = 33;
-			this.sanity_huge = 50;
+			this.SANITY_SUPERTINY = 1;
+			this.SANITY_TINY = 5;
+			this.SANITY_SMALL = 10;
+			this.SANITY_MED = 15;
+			this.SANITY_MEDLARGE = 20;
+			this.SANITY_LARGE = 33;
+			this.SANITY_HUGE = 50;
 
-			this.perish_one_day = 1 * this.total_day_time * this.perish_warp;
-			this.perish_two_day = 2 * this.total_day_time * this.perish_warp;
-			this.perish_superfast = 3 * this.total_day_time * this.perish_warp;
-			this.perish_fast = 6 * this.total_day_time * this.perish_warp;
-			this.perish_med = 10 * this.total_day_time * this.perish_warp;
-			this.perish_slow = 15 * this.total_day_time * this.perish_warp;
-			this.perish_preserved = 20 * this.total_day_time * this.perish_warp;
-			this.perish_superslow = 40 * this.total_day_time * this.perish_warp;
+			this.PERISH_ONE_DAY = 1 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_TWO_DAY = 2 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_SUPERFAST = 3 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_FAST = 6 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_MED = 10 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_SLOW = 15 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_PRESERVED = 20 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
+			this.PERISH_SUPERSLOW = 40 * this.TOTAL_DAY_TIME * this.PERISH_WARP;
 
-			this.dry_fast = this.total_day_time;
-			this.dry_med = 2 * this.total_day_time;
+			this.DRY_FAST = this.TOTAL_DAY_TIME;
+			this.DRY_MED = 2 * this.TOTAL_DAY_TIME;
 
-			this.calories_tiny = this.calories_per_day / 8; // berries
-			this.calories_small = this.calories_per_day / 6; // veggies
-			this.calories_medsmall = this.calories_per_day / 4;
-			this.calories_med = this.calories_per_day / 3; // meat
-			this.calories_large = this.calories_per_day / 2; // cooked meat
-			this.calories_huge = this.calories_per_day; // crockpot foods?
-			this.calories_superhuge = this.calories_per_day * 2; // crockpot foods?
+			this.CALORIES_TINY = this.CALORIES_PER_DAY / 8; // berries
+			this.CALORIES_SMALL = this.CALORIES_PER_DAY / 6; // veggies
+			this.CALORIES_MEDSMALL = this.CALORIES_PER_DAY / 4;
+			this.CALORIES_MED = this.CALORIES_PER_DAY / 3; // meat
+			this.CALORIES_LARGE = this.CALORIES_PER_DAY / 2; // cooked meat
+			this.CALORIES_HUGE = this.CALORIES_PER_DAY; // crockpot foods?
+			this.CALORIES_SUPERHUGE = this.CALORIES_PER_DAY * 2; // crockpot foods?
 
-			this.spoiled_health = -1;
-			this.spoiled_hunger = -10;
-			this.perish_fridge_mult = 0.5;
-			this.perish_ground_mult = 1.5;
-			this.perish_global_mult = 1;
-			this.perish_winter_mult = 0.75;
+			this.SPOILED_HEALTH = -1;
+			this.SPOILED_HUNGER = -10;
+			this.PERISH_FRIDGE_MULT = 0.5;
+			this.PERISH_GROUND_MULT = 1.5;
+			this.PERISH_GLOBAL_MULT = 1;
+			this.PERISH_WINTER_MULT = 0.75;
 
-			this.stale_food_hunger = 0.667;
-			this.spoiled_food_hunger = 0.5;
+			this.STALE_FOOD_HUNGER = 0.667;
+			this.SPOILED_FOOD_HUNGER = 0.5;
 
-			this.stale_food_health = 0.333;
-			this.spoiled_food_health = 0;
+			this.STALE_FOOD_HEALTH = 0.333;
+			this.SPOILED_FOOD_HEALTH = 0;
 
-			this.base_cook_time = this.night_time * 0.3333;
+			this.BASE_COOK_TIME = this.NIGHT_TIME * 0.3333;
 		});
 }());

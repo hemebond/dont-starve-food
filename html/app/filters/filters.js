@@ -46,14 +46,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 		})
 		.filter('days', function(gameVariables) {
-			var total_day_time = gameVariables.total_day_time;
+			var g = gameVariables;
+			var total_day_time = g.TOTAL_DAY_TIME;
 
 			return function(perishTime) {
 				return (isNaN(perishTime) || perishTime === 0) ? 'Never' : (perishTime / total_day_time) + ' days';
 			};
 		})
 		.filter('cooktime', function(gameVariables) {
-			var base_cook_time = gameVariables.base_cook_time;
+			var g = gameVariables;
+			var base_cook_time = g.BASE_COOK_TIME;
 
 			return function(cooktime) {
 				return (cooktime * base_cook_time + 0.5 | 0) + ' secs';
