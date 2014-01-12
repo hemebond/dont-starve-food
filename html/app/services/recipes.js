@@ -472,7 +472,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					foodtype: "veggie",
 					health: -g.healing_small,
 					hunger: 0,
-					perishtime: 9000000,
+					perish: 9000000,
 					sanity: 0,
 					cooktime: 0.5
 				},
@@ -486,7 +486,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					foodtype: 'veggie',
 					health: g.healing_med,
 					hunger: g.calories_medsmall,
-					perishtime: g.perish_med,
+					perish: g.perish_med,
 					sanity: g.sanity_tiny,
 					cooktime: 0.5
 				},

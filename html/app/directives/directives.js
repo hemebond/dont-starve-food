@@ -51,11 +51,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					if (f.hasOwnProperty('cookable')) {
 						scope.cookedItem = food[f.cookable.product];
 						template += tplBtnCooked;
+					}
 
-						if (f.hasOwnProperty('dryable')) {
-							scope.driedItem = food[f.dryable.product];
-							template += tplBtnDried;
-						}
+					if (f.hasOwnProperty('dryable')) {
+						scope.driedItem = food[f.dryable.product];
+						template += tplBtnDried;
 					}
 
 					template += '</div>';

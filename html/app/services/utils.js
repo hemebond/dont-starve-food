@@ -88,10 +88,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 					angular.forEach(food.tags, function(tagValue, tagName) {
 						if (infoTags.indexOf(tagName) !== -1) {
+							var tagString = tagName;
+
 							if (!isNaN(tagValue) && tagValue !== 1) {
-								var tagString = tagName + ' &#215;' + tagValue;
+								tagString = tagName + ' &#215;' + tagValue;
 							}
-							var tagString = tagName
 
 							s += '<span class="label label-info">' + tagString + '</span>';
 						}
