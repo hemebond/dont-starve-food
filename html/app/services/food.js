@@ -65,6 +65,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						uncookable: true
 					}
 				},
+				birchnut_cooked: {
+					name: 'Roasted Birchnut',
+					hunger: g.CALORIES_TINY,
+					health: g.HEALING_TINY,
+					perish: g.PERISH_FAST,
+					sanity: 0,
+					tags: {
+						uncookable: true,
+						cooked: true
+					}
+				},
 				bird_egg: {
 					name: 'Egg',
 					health: 0,
@@ -101,6 +112,33 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						uncookable: true
 					}
 				},
+				cactus_meat: {
+					name: 'Cactus Flesh',
+					hunger: g.CALORIES_SMALL,
+					health: g.HEALING_SMALL,
+					perish: g.PERISH_MED,
+					sanity: -g.SANITY_TINY,
+					cookable: {
+						product: 'cactus_meat_cooked'
+					},
+					tags: {
+						isveggie: true,
+						veggie: 1,
+						dlc: true
+					}
+				},
+				cactus_meat_cooked: {
+					name: 'Cooked Cactus Flesh',
+					hunger: g.CALORIES_SMALL,
+					health: g.HEALING_TINY,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_MED,
+					tags: {
+						isveggie: true,
+						veggie: 1,
+						cooked: true
+					}
+				},
 				cutlichen: {
 					name: "Lichen",
 					health: g.HEALING_SMALL,
@@ -119,7 +157,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					perish: g.PERISH_SUPERFAST,
 					stack: g.STACK_SIZE_SMALLITEM,
 					cookable: {
-						product: 'eel_cooked',
+						product: 'eel_cooked'
 					},
 					dryable: {
 						product: 'morsel_dried',
