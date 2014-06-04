@@ -168,6 +168,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
+				flowersalad: {
+					name: 'Flower Salad',
+					test: function(cooker, names, tags) {
+						return names.cactus_flower && tags.veggie && tags.veggie >= 2 && !tags.meat && !tags.inedible && !tags.egg && !tags.sweetener && !tags.fruit;
+					},
+					requirements: [SPECIFIC('cactus_flower'), TAG('veggie', COMPARE('>=', 2)), NOT(TAG('meat')), NOT(TAG('inedible')), NOT(TAG('egg')), NOT(TAG('sweetener')), NOT(TAG('fruit'))],
+					priority: 10,
+					foodtype: 'veggie',
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
+					cooktime: 0.5,
+					dlc: 'giants'
+				},
 				frogglebunwich: {
 					name: 'Froggle Bunwich',
 					test: function(cooker, names, tags) {
@@ -182,6 +197,55 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
+				guacamole: {
+					name: 'Guacamole',
+					test: function(cooker, names, tags) {
+						return names.mole && names.cactus_meat && !tags.fruit;
+					},
+					requirements: [SPECIFIC('mole'), SPECIFIC('cactus_meat'), NOT(TAG('fruit'))],
+					priority: 10,
+					foodtype: "meat",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_MED,
+					sanity: 0,
+					cooktime: 0.5,
+					dlc: 'giants'
+				},
+				hotchili: {
+					name: 'Spicy Chili',
+					test: function(cooker, names, tags) {
+						return tags.meat && tags.veggie && tags.meat >= 1.5 && tags.veggie >= 1.5;
+					},
+					requirements: [TAG('meat', COMPARE('>=', 1.5)), TAG('veggie', COMPARE('>=', 1.5))],
+					priority: 10,
+					foodtype: "meat",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_MED,
+					sanity: 0,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_LONG,
+					cooktime: 0.5,
+					dlc: 'giants'
+				},
+				icecream: {
+					name: 'Ice Cream',
+					test: function(cooker, names, tags) {
+						return tags.frozen && tags.dairy && tags.sweetener && !tags.meat && !tags.veggie && !tags.inedible && !tags.egg;
+					},
+					requirements: [TAG('frozen'), TAG('dairy'), TAG('sweetener'), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('inedible')), NOT(TAG('egg'))],
+					priority: 10,
+					foodtype: 'veggie',
+					health: 0,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_SUPERFAST,
+					sanity: g.SANITY_HUGE,
+					cooktime: 0.5,
+					temperature: g.COLD_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_LONG,
+					dlc: 'giants'
+				},
 				taffy: {
 					name: "Taffy",
 					test: function(cooker, names, tags) {
@@ -194,7 +258,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL * 2,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_MED,
-					cooktime: 2
+					cooktime: 2,
+					tags: ['honeyed']
 				},
 				pumpkincookie: {
 					name: "Pumpkin Cookie",
@@ -208,7 +273,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_MED,
 					sanity: g.SANITY_MED,
-					cooktime: 2
+					cooktime: 2,
+					tags: ['honeyed']
 				},
 				stuffedeggplant: {
 					name: 'Stuffed Eggplant',
@@ -222,7 +288,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 2
+					cooktime: 2,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_BRIEF
 				},
 				fishsticks: {
 					name: 'Fishsticks',
@@ -250,7 +318,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 2
+					cooktime: 2,
+					tags: ['honeyed']
 				},
 				honeyham: {
 					name: 'Honey Ham',
@@ -264,7 +333,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_HUGE,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 2
+					cooktime: 2,
+					tags: ['honeyed'],
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
 				dragonpie: {
 					name: 'Dragonpie',
@@ -278,7 +350,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_HUGE,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 2
+					cooktime: 2,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
 				kabobs: {
 					name: 'Kabobs',
@@ -292,7 +366,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 2
+					cooktime: 2,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
 				mandrakesoup: {
 					name: 'Mandrake Soup',
@@ -362,7 +438,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_PRESERVED,
 					sanity: g.SANITY_TINY,
-					cooktime: 1
+					cooktime: 1,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
 				turkeydinner: {
 					name: 'Turkey Dinner',
@@ -390,7 +468,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 1
+					cooktime: 1,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
 				jammypreserves: {
 					name: 'Fist Full of Jam',
@@ -432,7 +512,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_FAST,
 					sanity: g.SANITY_TINY,
-					cooktime: 0.5
+					cooktime: 0.5,
+					tags: ['monstermeat']
 				},
 				waffles: {
 					name: 'Waffles',
@@ -474,7 +555,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: 0,
 					perish: 9000000,
 					sanity: 0,
-					cooktime: 0.5
+					cooktime: 0.5,
+					tags: ['honeyed']
+				},
+				trailmix: {
+					name: 'Trail Mix',
+					test: function(cooker, names, tags) {
+						return names.birchnut_cooked && tags.seed && tags.seed >= 1 && (names.berries || names.berries_cooked) && tags.fruit && tags.fruit >= 1 && !tags.meat && !tags.veggie && !tags.egg && !tags.dairy;
+					},
+					requirements: [SPECIFIC('birchnut_cooked'), TAG('seed', COMPARE('>=', 1)), NAME('berries'), TAG('fruit', COMPARE('>=', 1)), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('egg')), NOT(TAG('dairy'))],
+					priority: 10,
+					foodtype: "veggie",
+					health: g.HEALING_MEDLARGE,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
+					cooktime: 0.5,
+					dlc: 'giants'
 				},
 				unagi: {
 					name: "Unagi",
@@ -489,6 +586,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					perish: g.PERISH_MED,
 					sanity: g.SANITY_TINY,
 					cooktime: 0.5
+				},
+				watermelonicle: {
+					name: 'Melonsicle',
+					test: function(cooker, names, tags) {
+						return names.watermelon && tags.frozen && names.twigs && !tags.meat && !tags.veggie && !tags.egg;
+					},
+					requirements: [SPECIFIC('watermelon'), TAG('frozen'), SPECIFIC('twigs'), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('egg'))],
+					priority: 10,
+					foodtype: "veggie",
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_SUPERFAST,
+					sanity: g.SANITY_MEDLARGE,
+					cooktime: 0.5,
+					temperature: g.COLD_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE,
+					dlc: 'giants'
 				},
 				wetgoop: {
 					name: 'Wet Goop',

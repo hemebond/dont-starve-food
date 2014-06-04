@@ -56,25 +56,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						decoration: 2
 					}
 				},
-				deerclops_eyeball: {
-					name: 'Deerclops Eyeball',
-					health: g.HEALING_HUGE,
-					hunger: g.CALORIES_HUGE,
-					sanity: -g.SANITY_MED,
+				birchnut: {
+					name: 'Birchnut',
+					hunger: g.CALORIES_TINY,
+					health: g.HEALING_TINY,
+					perish: g.PERISH_PRESERVED,
+					stack: g.STACK_SIZE_SMALLITEM,
+					cookable: {
+						product: 'birchnut_cooked'
+					},
 					tags: {
-						uncookable: true
-					}
+						seed: 1
+					},
+					dlc: 'giants'
 				},
 				birchnut_cooked: {
 					name: 'Roasted Birchnut',
 					hunger: g.CALORIES_TINY,
 					health: g.HEALING_TINY,
 					perish: g.PERISH_FAST,
-					sanity: 0,
+					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true,
-						cooked: true
-					}
+						cooked: true,
+						seed: 1
+					},
+					dlc: 'giants'
 				},
 				bird_egg: {
 					name: 'Egg',
@@ -112,12 +118,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						uncookable: true
 					}
 				},
+				cactus_flower: {
+					name: 'Cactus Flower',
+					hunger: g.CALORIES_SMALL,
+					health: g.HEALING_MEDSMALL,
+					perish: g.PERISH_SUPERFAST,
+					sanity: g.SANITY_TINY,
+					tags: {
+						isveggie: true,
+						veggie: 0.5,
+						dlc: true
+					},
+					dlc: 'giants'
+				},
 				cactus_meat: {
 					name: 'Cactus Flesh',
 					hunger: g.CALORIES_SMALL,
-					health: g.HEALING_SMALL,
+					health: -g.HEALING_SMALL,
 					perish: g.PERISH_MED,
 					sanity: -g.SANITY_TINY,
+					stack: g.STACK_SIZE_SMALLITEM,
 					cookable: {
 						product: 'cactus_meat_cooked'
 					},
@@ -125,7 +145,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						isveggie: true,
 						veggie: 1,
 						dlc: true
-					}
+					},
+					dlc: 'giants'
 				},
 				cactus_meat_cooked: {
 					name: 'Cooked Cactus Flesh',
@@ -133,11 +154,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_TINY,
 					perish: g.PERISH_MED,
 					sanity: g.SANITY_MED,
+					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						isveggie: true,
 						veggie: 1,
-						cooked: true
-					}
+						cooked: true,
+						dlc: true
+					},
+					dlc: 'giants'
 				},
 				cutlichen: {
 					name: "Lichen",
@@ -148,6 +172,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					tags: {
 						isveggie: true,
 						veggie: 1
+					}
+				},
+				deerclops_eyeball: {
+					name: 'Deerclops Eyeball',
+					health: g.HEALING_HUGE,
+					hunger: g.CALORIES_HUGE,
+					sanity: -g.SANITY_MED,
+					tags: {
+						uncookable: true
 					}
 				},
 				eel: {
@@ -179,6 +212,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						ismeat: true,
 						cooked: true
 					}
+				},
+				electric_milk: {
+					name: 'Electric Milk',
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL,
+					sanity: g.SANITY_SMALL,
+					perish: g.PERISH_FAST,
+					stack: g.STACK_SIZE_SMALLITEM,
+					tags: {
+						dairy: 1,
+						dlc: true
+					},
+					dlc: 'giants'
 				},
 				fish: {
 					name: 'Fish',
@@ -270,6 +316,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						sweetener: true
 					}
 				},
+				ice: {
+					name: 'Ice',
+					perish: g.PERISH_SUPERFAST,
+					stack: g.STACK_SIZE_SMALLITEM,
+					tags: {
+						frozen: 1,
+						dlc: true
+					},
+					dlc: 'giants'
+				},
 				lightbulb: {
 					name: 'Light Bulb',
 					health: g.HEALING_TINY,
@@ -314,6 +370,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						uncookable: true,
 						ismeat: true
 					}
+				},
+				mole: {
+					name: 'Moleworm',
+					tags: {
+						inedible: true,
+						meat: 0.5,
+						dlc: true
+					},
+					dlc: 'giants'
 				},
 				plant_meat: {
 					name: 'Leafy Meat',
@@ -991,7 +1056,38 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					tags: {
 						uncookable: true
 					}
+				},
+				watermelon: {
+					name: 'Watermelon',
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
+					stack: g.STACK_SIZE_SMALLITEM,
+					cookable: {
+						product: 'watermelon_cooked'
+					},
+					tags: {
+						fruit: 1,
+						dlc: true
+					},
+					dlc: 'giants'
+				},
+				watermelon_cooked: {
+					name: 'Grilled Watermelon',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_SUPERFAST,
+					sanity: g.SANITY_TINY * 1.5,
+					stack: g.STACK_SIZE_SMALLITEM,
+					tags: {
+						fruit: 1,
+						cooked: true,
+						dlc: true
+					},
+					dlc: 'giants'
 				}
 			};
 		});
 }());
+
