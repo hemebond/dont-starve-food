@@ -152,6 +152,34 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 
 			return {
+				baconeggs: {
+					name: 'Bacon and Eggs',
+					test: function(cooker, names, tags) {
+						return tags.egg && tags.egg > 1 && tags.meat && tags.meat > 1 && !tags.veggie;
+					},
+					requirements: [TAG('egg', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), NOT(TAG('veggie'))],
+					priority: 10,
+					foodtype: "meat",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_PRESERVED,
+					sanity: g.SANITY_TINY,
+					cooktime: 2
+				},
+				bonestew: {
+					name: 'Meaty Stew',
+					test: function(cooker, names, tags) {
+						return tags.meat && tags.meat >= 3 && !tags.inedible;
+					},
+					requirements: [TAG('meat', COMPARE('>=', 3)), NOT(TAG('inedible'))],
+					priority: 0,
+					foodtype: "meat",
+					health: g.HEALING_SMALL * 4,
+					hunger: g.CALORIES_LARGE * 4,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
+					cooktime: 0.75
+				},
 				butterflymuffin: {
 					name: 'Butter Muffin',
 					test: function(cooker, names, tags) {
@@ -167,6 +195,51 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
 					cooktime: 2
+				},
+				dragonpie: {
+					name: 'Dragonpie',
+					test: function(cooker, names, tags) {
+						return (names.dragonfruit || names.dragonfruit_cooked) && !tags.meat;
+					},
+					requirements: [NAME('dragonfruit'), NOT(TAG('meat'))],
+					priority: 1,
+					foodtype: "veggie",
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
+					cooktime: 2,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
+				},
+				fishsticks: {
+					name: 'Fishsticks',
+					test: function(cooker, names, tags) {
+						return tags.fish && names.twigs && (tags.inedible && tags.inedible <= 1);
+					},
+					requirements: [TAG('fish'), SPECIFIC('twigs'), TAG('inedible'), TAG('inedible', COMPARE('<=', 1))],
+					priority: 10,
+					foodtype: "meat",
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
+					cooktime: 2
+				},
+				fishtacos: {
+					name: 'Fish Tacos',
+					test: function(cooker, names, tags) {
+						return tags.fish && (names.corn || names.corn_cooked);
+					},
+					requirements: [TAG('fish'), NAME('corn')],
+					priority: 10,
+					foodtype: "meat",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
+					cooktime: 0.5,
+					tags: ['monstermeat']
 				},
 				flowersalad: {
 					name: 'Flower Salad',
@@ -197,6 +270,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: g.SANITY_TINY,
 					cooktime: 2
 				},
+				fruitmedley: {
+					name: 'Fruit Medley',
+					test: function(cooker, names, tags) {
+						return tags.fruit && tags.fruit >= 3 && !tags.meat && !tags.veggie;
+					},
+					requirements: [TAG('fruit', COMPARE('>=', 3)), NOT(TAG('meat')), NOT(TAG('veggie'))],
+					priority: 0,
+					foodtype: "veggie",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
+					cooktime: 0.5
+				},
 				guacamole: {
 					name: 'Guacamole',
 					test: function(cooker, names, tags) {
@@ -211,6 +298,38 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: 0,
 					cooktime: 0.5,
 					dlc: 'giants'
+				},
+				honeyham: {
+					name: 'Honey Ham',
+					test: function(cooker, names, tags) {
+						return names.honey && tags.meat && tags.meat > 1.5 && !tags.inedible;
+					},
+					requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('>', 1.5)), NOT(TAG('inedible'))],
+					priority: 2,
+					foodtype: "meat",
+					health: g.HEALING_MEDLARGE,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
+					cooktime: 2,
+					tags: ['honeyed'],
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_AVERAGE
+				},
+				honeynuggets: {
+					name: 'Honey Nuggets',
+					test: function(cooker, names, tags) {
+						return names.honey && tags.meat && tags.meat <= 1.5 && !tags.inedible;
+					},
+					requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('<=', 1.5)), NOT(TAG('inedible'))],
+					priority: 2,
+					foodtype: "meat",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_TINY,
+					cooktime: 2,
+					tags: ['honeyed']
 				},
 				hotchili: {
 					name: 'Spicy Chili',
@@ -246,113 +365,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					temperature_duration: g.FOOD_TEMP_LONG,
 					dlc: 'giants'
 				},
-				taffy: {
-					name: "Taffy",
+				jammypreserves: {
+					name: 'Fist Full of Jam',
 					test: function(cooker, names, tags) {
-						return tags.sweetener && tags.sweetener >= 3 && !tags.meat;
+						return tags.fruit && !tags.meat && !tags.veggie && !tags.inedible;
 					},
-					requirements: [TAG('sweetener', COMPARE('>=', 3)), NOT(TAG('meat'))],
-					priority: 10,
-					foodtype: "veggie",
-					health: -g.HEALING_SMALL,
-					hunger: g.CALORIES_SMALL * 2,
-					perish: g.PERISH_SLOW,
-					sanity: g.SANITY_MED,
-					cooktime: 2,
-					tags: ['honeyed']
-				},
-				pumpkincookie: {
-					name: "Pumpkin Cookie",
-					test: function(cooker, names, tags) {
-						return (names.pumpkin || names.pumpkin_cooked) && tags.sweetener && tags.sweetener >= 2;
-					},
-					requirements: [NAME('pumpkin'), TAG('sweetener', COMPARE('>=', 2))],
-					priority: 10,
-					foodtype: "veggie",
-					health: 0,
-					hunger: g.CALORIES_LARGE,
-					perish: g.PERISH_MED,
-					sanity: g.SANITY_MED,
-					cooktime: 2,
-					tags: ['honeyed']
-				},
-				stuffedeggplant: {
-					name: 'Stuffed Eggplant',
-					test: function(cooker, names, tags) {
-						return (names.eggplant || names.eggplant_cooked) && tags.veggie && tags.veggie > 1;
-					},
-					requirements: [NAME('eggplant'), TAG('veggie', COMPARE('>', 1))],
-					priority: 1,
+					requirements: [TAG('fruit'), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('inedible'))],
+					priority: 0,
 					foodtype: "veggie",
 					health: g.HEALING_SMALL,
-					hunger: g.CALORIES_LARGE,
+					hunger: g.CALORIES_SMALL * 3,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 2,
-					temperature: g.HOT_FOOD_BONUS_TEMP,
-					temperature_duration: g.FOOD_TEMP_BRIEF
-				},
-				fishsticks: {
-					name: 'Fishsticks',
-					test: function(cooker, names, tags) {
-						return tags.fish && names.twigs && (tags.inedible && tags.inedible <= 1);
-					},
-					requirements: [TAG('fish'), SPECIFIC('twigs'), TAG('inedible'), TAG('inedible', COMPARE('<=', 1))],
-					priority: 10,
-					foodtype: "meat",
-					health: g.HEALING_LARGE,
-					hunger: g.CALORIES_LARGE,
-					perish: g.PERISH_MED,
-					sanity: g.SANITY_TINY,
-					cooktime: 2
-				},
-				honeynuggets: {
-					name: 'Honey Nuggets',
-					test: function(cooker, names, tags) {
-						return names.honey && tags.meat && tags.meat <= 1.5 && !tags.inedible;
-					},
-					requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('<=', 1.5)), NOT(TAG('inedible'))],
-					priority: 2,
-					foodtype: "meat",
-					health: g.HEALING_MED,
-					hunger: g.CALORIES_LARGE,
-					perish: g.PERISH_SLOW,
-					sanity: g.SANITY_TINY,
-					cooktime: 2,
-					tags: ['honeyed']
-				},
-				honeyham: {
-					name: 'Honey Ham',
-					test: function(cooker, names, tags) {
-						return names.honey && tags.meat && tags.meat > 1.5 && !tags.inedible;
-					},
-					requirements: [SPECIFIC('honey'), TAG('meat', COMPARE('>', 1.5)), NOT(TAG('inedible'))],
-					priority: 2,
-					foodtype: "meat",
-					health: g.HEALING_MEDLARGE,
-					hunger: g.CALORIES_HUGE,
-					perish: g.PERISH_SLOW,
-					sanity: g.SANITY_TINY,
-					cooktime: 2,
-					tags: ['honeyed'],
-					temperature: g.HOT_FOOD_BONUS_TEMP,
-					temperature_duration: g.FOOD_TEMP_AVERAGE
-				},
-				dragonpie: {
-					name: 'Dragonpie',
-					test: function(cooker, names, tags) {
-						return (names.dragonfruit || names.dragonfruit_cooked) && !tags.meat;
-					},
-					requirements: [NAME('dragonfruit'), NOT(TAG('meat'))],
-					priority: 1,
-					foodtype: "veggie",
-					health: g.HEALING_LARGE,
-					hunger: g.CALORIES_HUGE,
-					perish: g.PERISH_SLOW,
-					sanity: g.SANITY_TINY,
-					cooktime: 2,
-					temperature: g.HOT_FOOD_BONUS_TEMP,
-					temperature_duration: g.FOOD_TEMP_AVERAGE
+					cooktime: 0.5
 				},
 				kabobs: {
 					name: 'Kabobs',
@@ -384,20 +409,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: g.SANITY_TINY,
 					cooktime: 3
 				},
-				baconeggs: {
-					name: 'Bacon and Eggs',
-					test: function(cooker, names, tags) {
-						return tags.egg && tags.egg > 1 && tags.meat && tags.meat > 1 && !tags.veggie;
-					},
-					requirements: [TAG('egg', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), NOT(TAG('veggie'))],
-					priority: 10,
-					foodtype: "meat",
-					health: g.HEALING_MED,
-					hunger: g.CALORIES_HUGE,
-					perish: g.PERISH_PRESERVED,
-					sanity: g.SANITY_TINY,
-					cooktime: 2
-				},
 				meatballs: {
 					name: 'Meatballs',
 					test: function(cooker, names, tags) {
@@ -412,19 +423,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: g.SANITY_TINY,
 					cooktime: 0.75
 				},
-				bonestew: {
-					name: 'Meaty Stew',
+				monsterlasagna: {
+					name: 'Monster Lasagna',
 					test: function(cooker, names, tags) {
-						return tags.meat && tags.meat >= 3 && !tags.inedible;
+						return tags.monster && tags.monster >= 2 && !tags.inedible;
 					},
-					requirements: [TAG('meat', COMPARE('>=', 3)), NOT(TAG('inedible'))],
-					priority: 0,
+					requirements: [TAG('monster', COMPARE('>=', 2)), NOT(TAG('inedible'))],
+					priority: 10,
 					foodtype: "meat",
-					health: g.HEALING_SMALL * 4,
-					hunger: g.CALORIES_LARGE * 4,
-					perish: g.PERISH_MED,
-					sanity: g.SANITY_TINY,
-					cooktime: 0.75
+					health: -g.HEALING_MED,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
+					sanity: -g.SANITY_MEDLARGE,
+					cooktime: 0.5
 				},
 				perogies: {
 					name: 'Pierogi',
@@ -442,19 +453,35 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					temperature: g.HOT_FOOD_BONUS_TEMP,
 					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
-				turkeydinner: {
-					name: 'Turkey Dinner',
+				powcake: {
+					name: 'Powdercake',
 					test: function(cooker, names, tags) {
-						return names.drumstick && names.drumstick > 1 && tags.meat && tags.meat > 1 && (tags.veggie || tags.fruit);
+						return names.twigs && names.honey && (names.corn || names.corn_cooked);
 					},
-					requirements: [SPECIFIC('drumstick', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), OR(TAG('veggie'), TAG('fruit'))],
+					requirements: [SPECIFIC('twigs'), SPECIFIC('honey'), NAME('corn')],
 					priority: 10,
-					foodtype: "meat",
-					health: g.HEALING_MED,
-					hunger: g.CALORIES_HUGE,
-					perish: g.PERISH_FAST,
-					sanity: g.SANITY_TINY,
-					cooktime: 3
+					foodtype: "veggie",
+					health: -g.HEALING_SMALL,
+					hunger: 0,
+					perish: 9000000,
+					sanity: 0,
+					cooktime: 0.5,
+					tags: ['honeyed']
+				},
+				pumpkincookie: {
+					name: "Pumpkin Cookie",
+					test: function(cooker, names, tags) {
+						return (names.pumpkin || names.pumpkin_cooked) && tags.sweetener && tags.sweetener >= 2;
+					},
+					requirements: [NAME('pumpkin'), TAG('sweetener', COMPARE('>=', 2))],
+					priority: 10,
+					foodtype: "veggie",
+					health: 0,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_MED,
+					sanity: g.SANITY_MED,
+					cooktime: 2,
+					tags: ['honeyed']
 				},
 				ratatouille: {
 					name: 'Ratatouille',
@@ -472,90 +499,35 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					temperature: g.HOT_FOOD_BONUS_TEMP,
 					temperature_duration: g.FOOD_TEMP_AVERAGE
 				},
-				jammypreserves: {
-					name: 'Fist Full of Jam',
+				stuffedeggplant: {
+					name: 'Stuffed Eggplant',
 					test: function(cooker, names, tags) {
-						return tags.fruit && !tags.meat && !tags.veggie && !tags.inedible;
+						return (names.eggplant || names.eggplant_cooked) && tags.veggie && tags.veggie > 1;
 					},
-					requirements: [TAG('fruit'), NOT(TAG('meat')), NOT(TAG('veggie')), NOT(TAG('inedible'))],
-					priority: 0,
+					requirements: [NAME('eggplant'), TAG('veggie', COMPARE('>', 1))],
+					priority: 1,
 					foodtype: "veggie",
 					health: g.HEALING_SMALL,
-					hunger: g.CALORIES_SMALL * 3,
+					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_SLOW,
 					sanity: g.SANITY_TINY,
-					cooktime: 0.5
+					cooktime: 2,
+					temperature: g.HOT_FOOD_BONUS_TEMP,
+					temperature_duration: g.FOOD_TEMP_BRIEF
 				},
-				fruitmedley: {
-					name: 'Fruit Medley',
+				taffy: {
+					name: "Taffy",
 					test: function(cooker, names, tags) {
-						return tags.fruit && tags.fruit >= 3 && !tags.meat && !tags.veggie;
+						return tags.sweetener && tags.sweetener >= 3 && !tags.meat;
 					},
-					requirements: [TAG('fruit', COMPARE('>=', 3)), NOT(TAG('meat')), NOT(TAG('veggie'))],
-					priority: 0,
-					foodtype: "veggie",
-					health: g.HEALING_MED,
-					hunger: g.CALORIES_MED,
-					perish: g.PERISH_FAST,
-					sanity: g.SANITY_TINY,
-					cooktime: 0.5
-				},
-				fishtacos: {
-					name: 'Fish Tacos',
-					test: function(cooker, names, tags) {
-						return tags.fish && (names.corn || names.corn_cooked);
-					},
-					requirements: [TAG('fish'), NAME('corn')],
-					priority: 10,
-					foodtype: "meat",
-					health: g.HEALING_MED,
-					hunger: g.CALORIES_LARGE,
-					perish: g.PERISH_FAST,
-					sanity: g.SANITY_TINY,
-					cooktime: 0.5,
-					tags: ['monstermeat']
-				},
-				waffles: {
-					name: 'Waffles',
-					test: function(cooker, names, tags) {
-						return names.butter && (names.berries || names.berries_cooked) && tags.egg;
-					},
-					requirements: [SPECIFIC('butter'), NAME('berries'), TAG('egg')],
-					priority: 10,
-					foodtype: "veggie",
-					health: g.HEALING_HUGE,
-					hunger: g.CALORIES_LARGE,
-					perish: g.PERISH_FAST,
-					sanity: g.SANITY_TINY,
-					cooktime: 0.5
-				},
-				monsterlasagna: {
-					name: 'Monster Lasagna',
-					test: function(cooker, names, tags) {
-						return tags.monster && tags.monster >= 2 && !tags.inedible;
-					},
-					requirements: [TAG('monster', COMPARE('>=', 2)), NOT(TAG('inedible'))],
-					priority: 10,
-					foodtype: "meat",
-					health: -g.HEALING_MED,
-					hunger: g.CALORIES_LARGE,
-					perish: g.PERISH_FAST,
-					sanity: -g.SANITY_MEDLARGE,
-					cooktime: 0.5
-				},
-				powcake: {
-					name: 'Powdercake',
-					test: function(cooker, names, tags) {
-						return names.twigs && names.honey && (names.corn || names.corn_cooked);
-					},
-					requirements: [SPECIFIC('twigs'), SPECIFIC('honey'), NAME('corn')],
+					requirements: [TAG('sweetener', COMPARE('>=', 3)), NOT(TAG('meat'))],
 					priority: 10,
 					foodtype: "veggie",
 					health: -g.HEALING_SMALL,
-					hunger: 0,
-					perish: 9000000,
-					sanity: 0,
-					cooktime: 0.5,
+					hunger: g.CALORIES_SMALL * 2,
+					perish: g.PERISH_SLOW,
+					sanity: g.SANITY_MED,
+					cooktime: 2,
 					tags: ['honeyed']
 				},
 				trailmix: {
@@ -573,6 +545,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					cooktime: 0.5,
 					dlc: 'giants'
 				},
+				turkeydinner: {
+					name: 'Turkey Dinner',
+					test: function(cooker, names, tags) {
+						return names.drumstick && names.drumstick > 1 && tags.meat && tags.meat > 1 && (tags.veggie || tags.fruit);
+					},
+					requirements: [SPECIFIC('drumstick', COMPARE('>', 1)), TAG('meat', COMPARE('>', 1)), OR(TAG('veggie'), TAG('fruit'))],
+					priority: 10,
+					foodtype: "meat",
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_HUGE,
+					perish: g.PERISH_FAST,
+					sanity: g.SANITY_TINY,
+					cooktime: 3
+				},
 				unagi: {
 					name: "Unagi",
 					test: function(cooker, names, tags) {
@@ -584,6 +570,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_MED,
 					hunger: g.CALORIES_MEDSMALL,
 					perish: g.PERISH_MED,
+					sanity: g.SANITY_TINY,
+					cooktime: 0.5
+				},
+				waffles: {
+					name: 'Waffles',
+					test: function(cooker, names, tags) {
+						return names.butter && (names.berries || names.berries_cooked) && tags.egg;
+					},
+					requirements: [SPECIFIC('butter'), NAME('berries'), TAG('egg')],
+					priority: 10,
+					foodtype: "veggie",
+					health: g.HEALING_HUGE,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
 					sanity: g.SANITY_TINY,
 					cooktime: 0.5
 				},
