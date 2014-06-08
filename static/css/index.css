@@ -1,0 +1,73 @@
+body {
+	padding: 1em;
+}
+
+table img {
+	width: 24px;
+}
+
+.nav-tabs > li {
+	cursor: pointer;
+}
+
+.tab-content {
+	padding: 0.5em;
+	border: 1px solid rgb(221, 221, 221);
+	border-width: 0 1px 1px 1px;
+}
+
+.food-btn-group.btn-group {
+	margin: 4px;
+}
+.food-btn-group img {
+	width: 2em;
+}
+.food-btn-group span {
+	margin-left: 12px;
+}
+
+th.sortable div {
+	position: relative;
+	padding-right: 24px;
+}
+
+th.sortable div:before {
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	position: absolute;
+	right: 0;
+}
+.sort-asc div:before {
+	content: "\e113";
+}
+.sort-desc div:before {
+	content: "\e114";
+}
+
+td.negative {
+	color: red;
+}
+
+td > .label {
+	margin-right: 4px;
+}
+td > .label-default {
+	padding: 0;
+}
+td > .label-default .label {
+	font-size: 1em;
+}
+td > .label-default .label:first-child {
+	margin-right: 4px;
+}
+
+td span.label img:last-child {
+	margin-right: 8px;
+}
+
+th.sortable {
+	cursor: pointer;
+}

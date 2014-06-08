@@ -1,0 +1,180 @@
+<div class="row">
+	<div class="col-lg-4">
+		<p>
+			Add ingredients to see what they make.
+		</p>
+
+		<tabset class="food-btn-panel">
+			<tab heading="All">
+				<food-btn-panel items="ingredients.all"
+				                show-filter="true"
+				                click-handler="addToPot(item)"/>
+			</tab>
+			<tab heading="Veggies">
+				<food-btn-panel items="ingredients.veggies"
+				                click-handler="addToPot(item)"/>
+			</tab>
+			<tab heading="Meats">
+				<food-btn-panel items="ingredients.meats"
+				                click-handler="addToPot(item)"/>
+			</tab>
+			<tab heading="Fruits">
+				<food-btn-panel items="ingredients.fruits"
+				                click-handler="addToPot(item)"/>
+			</tab>
+			<tab heading="Other">
+				<food-btn-panel items="ingredients.other"
+				                click-handler="addToPot(item)"/>
+			</tab>
+		</tabset>
+	</div>
+
+	<div class="col-lg-8">
+		<table class="table table-condensed table-bordered">
+			<thead>
+				<tr>
+					<th></th> <!-- delete button -->
+					<th>Icon</th>
+					<th>Name</th>
+					<th>Health</th>
+					<th>Hunger</th>
+					<th>Sanity</th>
+					<th>Perish</th>
+					<th>Info</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in potItems">
+				    <td align="center">
+				    	<button type="button"
+				    	        class="btn btn-danger btn-xs"
+				    	        ng-click="removeFromPot($index)"
+				    	        title="Click to remove from pot">
+				    		<span class="glyphicon glyphicon-remove"></span>
+				    	</button>
+				    </td>
+					<td>
+						<img ng-src="{{ item.img }}">
+					</td>
+					<td>
+						{{ item.name }}
+					</td>
+					<td ng-class="{ negative: item.health < 0 }">
+						{{ item.health | number:0 | signed }}
+					</td>
+					<td ng-class="{ negative: item.hunger < 0 }">
+						{{ item.hunger | number:0 | signed }}
+					</td>
+					<td ng-class="{ negative: item.sanity < 0 }">
+						{{ item.sanity | number:0 | signed }}
+					</td>
+					<td>
+						{{ item.perish | days }}
+					</td>
+					<td ng-bind-html-unsafe="makeFoodTags(item)"></td>
+				</tr>
+			</tbody>
+
+			<tfoot ng-show="potItems.length > 0">
+				<!-- value totals of individual ingredients -->
+				<tr>
+					<td colspan="3"></td>
+					<td ng-class="{ negative: potItemTotals.health < 0 }">
+						{{ potItemTotals.health | number:0 | signed }}
+					</td>
+					<td ng-class="{ negative: potItemTotals.hunger < 0 }">
+						{{ potItemTotals.hunger | number:0 | signed }}
+					</td>
+					<td ng-class="{ negative: potItemTotals.sanity < 0 }">
+						{{ potItemTotals.sanity | number:0 | signed }}
+					</td>
+					<td ng-class="{ negative: potItemTotals.perish < 0 }">
+						{{ potItemTotals.perish | days }}
+					</td>
+					<td>
+						Eaten separately
+					</td>
+				</tr>
+
+				<!-- valid recipes -->
+				<tr ng-repeat="recipe in validRecipes"
+				    class="success">
+				    <td></td>
+					<td data-title="'Icon'">
+						<img ng-src="{{ recipe.img }}">
+					</td>
+					<td data-title="'Name'"
+					    sortable="name">
+						{{ recipe.name }}
+					</td>
+					<td data-title="'Health'"
+					    sortable="health"
+					    ng-class="{ negative: recipe.health < 0 }">
+						{{ recipe.health | number:0 | signed }}
+					</td>
+					<td data-title="'Hunger'"
+					    sortable="hunger"
+					    ng-class="{ negative: recipe.hunger < 0 }">
+						{{ recipe.hunger | number:0 | signed }}
+					</td>
+					<td data-title="'Sanity'"
+					    sortable="sanity"
+					    ng-class="{ negative: recipe.sanity < 0 }">
+						{{ recipe.sanity | number:0 | signed }}
+					</td>
+					<td data-title="'Perish'"
+					    sortable="perish">
+						{{ recipe.perish | days }}
+					</td>
+					<td data-title="'Info'"
+					    ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)">
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- suggestions, add ingredients to create -->
+		<p>Add more ingredients to create these:</p>
+		<table ng-table="tableParams.possibleRecipes"
+		       class="table table-condensed table-bordered">
+			<tr ng-repeat="recipe in possibleRecipes">
+				<td data-title="'Icon'">
+					<img ng-src="{{ recipe.img }}">
+				</td>
+				<td data-title="'Name'"
+				    sortable="name">
+					{{ recipe.name }}
+				</td>
+				<td data-title="'Health'"
+				    sortable="health"
+				    ng-class="{ negative: recipe.health < 0 }">
+					{{ recipe.health | number:0 | signed }}
+				</td>
+				<td data-title="'Hunger'"
+				    sortable="hunger"
+				    ng-class="{ negative: recipe.hunger < 0 }">
+					{{ recipe.hunger | number:0 | signed }}
+				</td>
+				<td data-title="'Sanity'"
+				    sortable="sanity"
+				    ng-class="{ negative: recipe.sanity < 0 }">
+					{{ recipe.sanity | number:0 | signed }}
+				</td>
+				<td data-title="'Perish'"
+				    sortable="perish">
+					{{ recipe.perish | days }}
+				</td>
+				<td data-title="'Cook Time'">
+					{{ recipe.cooktime | cooktime }}
+				</td>
+				<td data-title="'Priority'"
+				    sortable="priority">
+					{{ recipe.priority | number:0 | signed }}
+				</td>
+				<td data-title="'Info'"
+				    ng-bind-html-unsafe="makeRecipeTags(recipe.requirements)">
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

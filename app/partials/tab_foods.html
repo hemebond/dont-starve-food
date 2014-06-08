@@ -1,0 +1,45 @@
+<form role="form">
+	<div class="form-group">
+		<label for="food-search"
+		       class="control-label">
+			Filter food:
+		</label>
+		<input id="food-search"
+		       class="form-control"
+		       ng-model="search.name">
+	</div>
+</form>
+
+<table ng-table="tableParams.foods" class="table">
+	<tr ng-repeat="food in foods | filter:search">
+		<td data-title="Icon">
+			<img ng-src="{{ food.img }}">
+		</td>
+		<td data-title="'Name'"
+		    sortable="name">
+			{{ food.name }}
+		</td>
+		<td data-title="'Health'"
+		    sortable="health"
+		    ng-class="{ negative: food.health < 0 }">
+			{{ food.health | number:0 | signed }}
+		</td>
+		<td data-title="'Hunger'"
+		    sortable="hunger"
+		    ng-class="{ negative: food.hunger < 0 }">
+			{{ food.hunger | number:0 | signed }}
+		</td>
+		<td data-title="'Sanity'"
+		    sortable="sanity"
+		    ng-class="{ negative: food.sanity < 0 }">
+			{{ food.sanity | number:0 | signed }}
+		</td>
+		<td data-title="'Perish'"
+		    sortable="perish">
+			{{ food.perish | days }}
+		</td>
+		<td data-title="'Info'"
+		    ng-bind-html-unsafe="makeFoodTags(food)">
+		</td>
+	</tr>
+</table>

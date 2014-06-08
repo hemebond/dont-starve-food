@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="pot">
+	<head>
+		<title>Don't Starve Food Guide</title>
+		<link rel="shortcut icon" href="icon.png">
+		<meta charset="utf-8">
+
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/css/index.css" rel="stylesheet">
+
+		<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+		<script src="static/libs/ui-bootstrap/0.9.0/ui-bootstrap-tpls-0.9.0.min.js"></script>
+		<script src="static/libs/ng-table/ng-table.js"></script>
+
+		<script src="app/app.js"></script>
+		<script src="app/services/gamevariables.js"></script>
+		<script src="app/services/food.js"></script>
+		<script src="app/services/recipes.js"></script>
+		<script src="app/services/utils.js"></script>
+		<script src="app/filters/filters.js"></script>
+		<script src="app/directives/directives.js"></script>
+		<script src="app/controllers/simulator.js"></script>
+		<script src="app/controllers/discovery.js"></script>
+		<script src="app/controllers/foods.js"></script>
+		<script src="app/controllers/recipes.js"></script>
+		<script src="app/controllers/help.js"></script>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-lg-12">
+				<tabset>
+					<tab heading="Simulator">
+						<div ng-controller="SimulatorController"
+						     src="'app/partials/tab_simulator.html'"
+						     ng-include></div>
+					</tab>
+
+					<tab heading="Discovery">
+						<div ng-controller="DiscoveryController"
+						     src="'app/partials/tab_discovery.html'"
+						     ng-include></div>
+					</tab>
+
+					<tab heading="Foods">
+						<div ng-controller="FoodsController"
+						     src="'app/partials/tab_foods.html'"
+						     ng-include></div>
+					</tab>
+
+					<tab heading="Recipes">
+						<div ng-controller="RecipesController"
+						     src="'app/partials/tab_recipes.html'"
+						     ng-include></div>
+					</tab>
+
+					<tab heading="Help">
+						<div ng-controller="HelpController"
+						     src="'app/partials/tab_help.html'"
+						     ng-include></div>
+					</tab>
+				</tabset>
+			</div>
+		</div>
+	</body>
+</html>
