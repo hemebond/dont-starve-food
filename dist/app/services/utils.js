@@ -91,14 +91,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						'monster',
 						'sweetener',
 						'fat',
-						'dairy'
+						'dairy',
+						'seed'
 					];
 
 					angular.forEach(food.tags, function(tagValue, tagName) {
 						if (infoTags.indexOf(tagName) !== -1) {
 							var tagString = tagName;
 
-							if (!isNaN(tagValue) && tagValue !== 1) {
+							if (typeof tagValue == 'number' && tagValue !== 1) {
 								tagString = tagName + ' &#215;' + tagValue;
 							}
 
