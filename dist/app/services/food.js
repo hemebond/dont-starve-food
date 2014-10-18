@@ -733,7 +733,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				mole: {
 					name: 'Moleworm',
 					tags: {
-						inedible: true,
 						meat: 0.5,
 						dlc: true
 					},
