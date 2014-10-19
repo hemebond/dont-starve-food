@@ -587,6 +587,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						meat: 0.5
 					}
 				},
+				glommer_fuel: {
+					name: 'Glommer\'s Goop',
+					health: g.HEALING_LARGE,
+					hunger: g.CALORIES_TINY,
+					perish: g.PERISH_MED,
+					sanity: -g.SANITY_HUGE,
+					stack: g.STACK_SIZE_MEDITEM,
+					tags: {
+						uncookable: true
+					}
+				},
 				green_mushroom: {
 					name: 'Green Cap',
 					health: 0,
