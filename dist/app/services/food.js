@@ -95,8 +95,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				},
 				birchnut: {
 					name: 'Birchnut',
-					hunger: g.CALORIES_TINY,
-					health: g.HEALING_TINY,
 					perish: g.PERISH_PRESERVED,
 					stack: g.STACK_SIZE_SMALLITEM,
 					cookable: {

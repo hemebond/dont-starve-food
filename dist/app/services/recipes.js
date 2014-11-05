@@ -133,7 +133,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 
 			var TAGTest = function (cooker, names, tags) {
-				return tags[this.tag];
+				return tags[this.tag] && this.qty.test(tags[this.tag]);
 			};
 
 			var TAGString = function () {
