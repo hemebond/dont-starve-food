@@ -182,7 +182,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 							}
 						}
 
-						valid && (validRecipes.indexOf(recipe) === -1) && possibleRecipes.push(recipe);
+						if (valid) {
+							if (validRecipes.indexOf(recipe) === -1) {
+								possibleRecipes.push(recipe);
+							}
+						}
 					});
 				}
 

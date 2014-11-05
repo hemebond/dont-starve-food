@@ -112,19 +112,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					// update the list of valid recipes
 					angular.forEach(recipes, function(recipe, id) {
 						// Calculate possible recipes
-						var valid = false;
+						var valid = true;
 
 						for (var i = 0; i < recipe.requirements.length; i++) {
 							var requirement = recipe.requirements[i];
 
-							if (requirement.test(null, names, tags)) {
-								if (!requirement.cancel) {
-									valid = true;
+							if (!requirement.cancel) {
+								if (!requirement.test(null, names, tags)) {
+									valid = false;
 								}
 							}
 						}
 
-						valid && possibleRecipes.push(recipe);
+						if (valid) {
+							possibleRecipes.push(recipe);
+						}
 					});
 				}
 
