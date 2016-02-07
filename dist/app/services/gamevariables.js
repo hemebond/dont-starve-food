@@ -48,6 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			this.HEALING_LARGE = 40;
 			this.HEALING_HUGE = 60;
 			this.HEALING_SUPERHUGE = 100;
+			// default value from components/edible.pua
+			this.HEALING_DEFAULT = 10;
 
 			// Sanity
 			this.SANITY_SUPERTINY = 1;
@@ -57,6 +59,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			this.SANITY_MEDLARGE = 20;
 			this.SANITY_LARGE = 33;
 			this.SANITY_HUGE = 50;
+			// default value from comopnents/edible.lua
+			this.SANITY_DEFAULT = 0;
 
 			// Perish
 			this.PERISH_WARP = 1;
@@ -81,6 +85,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 			// Hunger
 			this.CALORIES_PER_DAY = 75;
+			// default value from components/edible.lua
+			this.CALORIES_DEFAULT = 10;
 
 			this.CALORIES_TINY = this.CALORIES_PER_DAY / 8; // berries
 			this.CALORIES_SMALL = this.CALORIES_PER_DAY / 6; // veggies

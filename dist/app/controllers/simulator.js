@@ -37,30 +37,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			};
 
 			angular.forEach(food, function(item, id) {
-				// hide any uncookable ingredients
-				if (!item.tags.hasOwnProperty('uncookable') || !item.tags.uncookable) {
+				if (item.hasOwnProperty('tags')) {
+					// hide any nocrockpot ingredients
+					if (!item.tags.hasOwnProperty('nocrockpot') || !item.tags.nocrockpot) {
 
-					if (!item.tags.hasOwnProperty('cooked') || !item.tags.cooked) {
+						if (!item.tags.hasOwnProperty('cooked') || !item.tags.cooked) {
 
-						if (!item.tags.hasOwnProperty('dried') || !item.tags.dried) {
-							// full list of cookable ingredients
-							ingredients.all.push(item);
+							if (!item.tags.hasOwnProperty('dried') || !item.tags.dried) {
+								// full list of cookable ingredients
+								ingredients.all.push(item);
 
-							// list of vegetable ingredients
-							if (item.tags.hasOwnProperty('veggie') && item.tags.veggie > 0) {
-								ingredients.veggies.push(item);
-							}
-							// list of meat ingredients
-							else if (item.tags.hasOwnProperty('meat') && item.tags.meat > 0) {
-								ingredients.meats.push(item);
-							}
-							// list of fruit ingredients
-							else if (item.tags.hasOwnProperty('fruit') && item.tags.fruit > 0) {
-								ingredients.fruits.push(item);
-							}
-							// other ingredients like decorations, etc
-							else {
-								ingredients.other.push(item);
+								// list of vegetable ingredients
+								if (item.tags.hasOwnProperty('veggie') && item.tags.veggie > 0) {
+									ingredients.veggies.push(item);
+								}
+								// list of meat ingredients
+								else if (item.tags.hasOwnProperty('meat') && item.tags.meat > 0) {
+									ingredients.meats.push(item);
+								}
+								// list of fruit ingredients
+								else if (item.tags.hasOwnProperty('fruit') && item.tags.fruit > 0) {
+									ingredients.fruits.push(item);
+								}
+								// other ingredients like decorations, etc
+								else {
+									ingredients.other.push(item);
+								}
 							}
 						}
 					}
