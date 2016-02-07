@@ -342,6 +342,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						'sw'
 					]
 				},
+				coral_brain: {
+					name: 'Brainy Matter',
+					health: -10,
+					hunger: 10,
+					sanity: 50,
+					perish: g.PERISH_ONE_DAY,
+					tags: {
+						nocrockpot: true
+					}
+				},
 				corn: {
 					name: 'Corn',
 					health: g.HEALING_SMALL,
@@ -433,6 +443,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					tags: {
 						fruit: 1,
 						cooked: true
+					}
+				},
+				dragoon_heart: {
+					name: 'Dragoon Heart',
+					health: g.HEALING_MEDSMALL + g.HEALING_SMALL,
+					hunger: g.CALORIES_MED,
+					sanity: -g.SANITY_SMALL,
+					perish: g.PERISH_MED,
+					tags: {
+						nocrockpot: true
 					}
 				},
 				drumstick: {
@@ -1031,6 +1051,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						'sw'
 					]
 				},
+				mystery_meat: {
+					name: 'Bile-Covered Slop',
+					health: g.SPOILED_HEALTH,
+					hunger: g.SPOILED_HUNGER,
+					tags: {
+						nocrockpot: true
+					}
+				},
 				petals: {
 					name: 'Petals',
 					health: g.HEALING_TINY,
@@ -1281,6 +1309,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					tags: {
 						egg: 4,
 						cooked: true
+					}
+				},
+				tigereye: {
+					name: 'Eye of the Tiger Shark',
+					health: g.HEALING_HUGE,
+					hunger: g.CALORIES_HUGE,
+					sanity: -g.SANITY_MED,
+					tags: {
+						nocrockpot: true
 					}
 				},
 				tropical_fish: {
