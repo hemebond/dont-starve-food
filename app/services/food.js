@@ -30,7 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				===============
 
 				tags.cooked		Already been cooked over a fire
-				tags.uncookable	Can not be used in the crock pot
+				tags.nocrockpot	Can not be used in the crock pot
+				tags.games      List of game codes the item appears in: ds, dst, rog, sw
 			*/
 
 			return {
@@ -40,17 +41,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'batwing_cooked'
-					},
-					dryable: {
-						product: 'morsel_dried',
-						time: g.DRY_MED
-					},
+					cooked: 'batwing_cooked',
+					dried: 'morsel_dried',
 					tags: {
-						ismeat: true,
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				batwing_cooked: {
@@ -60,8 +54,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: 0,
 					perish: g.PERISH_MED,
 					tags: {
-						ismeat: true,
-						uncookable: true,
+						nocrockpot: true,
 						cooked: true
 					}
 				},
@@ -71,12 +64,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_FAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'berries_cooked'
-					},
+					cooked: 'berries_cooked',
 					tags: {
-						isfruit: true,
 						fruit: 0.5
 					}
 				},
@@ -86,9 +75,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_SUPERFAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isfruit: true,
 						fruit: 0.5,
 						cooked: true
 					}
@@ -96,26 +83,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				birchnut: {
 					name: 'Birchnut',
 					perish: g.PERISH_PRESERVED,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'birchnut_cooked'
-					},
+					cooked: 'birchnut_cooked',
 					tags: {
 						seed: 1
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				birchnut_cooked: {
 					name: 'Roasted Birchnut',
 					hunger: g.CALORIES_TINY,
 					health: g.HEALING_TINY,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						cooked: true,
 						seed: 1
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				bird_egg: {
 					name: 'Egg',
@@ -123,11 +110,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_TINY,
 					sanity: 0,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					rot: 'rottenegg',
-					cookable: {
-						product: 'bird_egg_cooked'
-					},
+					cooked: 'bird_egg_cooked',
 					tags: {
 						egg: 1
 					}
@@ -138,7 +122,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: 0,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						cooked: true,
 						egg: 1
@@ -148,10 +131,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					name: 'Rotten Egg',
 					health: g.SPOILED_HEALTH,
 					hunger: g.SPOILED_HUNGER,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
+				},
+				blubber: {
+					name: 'Blubber',
+					health: g.HEALING_DEFAULT,
+					hunger: g.CALORIES_DEFAULT,
+					perish: g.PERISH_MED,
+					tags: {
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
 				},
 				blue_mushroom: {
 					name: 'Blue Cap',
@@ -159,10 +153,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: -g.SANITY_MED,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'blue_mushroom_cooked'
-					},
+					cooked: 'blue_mushroom_cooked',
 					tags: {
 						veggie: 0.5,
 						ideal: true
@@ -174,7 +165,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: 0,
 					sanity: g.SANITY_SMALL,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						veggie: 0.5,
 						cooked: true
@@ -185,7 +175,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_LARGE,
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_SUPERSLOW,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						fat: 1,
 						dairy: 1
@@ -196,9 +185,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_MEDSMALL,
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isveggie: true,
 						decoration: 2
 					}
 				},
@@ -209,11 +196,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					perish: g.PERISH_SUPERFAST,
 					sanity: g.SANITY_TINY,
 					tags: {
-						isveggie: true,
-						veggie: 0.5,
-						dlc: true
+						veggie: 0.5
 					},
-					dlc: 'giants'
+					games: [
+						'rog',
+						'sw'
+					]
 				},
 				cactus_meat: {
 					name: 'Cactus Flesh',
@@ -221,16 +209,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: -g.HEALING_SMALL,
 					perish: g.PERISH_MED,
 					sanity: -g.SANITY_TINY,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'cactus_meat_cooked'
-					},
+					cooked: 'cactus_meat_cooked',
 					tags: {
-						isveggie: true,
-						veggie: 1,
-						dlc: true
+						veggie: 1
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				cactus_meat_cooked: {
 					name: 'Cooked Cactus Flesh',
@@ -238,14 +223,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_TINY,
 					perish: g.PERISH_MED,
 					sanity: g.SANITY_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isveggie: true,
 						veggie: 1,
-						cooked: true,
-						dlc: true
+						cooked: true
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				carrot: {
 					name: 'Carrot',
@@ -253,12 +237,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_MED,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'carrot_cooked'
-					},
+					cooked: 'carrot_cooked',
 					tags: {
-						isveggie: true,
 						veggie: 1
 					}
 				},
@@ -268,9 +248,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_FAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isveggie: true,
 						veggie: 1,
 						cooked: true
 					}
@@ -281,11 +259,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: 0,
 					perish: g.PERISH_MED,
-					cookable: {
-						product: 'cave_banana_cooked'
-					},
+					cooked: 'cave_banana_cooked',
 					tags: {
-						isfruit: true,
 						fruit: 1
 					}
 				},
@@ -296,10 +271,76 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: 0,
 					perish: g.PERISH_FAST,
 					tags: {
-						isfruit: true,
 						fruit: 1,
 						cooked: true
 					}
+				},
+				coconut: {
+					name: 'Coconut',
+					tags: {
+						fruit: 1,
+						fat: 1,
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				coconut_halved: {
+					name: 'Halved Coconut',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_TINY / 2,
+					perish: g.PERISH_MED,
+					cooked: 'coconut_cooked',
+					tags: {
+						fruit: 1,
+						fat: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				coconut_cooked: {
+					name: 'Roasted Coconut',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_TINY,
+					perish: g.PERISH_MED,
+					tags: {
+						fruit: 1,
+						fat: 1,
+						cooked: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				coffeebeans: {
+					name: 'Coffe Beans',
+					health: g.CALORIES_TINY,
+					hunger: 0,
+					perish: g.PERISH_FAST,
+					sanity: 0,
+					cooked: 'coffeebeans_cooked',
+					tags: {
+						fruit: 0.5
+					},
+					games: [
+						'sw'
+					]
+				},
+				coffeebeans_cooked: {
+					name: 'Roasted Coffee Beans',
+					health: 0,
+					hunger: g.CALORIES_TINY,
+					perish: g.PERISH_SLOW,
+					sanity: -g.SANITY_TINY,
+					tags: {
+						fruit: 1,
+						cooked: true
+					},
+					games: [
+						'sw'
+					]
 				},
 				corn: {
 					name: 'Corn',
@@ -307,13 +348,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_MED,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'corn_cooked'
-					},
+					cooked: 'corn_cooked',
 					tags: {
 						ideal: true,
-						isveggie: true,
 						veggie: 1
 					}
 				},
@@ -323,9 +360,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_SLOW,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isveggie: true,
 						veggie: 1,
 						cooked: true
 					}
@@ -337,7 +372,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					sanity: -g.SANITY_TINY,
 					perish: g.PERISH_TWO_DAY,
 					tags: {
-						isveggie: true,
 						veggie: 1
 					}
 				},
@@ -347,8 +381,37 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_HUGE,
 					sanity: -g.SANITY_MED,
 					tags: {
-						uncookable: true
-					}
+						nocrockpot: true
+					},
+					games: [
+						'rog'
+					]
+				},
+				doydoyegg: {
+					name: 'Doydoy Egg',
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_MED,
+					cooked: 'doydoyegg_cooked',
+					tags: {
+						egg: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				doydoyegg_cooked: {
+					name: 'Doydoy Egg',
+					health: 0,
+					hunger: g.CALORIES_LARGE,
+					perish: g.PERISH_FAST,
+					tags: {
+						cooked: true,
+						egg: 1
+					},
+					games: [
+						'sw'
+					]
 				},
 				dragonfruit: {
 					name: 'Dragon Fruit',
@@ -356,12 +419,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_FAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'dragonfruit_cooked'
-					},
+					cooked: 'dragonfruit_cooked',
 					tags: {
-						isfruit: true,
 						fruit: 1
 					}
 				},
@@ -371,9 +430,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_SUPERFAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isfruit: true,
 						fruit: 1,
 						cooked: true
 					}
@@ -384,16 +441,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'drumstick_cooked'
-					},
-					dryable: {
-						product: 'morsel_dried',
-						time: g.DRY_FAST
-					},
+					cooked: 'drumstick_cooked',
+					dried: 'morsel_dried',
 					tags: {
-						ismeat: true,
 						ideal: true,
 						meat: 0.5
 					}
@@ -403,9 +453,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_TINY,
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						ismeat: true,
 						meat: 0.5,
 						cooked: true
 					}
@@ -416,12 +464,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_MED,
 					sanity: -g.SANITY_TINY,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'durian_cooked'
-					},
+					cooked: 'durian_cooked',
 					tags: {
-						isfruit: true,
 						monster: 1,
 						fruit: 1
 					}
@@ -432,9 +476,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_FAST,
 					sanity: -g.SANITY_TINY,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						isfruit: true,
 						monster: 1,
 						fruit: 1,
 						cooked: true
@@ -445,16 +487,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_SMALL,
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_SUPERFAST,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'eel_cooked'
-					},
-					dryable: {
-						product: 'morsel_dried',
-						time: g.DRY_FAST
-					},
+					cooked: 'eel_cooked',
+					dried: 'morsel_dried',
 					tags: {
-						ismeat: true,
 						meat: 0.5,
 						fish: 1
 					}
@@ -464,9 +499,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_MEDSMALL,
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						ismeat: true,
 						cooked: true
 					}
 				},
@@ -476,12 +509,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_MED,
 					sanity: 0,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'eggplant_cooked'
-					},
+					cooked: 'eggplant_cooked',
 					tags: {
-						isveggie: true,
 						veggie: 1
 					}
 				},
@@ -491,9 +520,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					perish: g.PERISH_FAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						isveggie: true,
 						veggie: 1,
 						cooked: true
 					}
@@ -504,28 +531,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						dairy: 1,
-						dlc: true
+						dairy: 1
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				fish: {
 					name: 'Fish',
 					health: g.HEALING_TINY,
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_SUPERFAST,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'fish_cooked'
-					},
-					dryable: {
-						product: 'morsel_dried',
-						time: g.DRY_FAST
-					},
+					cooked: 'fish_cooked',
+					dried: 'morsel_dried',
 					tags: {
-						ismeat: true,
 						fish: 1,
 						meat: 0.5
 					}
@@ -535,22 +555,89 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_TINY,
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						cooked: true,
-						ismeat: true,
 						meat: 0.5,
 						fish: 1
 					}
+				},
+				fish_med: {
+					name: 'Dead Dogfish',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_SUPERFAST,
+					cooked: 'fish_med_cooked',
+					dried: 'meat_dried',
+					tags: {
+						meat: 0.5,
+						fish: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				fish_med_cooked: {
+					name: 'Fish Steak',
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_FAST,
+					tags: {
+						cooked: true,
+						meat: 0.5,
+						fish: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				fish_raw: {
+					name: 'Raw Fish',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_SUPERFAST,
+					cooked: 'fish_med_cooked',
+					dried: 'meat_dried',
+					tags: {
+						meat: 0.5,
+						fish: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				fish_raw_small: {
+					name: 'Fish Morsel',
+					cooked: 'fish_raw_small_cooked',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_SUPERFAST,
+					tags: {
+						fish: 0.5
+					},
+					games: [
+						'sw'
+					]
+				},
+				fish_raw_small_cooked: {
+					name: 'Cooked Fish Morsel',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_FAST,
+					tags: {
+						cooked: true,
+						fish: 0.5
+					},
+					games: [
+						'sw'
+					]
 				},
 				foliage: {
 					name: "Foliage",
 					health: g.HEALING_TINY,
 					hunger: 0,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				frog_legs: {
@@ -559,16 +646,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_FAST,
 					sanity: -g.SANITY_SMALL,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'frog_legs_cooked'
-					},
-					dryable: {
-						product: 'morsel_dried',
-						time: g.DRY_FAST
-					},
+					cooked: 'frog_legs_cooked',
+					dried: 'morsel_dried',
 					tags: {
-						ismeat: true,
 						meat: 0.5
 					}
 				},
@@ -578,10 +658,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_MED,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						cooked: true,
-						ismeat: true,
 						meat: 0.5
 					}
 				},
@@ -591,10 +669,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_MED,
 					sanity: -g.SANITY_HUGE,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						uncookable: true
-					}
+						nocrockpot: true
+					},
+					games: [
+						'rog'
+					]
 				},
 				green_mushroom: {
 					name: 'Green Cap',
@@ -602,10 +682,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: -g.SANITY_HUGE,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'green_mushroom_cooked'
-					},
+					cookecd: 'green_mushroom_cooked',
 					tags: {
 						veggie: 0.5,
 						ideal: true
@@ -617,7 +694,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: 0,
 					sanity: g.SANITY_MED,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						veggie: 0.5,
 						cooked: true
@@ -628,7 +704,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_SMALL,
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_SUPERSLOW,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						sweetener: true
 					}
@@ -642,31 +717,153 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				ice: {
 					name: 'Ice',
 					perish: g.PERISH_SUPERFAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						frozen: 1,
-						dlc: true
+						frozen: 1
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
+				},
+				jellyfish: {
+					name: 'Jellyfish',
+					cooked: 'jellyfish_cooked',
+					dried: 'jellyfish_dried',
+					tags: {
+						fish: 1,
+						jellyfish: 1,
+						monster: 1,
+						inedible: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				jellyfish_dead: {
+					name: 'Dead Jellyfish',
+					health: g.HEALING_DEFAULT,
+					hunger: g.CALORIES_DEFAULT,
+					perish: g.PERISH_FAST,
+					cooked: 'jellyfish_cooked',
+					dried: 'jellyfish_dried',
+					tags: {
+						fish: 1,
+						jellyfish: 1,
+						monster: 1,
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				jellyfish_cooked: {
+					name: 'Cooked Jellyfish',
+					health: g.HEALING_DEFAULT,
+					hunger: g.CALORIES_MEDSMALL,
+					perish: g.PERISH_MED,
+					tags: {
+						fish: 1,
+						jellyfish: 1,
+						monster: 1,
+						cooked: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				jellyfish_dried: {
+					name: 'Dried Jellyfish',
+					health: g.HEALING_DEFAULT,
+					hunger: g.CALORIES_MEDSMALL,
+					perish: g.PERISH_PRESERVED,
+					cooked: 'jellyfish_cooked',
+					tags: {
+						fish: 1,
+						jellyfish: 1,
+						monster: 1,
+						dried: true
+					},
+					games: [
+						'sw'
+					]
 				},
 				lightbulb: {
 					name: 'Light Bulb',
 					health: g.HEALING_TINY,
 					hunger: 0,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
+				},
+				limpets: {
+					name: 'Limpets',
+					health: 0,
+					hunger: g.CALORIES_SMALL,
+					sanity: -g.SANITY_SMALL,
+					perish: g.PERISH_FAST,
+					cooked: 'limpets_cooked',
+					tags: {
+						fish: 0.5
+					},
+					games: [
+						'sw'
+					]
+				},
+				limpets_cooked: {
+					name: 'Cooked Limpets',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_MED,
+					tags: {
+						cooked: true,
+						fish: 0.5
+					},
+					games: [
+						'sw'
+					]
+				},
+				lobster: {
+					name: 'Wobster',
+					cooked: 'lobster_cooked',
+					tags: {
+						inedible: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				lobster_dead: {
+					name: 'Dead Wobster',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_SUPERFAST,
+					cooked: 'lobster_cooked',
+					tags: {
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				lobster_cooked: {
+					name: 'Cooked Wobster',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_FAST,
+					tags: {
+						fish: 2,
+						cooked: true,
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
 				},
 				mandrake: {
 					name: 'Mandrake',
 					health: g.HEALING_HUGE,
 					hunger: g.CALORIES_HUGE,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'mandrake_cooked'
-					},
+					cooked: 'mandrake_cooked',
 					tags: {
 						veggie: 1,
 						magic: 1
@@ -676,10 +873,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					name: 'Cooked Mandrake',
 					health: g.HEALING_SUPERHUGE,
 					hunger: g.CALORIES_SUPERHUGE,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						cooked: true,
-						uncookable: true,
+						nocrockpot: true,
 						veggie: 1,
 						magic: 1
 					}
@@ -690,16 +886,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'meat_cooked'
-					},
-					dryable: {
-						product: 'meat_dried',
-						time: g.DRY_MED
-					},
+					cooked: 'meat_cooked',
+					dried: 'meat_dried',
 					tags: {
-						ismeat: true,
 						meat: 1
 					}
 				},
@@ -709,9 +898,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					sanity: 0,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						ismeat: true,
 						meat: 1,
 						cooked: true
 					}
@@ -722,9 +909,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MED,
 					sanity: g.SANITY_MED,
 					perish: g.PERISH_PRESERVED,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						ismeat: true,
 						meat: 1,
 						dried: true
 					}
@@ -735,17 +920,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_HUGE,
 					sanity: -g.SANITY_MED,
 					tags: {
-						uncookable: true,
+						nocrockpot: true,
 						ismeat: true
 					}
 				},
 				mole: {
 					name: 'Moleworm',
 					tags: {
-						meat: 0.5,
-						dlc: true
+						meat: 0.5
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				monster_meat: {
 					name: 'Monster Meat',
@@ -753,16 +939,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MEDSMALL,
 					sanity: -g.SANITY_MED,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'monster_meat_cooked'
-					},
-					dryable: {
-						product: 'monster_meat_dried',
-						time: g.DRY_FAST
-					},
+					cooked: 'monster_meat_cooked',
+					dried: 'monster_meat_dried',
 					tags: {
-						ismeat: true,
 						meat: 1,
 						monster: true
 					}
@@ -773,9 +952,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MEDSMALL,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_SLOW,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						ismeat: true,
 						meat: 1,
 						monster: true,
 						cooked: true
@@ -787,9 +964,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MEDSMALL,
 					sanity: -g.SANITY_TINY,
 					perish: g.PERISH_PRESERVED,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						ismeat: true,
 						meat: 1,
 						monster: true,
 						dried: 1
@@ -801,16 +976,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'morsel_cooked'
-					},
-					dryable: {
-						product: 'morsel_dried',
-						time: g.DRY_FAST
-					},
+					cooked: 'morsel_cooked',
+					dried: 'morsel_dried',
 					tags: {
-						ismeat: true,
 						meat: 0.5
 					}
 				},
@@ -820,9 +988,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: 0,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						ismeat: true,
 						meat: 0.5,
 						cooked: true
 					}
@@ -833,22 +999,45 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: g.SANITY_SMALL,
 					perish: g.PERISH_PRESERVED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						ismeat: true,
 						meat: 0.5,
 						dried: true
 					}
+				},
+				mussel: {
+					name: 'Mussel',
+					health: 0,
+					hunger: g.CALORIES_SMALL,
+					sanity: -g.SANITY_SMALL,
+					perish: g.PERISH_SUPERFAST,
+					cooked: 'mussel_cooked',
+					tags: {
+						fish: 0.5
+					},
+					games: [
+						'sw'
+					]
+				},
+				mussel_cooked: {
+					name: 'Cooked Mussel',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_MED,
+					tags: {
+						cooked: true,
+						fish: 0.5
+					},
+					games: [
+						'sw'
+					]
 				},
 				petals: {
 					name: 'Petals',
 					health: g.HEALING_TINY,
 					hunger: 0,
-					//sanity: -g.SANITY_TINY / 2,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				petals_evil: {
@@ -857,9 +1046,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: 0,
 					sanity: -g.SANITY_TINY,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				plant_meat: {
@@ -868,9 +1056,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				plant_meat_cooked: {
@@ -879,10 +1066,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MEDSMALL,
 					sanity: 0,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						cooked: true,
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				pomegranate: {
@@ -891,12 +1077,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_TINY,
 					perish: g.PERISH_FAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'pomegranate_cooked'
-					},
+					cooked: 'pomegranate_cooked',
 					tags: {
-						isfruit: true,
 						fruit: 1
 					}
 				},
@@ -906,9 +1088,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_SUPERFAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						isfruit: true,
 						fruit: 1,
 						cooked: true
 					}
@@ -919,12 +1099,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_MED,
 					sanity: 0,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'pumpkin_cooked'
-					},
+					cooked: 'pumpkin_cooked',
 					tags: {
-						isveggie: true,
 						veggie: 1
 					}
 				},
@@ -934,9 +1110,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_LARGE,
 					perish: g.PERISH_FAST,
 					sanity: 0,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						isveggie: true,
 						veggie: 1,
 						cooked: true
 					}
@@ -947,10 +1121,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					sanity: 0,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'red_mushroom_cooked'
-					},
+					cooked: 'red_mushroom_cooked',
 					tags: {
 						veggie: 0.5,
 						ideal: true
@@ -962,23 +1133,62 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: 0,
 					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						veggie: 0.5,
 						cooked: true
 					}
+				},
+				seaweed: {
+					name: 'Seaweed',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_TINY,
+					sanity: g.SANITY_SMALL,
+					perish: g.PERISH_FAST,
+					cooked: 'seaweed_cooked',
+					dried: 'seaweed_dried',
+					tags: {
+						veggie: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				seaweed_cooked: {
+					name: 'Roasted Seaweed',
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_TINY,
+					sanity: 0,
+					perish: g.PERISH_MED,
+					tags: {
+						veggie: 1,
+						cooked: true
+					},
+					games: [
+						'sw'
+					]
+				},
+				seaweed_dried: {
+					name: 'Dried Seaweed',
+					health: g.HEALING_SMALL,
+					hunger: g.CALORIES_SMALL,
+					sanity: 0,
+					perish: g.PERISH_PRESERVED,
+					tags: {
+						vaggie: 1,
+						dried: true
+					},
+					games: [
+						'sw'
+					]
 				},
 				seeds: {
 					name: 'Seeds',
 					health: 0,
 					hunger: g.CALORIES_TINY / 2,
 					perish: g.PERISH_SUPERSLOW,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'seeds_cooked'
-					},
+					cooked: 'seeds_cooked',
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				seeds_cooked: {
@@ -986,28 +1196,79 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					health: g.HEALING_TINY,
 					hunger: g.CALORIES_TINY / 2,
 					perish: g.PERISH_MED,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true,
+						nocrockpot: true,
 						cooked: true
 					}
+				},
+				shark_fin: {
+					name: 'Shark Fin',
+					health: g.HEALING_MED,
+					hunger: g.CALORIES_MED,
+					sanity: -g.SANITY_MED,
+					perish: g.PERISH_FAST,
+					tags: {
+						meat: 0.5,
+						fish: 1
+					},
+					games: [
+						'sw'
+					]
 				},
 				spoiled_food: {
 					name: 'Rot',
 					health: g.SPOILED_HEALTH,
 					hunger: g.SPOILED_HUNGER,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
+				},
+				sweet_potato: {
+					name: 'Sweet Potato',
+					hunger: g.CALORIES_SMALL,
+					health: g.HEALING_TINY,
+					perish: g.PERISH_MED,
+					sanity: 0,
+					tags: {
+						veggie: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				sweet_potato_cooked: {
+					name: 'Cooked Sweet Potato',
+					hunger: g.CALORIES_SMALL,
+					health: g.HEALING_SMALL,
+					perish: g.PERISH_FAST,
+					sanity: 0,
+					tags: {
+						cooked: true,
+						veggie: 1
+					},
+					games: [
+						'sw'
+					]
+				},
+				swordfish: {
+					name: 'Swordfish',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_MED,
+					perish: g.PERISH_SUPERFAST,
+					cooked: 'fish_med_cooked',
+					dried: 'meat_dried',
+					tags: {
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
 				},
 				tallbird_egg: {
 					name: 'Tallbird Egg',
 					health: g.HEALING_SMALL,
 					hunger: g.CALORIES_MED,
-					cookable: {
-						product: 'tallbird_egg_cooked'
-					},
+					cooked: 'tallbird_egg_cooked',
 					tags: {
 						egg: 4
 					}
@@ -1022,19 +1283,29 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						cooked: true
 					}
 				},
+				tropical_fish: {
+					name: 'Tropical Fish',
+					health: g.HEALING_TINY,
+					hunger: g.CALORIES_SMALL,
+					perish: g.PERISH_FAST,
+					cooked: 'fish_raw_small_cooked',
+					dried: 'morsel_dried',
+					tags: {
+						nocrockpot: true
+					},
+					games: [
+						'sw'
+					]
+				},
 				trunk_summer: {
 					name: 'Koalefant Trunk',
 					health: g.HEALING_MEDLARGE,
 					hunger: g.CALORIES_LARGE,
 					sanity: 0,
 					perish: g.PERISH_FAST,
-					stack: g.STACK_SIZE_MEDITEM,
-					cookable: {
-						product: 'trunk_summer_cooked'
-					},
+					cooked: 'trunk_summer_cooked',
 					tags: {
-						uncookable: true,
-						ismeat: true,
+						nocrockpot: true,
 					}
 				},
 				trunk_summer_cooked: {
@@ -1043,10 +1314,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_HUGE,
 					sanity: 0,
 					perish: g.PERISH_SLOW,
-					stack: g.STACK_SIZE_MEDITEM,
 					tags: {
-						uncookable: true,
-						ismeat: true,
+						nocrockpot: true,
 						cooked: true
 					}
 				},
@@ -1062,7 +1331,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_MEDSMALL,
 					sanity: -g.SANITY_SMALL,
 					tags: {
-						uncookable: true
+						nocrockpot: true
 					}
 				},
 				watermelon: {
@@ -1071,15 +1340,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_FAST,
 					sanity: g.SANITY_TINY,
-					stack: g.STACK_SIZE_SMALLITEM,
-					cookable: {
-						product: 'watermelon_cooked'
-					},
+					cooked: 'watermelon_cooked',
 					tags: {
-						fruit: 1,
-						dlc: true
+						fruit: 1
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				},
 				watermelon_cooked: {
 					name: 'Grilled Watermelon',
@@ -1087,13 +1354,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					hunger: g.CALORIES_SMALL,
 					perish: g.PERISH_SUPERFAST,
 					sanity: g.SANITY_TINY * 1.5,
-					stack: g.STACK_SIZE_SMALLITEM,
 					tags: {
 						fruit: 1,
-						cooked: true,
-						dlc: true
+						cooked: true
 					},
-					dlc: 'giants'
+					games: [
+						'rog'
+					]
 				}
 			};
 		});

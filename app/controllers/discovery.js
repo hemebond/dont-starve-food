@@ -27,14 +27,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			var ingredients = [];
 
 			angular.forEach(food, function(item, id) {
-				// must be cookable
-				if (!item.tags.hasOwnProperty('uncookable') || !item.tags.uncookable) {
-					// no cooked items
-					if (!item.tags.hasOwnProperty('cooked') || !item.tags.cooked) {
-						// no dried items
-						if (!item.tags.hasOwnProperty('dried') || !item.tags.dried) {
-							// add to list of ingredients
-							ingredients.push(item);
+				if (item.hasOwnProperty('tags')) {
+					// must be usable in a crockpot
+					if (!item.tags.hasOwnProperty('nocrockpot') || !item.tags.nocrockpot) {
+						// no cooked items
+						if (!item.tags.hasOwnProperty('cooked') || !item.tags.cooked) {
+							// no dried items
+							if (!item.tags.hasOwnProperty('dried') || !item.tags.dried) {
+								// add to list of ingredients
+								ingredients.push(item);
+							}
 						}
 					}
 				}
