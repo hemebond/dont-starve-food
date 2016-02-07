@@ -38,9 +38,6 @@
 		    sortable="perish">
 			{{ recipe.perish | days }}
 		</td>
-		<td data-title="'Cook Time'">
-			{{ recipe.cooktime | cooktime }}
-		</td>
 		<td data-title="'Priority'"
 		    sortable="priority"
 		    ng-class="{ negative: recipe.priority < 0 }">

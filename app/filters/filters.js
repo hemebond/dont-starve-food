@@ -53,14 +53,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				return (isNaN(perishTime) || perishTime === 0) ? 'Never' : (perishTime / total_day_time) + ' days';
 			};
 		})
-		.filter('cooktime', function(gameVariables) {
-			var g = gameVariables;
-			var base_cook_time = g.BASE_COOK_TIME;
-
-			return function(cooktime) {
-				return (cooktime * base_cook_time + 0.5 | 0) + ' secs';
-			};
-		})
 		.filter('signed', function() {
 			return function(input) {
 				if (isNaN(input)) {
