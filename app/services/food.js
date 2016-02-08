@@ -1170,7 +1170,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					name: 'Seaweed',
 					health: g.HEALING_TINY,
 					hunger: g.CALORIES_TINY,
-					sanity: g.SANITY_SMALL,
+					sanity: -g.SANITY_SMALL,
 					perish: g.PERISH_FAST,
 					cooked: 'seaweed_cooked',
 					dried: 'seaweed_dried',
