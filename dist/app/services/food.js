@@ -375,6 +375,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						cooked: true
 					}
 				},
+				crab: {
+					name: 'Crab',
+					tags: {
+						inedible: true,
+						fish: 0.5
+					}
+				},
 				cutlichen: {
 					name: "Lichen",
 					health: g.HEALING_SMALL,
